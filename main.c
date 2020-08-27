@@ -3,23 +3,47 @@
 #include <math.h>
 //#include "quadraticEquation.с"
 
-/*
-ОТКРЫТЫЕ ВОПРОСЫ:
-- Как дробить программу на файлы?
-- Как CodeBlocks'у объяснить, что файл является СИшным и чтобы он начал его правильно отображать?
-- Как нормально реализовывать ООП в СИ?
-- Как делать документацию к отдельным файлам/методам/структурам?
-*/
-
 #define NOT_QUADRATIC_CODE -1
 
-int solveQuadraticEquation (float a ,float b ,float c, float* root1, float* root2){
+//------------------------------------------------
+//! Raises a number to a power
+//!
+//! @param [in] number Number
+//! @param [in] power Power
+//!
+//! @return Raised to a power number
+//!
+//! @note If power lower that 2, returns number
+//!       without changes.
+//------------------------------------------------
+double power (double number, double power) {
+    for(int i=1; i<power; i++) {
+        number = number*number;
+    }
+    return number;
+}
+
+//------------------------------------------------
+//! Solves a square equation
+//!
+//! @param [in]   a     a-coefficient
+//! @param [in]   b     b-coefficient
+//! @param [in]   c     c-coefficient
+//! @param [out]  root1 Pointer to the first root
+//! @param [out]  root2 Pointer to the second root
+//!
+//! @return Number of roots
+//!
+//! @note If a-coefficient equal to 0, returns
+//!       NOT_QUADRATIC_CODE
+//------------------------------------------------
+int solveQuadraticEquation (double a ,double b ,double c, double* root1, double* root2) {
 
     if(a == 0) {
         return NOT_QUADRATIC_CODE;
     }
 
-    float discriminant = pow(b, 2) - 4*a*c;
+    double discriminant = power(b, 2) - 4*a*c;
     if(discriminant > 0) {
         if(discriminant == 0){
             *root1 = (-b / (2*a));
@@ -39,19 +63,19 @@ int main()
 {
 
     printf("%s\n", "Write coefficient a:");
-    float a = 0.0;
-    scanf("%e", &a);
+    double a = 0.0;
+    scanf("%le", &a);
 
     printf("%s\n", "Write coefficient b:");
-    float b = 0.0;
-    scanf("%e", &b);
+    double b = 0.0;
+    scanf("%le", &b);
 
     printf("%s\n", "Write coefficient c:");
-    float c = 0.0;
-    scanf("%e", &c);
+    double c = 0.0;
+    scanf("%le", &c);
 
-    float root1 = 0;
-    float root2 = 0;
+    double root1 = 0;
+    double root2 = 0;
     int numberOfRoots = solveQuadraticEquation (a ,b ,c, &root1, &root2);
 
     switch(numberOfRoots) {
@@ -61,11 +85,11 @@ int main()
         break;
 
         case 1:
-        printf("%s\n%.2f", "There is one root:", root1);
+        printf("%s\n%.2lf", "There is one root:", root1);
         break;
 
         case 2:
-        printf("%s\n%.2f\n%.2f", "There are two roots:", root1, root2);
+        printf("%s\n%.2lf\n%.2lf", "There are two roots:", root1, root2);
         break;
 
         case NOT_QUADRATIC_CODE:
