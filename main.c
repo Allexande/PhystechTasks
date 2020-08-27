@@ -3,7 +3,7 @@
 #include <math.h>
 //#include "quadraticEquation.ñ"
 
-#define NOT_QUADRATIC_CODE -1
+const int NOT_QUADRATIC_CODE = -1;
 
 //------------------------------------------------
 //! Raises a number to a power
@@ -16,7 +16,7 @@
 //! @note If power lower that 2, returns number
 //!       without changes.
 //------------------------------------------------
-double power (double number, double power) {
+double power (double number, int power) {
     for(int i=1; i<power; i++) {
         number = number*number;
     }
