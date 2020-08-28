@@ -33,7 +33,7 @@ double power (double number, int power) {
 //------------------------------------------------
 
 bool numberIsNearZero(double number){
-    return (abs(number) - MINIMUM_DIFFERENCE > 0)? true : false;
+    return (abs(number) - MINIMUM_DIFFERENCE > 0);
 }
 
 //------------------------------------------------
@@ -63,8 +63,9 @@ int solveQuadraticEquation (double a ,double b ,double c, double* root1, double*
             *root2 = *root1;
             return 1;
         } else {
-            *root1 = ((-b + sqrt(discriminant)) / (2*a));
-            *root2 = ((-b - sqrt(discriminant)) / (2*a));
+            discriminant = sqrt(discriminant);
+            *root1 = ((-b + discriminant) / (2*a));
+            *root2 = ((-b - discriminant) / (2*a));
             return 2;
         }
     } else {
