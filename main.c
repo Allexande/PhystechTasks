@@ -4,6 +4,7 @@
 //#include "quadraticEquation.ñ"
 
 const int NOT_QUADRATIC_CODE = -1;
+const double MINIMUM_DIFFERENCE = 1E-6;
 
 //------------------------------------------------
 //! Raises a number to a power
@@ -24,6 +25,18 @@ double power (double number, int power) {
 }
 
 //------------------------------------------------
+//! Checks if number is equal to zero
+//!
+//! @param [in] number Number
+//!
+//! @return Is this number equal to zero
+//------------------------------------------------
+
+bool numberIsNearZero(double number){
+    return (abs(number) - MINIMUM_DIFFERENCE > 0)? true : false;
+}
+
+//------------------------------------------------
 //! Solves a square equation
 //!
 //! @param [in]   a     a-coefficient
@@ -39,7 +52,7 @@ double power (double number, int power) {
 //------------------------------------------------
 int solveQuadraticEquation (double a ,double b ,double c, double* root1, double* root2) {
 
-    if(a == 0) {
+    if( ! numberIsNearZero(a)) {
         return NOT_QUADRATIC_CODE;
     }
 
