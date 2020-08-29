@@ -2,9 +2,9 @@
 #include <stdlib.h>
 #include <math.h>
 
-
 const int NOT_QUADRATIC_CODE = -1;
 const double MINIMUM_DIFFERENCE = 1E-6;
+const int MAX_LENGTH_OF_DOUBLE = 25;
 
 //------------------------------------------------
 //! Raises a number to a power
@@ -17,12 +17,7 @@ const double MINIMUM_DIFFERENCE = 1E-6;
 //! @note If power lower that 2, returns number
 //!       without changes.
 //------------------------------------------------
-double power (double number, int power) {
-    for(int i=1; i<power; i++) {
-        number = number*number;
-    }
-    return number;
-}
+double power (double number, int power);
 
 //------------------------------------------------
 //! Checks if number is equal to zero
@@ -31,10 +26,7 @@ double power (double number, int power) {
 //!
 //! @return Is this number equal to zero
 //------------------------------------------------
-
-bool numberIsNearZero(double number){
-    return (abs(number) - MINIMUM_DIFFERENCE < 0);
-}
+bool numberIsNearZero(double number);
 
 //------------------------------------------------
 //! Solves a square equation
@@ -50,28 +42,23 @@ bool numberIsNearZero(double number){
 //! @note If a-coefficient equal to 0, returns
 //!       NOT_QUADRATIC_CODE
 //------------------------------------------------
-int solveQuadraticEquation (double a ,double b ,double c, double* root1, double* root2) {
+int solveQuadraticEquation (double a ,double b ,double c, double* root1, double* root2);
 
-    if(numberIsNearZero(a)) {
-        return NOT_QUADRATIC_CODE;
-    }
+//------------------------------------------------
+//! Checks if char can be a symbol of double
+//!
+//! @param [in] symbol Symbol
+//!
+//! @return If char can be a symbol of double
+//------------------------------------------------
+bool thisSymbolIsNumber(char symbol);
 
-    double discriminant = power(b, 2) - 4*a*c;
-    if(discriminant >= 0) {
-        if(numberIsNearZero(discriminant)){
-            *root1 = (-b / (2*a));
-            *root2 = *root1;
-            return 1;
-        } else {
-            double sqrtOfDiscriminant = sqrt(discriminant);
-            *root1 = ((-b + sqrtOfDiscriminant) / (2*a));
-            *root2 = ((-b - sqrtOfDiscriminant) / (2*a));
-            return 2;
-        }
-    } else {
-        return 0;
-    }
-}
+//------------------------------------------------
+//! Performs safe input of double
+//!
+//! @return Double from input
+//------------------------------------------------
+double getNumberFromUser();
 
 #include "tests.c"
 
@@ -88,16 +75,13 @@ int main()
     doTestWithRandomValues(-200.0, -100.0);
 
     printf("%s\n", "Write coefficient a:");
-    double a = 0.0;
-    scanf("%le", &a);
+    double a = getNumberFromUser();
 
     printf("%s\n", "Write coefficient b:");
-    double b = 0.0;
-    scanf("%le", &b);
+    double b = getNumberFromUser();
 
     printf("%s\n", "Write coefficient c:");
-    double c = 0.0;
-    scanf("%le", &c);
+    double c = getNumberFromUser();
 
     double root1 = 0;
     double root2 = 0;
@@ -124,4 +108,73 @@ int main()
     }
 
     return 0;
+}
+
+double power (double number, int power) {
+    for(int i=1; i<power; i++) {
+        number = number*number;
+    }
+    return number;
+}
+
+bool numberIsNearZero(double number){
+    return (abs(number) - MINIMUM_DIFFERENCE < 0);
+}
+
+int solveQuadraticEquation (double a ,double b ,double c, double* root1, double* root2) {
+
+    if(numberIsNearZero(a)) {
+        return NOT_QUADRATIC_CODE;
+    }
+
+    double discriminant = power(b, 2) - 4*a*c;
+    if(discriminant >= 0) {
+        if(numberIsNearZero(discriminant)){
+            *root1 = (-b / (2*a));
+            *root2 = *root1;
+            return 1;
+        } else {
+            double sqrtOfDiscriminant = sqrt(discriminant);
+            *root1 = ((-b + sqrtOfDiscriminant) / (2*a));
+            *root2 = ((-b - sqrtOfDiscriminant) / (2*a));
+            return 2;
+        }
+    } else {
+        return 0;
+    }
+}
+
+bool thisSymbolIsNumber(char symbol) {
+
+    char possibleSymbols[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.', '-'};
+
+    bool thisIsNumber = false;
+
+    for(int i = 0; i < sizeof(possibleSymbols); i++){
+        if(possibleSymbols[i] == symbol){
+            thisIsNumber = true;
+            break;
+        }
+    }
+
+    return thisIsNumber;
+}
+
+double getNumberFromUser(){
+
+    char str[MAX_LENGTH_OF_DOUBLE] = { 0 };
+    int length = 0;
+
+    while(true){
+        char newChar = getchar();
+
+        if(newChar == '\n'){
+            return atof(str);
+        }
+
+        if(thisSymbolIsNumber(newChar)){
+            str[length] = newChar;
+            length++;
+        }
+    }
 }
