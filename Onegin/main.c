@@ -10,7 +10,11 @@ int getNumberOfBytes(const char *fileName);
 
 int getNumberOfLines(const char *text, int length);
 
-char** getArrayOfPointers();
+char** getSortedArrayOfPointers();
+
+bool comparator(char** adress1, char** adress2);
+
+char getChar(char** adress);
 
 int main()
 {
@@ -26,17 +30,19 @@ int main()
         printf("%s\n", "ERROR");
     }
 
-    char** pointers = getArrayOfPointers();
+    char** pointers = getSortedArrayOfPointers();
+
+    /*char** pointers = getSortedArrayOfPointers();
     for(int i = 0; i < getNumberOfLines(txt, getNumberOfBytes(FILE_NAME))-1; i++){
         printf("%d %s %ld\n", i, "pointers[i] = ", pointers[i]);
         printf("%d %s %c\n", i, "*(pointers[i]) = ", *(pointers[i]));
-    }
+    }*/
     return 1;
 };
 
-char** getArrayOfPointers(){
+char** getSortedArrayOfPointers(){
     int length = getNumberOfBytes(FILE_NAME);
-    if(length < 1) return false;
+    if(length < 1) return NULL;
     char* text = (char *) calloc(length, sizeof(char));
 
     if(getText(FILE_NAME, text)){
@@ -51,12 +57,54 @@ char** getArrayOfPointers(){
             }
         }
 
+        for(int i = 1; i < numberOfLines; i++){
+            for(int j = 0; j < numberOfLines - i; j++) {
+                if(comparator(&pointers[j], &pointers[j+1])){
+                    char* buf = pointers[j];
+                    pointers[j] = pointers[j+1];
+                    pointers[j+1] = buf;
+                }
+            }
+        }
+
         return pointers;
     } else {
         return NULL;
     }
 };
 
+bool comparator(char** adress1, char** adress2){
+    /*printf("%c %c \n", **adress1, **adress2);
+    printf("%c %c \n", **(adress1+1), **(adress2));*/
+    int sym = 0;
+
+    char char1 = getChar(adress1);
+    char char2 = getChar(adress2);
+
+    while(((int)char1 != (int)'\n') && ((int)char2 != (int)'\n')){
+        if((char1 != NULL) && (char2 != NULL)){
+            if((int)char1 != (int)char2){
+                return ((int)char1 > (int)char2);
+            }
+        }
+        if(char1 == NULL) adress1++;
+        if(char2 == NULL) adress2++;
+    }
+    return false;
+};
+
+char getChar(char** adress){
+    char charFromAdress = **(adress);
+    if(((int)charFromAdress >= (int)'A') && ((int)charFromAdress <= (int)'Z')){
+        return (charFromAdress+32);
+    } else {
+        if(((int)charFromAdress >= (int)'a') && ((int)charFromAdress <= (int)'z') || ((int)charFromAdress == (int)'\n')){
+            return charFromAdress;
+        } else {
+            return NULL;
+        }
+    }
+};
 
 
 int getNumberOfLines(const char *text, int length){
