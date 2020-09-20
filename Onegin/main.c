@@ -32,11 +32,16 @@ int main()
 
     char** pointers = getSortedArrayOfPointers();
 
-    /*char** pointers = getSortedArrayOfPointers();
-    for(int i = 0; i < getNumberOfLines(txt, getNumberOfBytes(FILE_NAME))-1; i++){
+    //char** pointers = getSortedArrayOfPointers();
+    for(int i = 0; i < 5; i++){
+        printf("HEY\n");
+    }
+
+    for(int i = 0; i < 5; i++){
+        printf("HEY\n");
         printf("%d %s %ld\n", i, "pointers[i] = ", pointers[i]);
-        printf("%d %s %c\n", i, "*(pointers[i]) = ", *(pointers[i]));
-    }*/
+        printf("%d %s %c\n", i, "**(pointers[i]) = ", *(pointers[i]));
+    }
     return 1;
 };
 
@@ -44,6 +49,8 @@ char** getSortedArrayOfPointers(){
     int length = getNumberOfBytes(FILE_NAME);
     if(length < 1) return NULL;
     char* text = (char *) calloc(length, sizeof(char));
+
+
 
     if(getText(FILE_NAME, text)){
         int numberOfLines = getNumberOfLines(text, length);
@@ -58,13 +65,15 @@ char** getSortedArrayOfPointers(){
         }
 
         for(int i = 1; i < numberOfLines; i++){
-            for(int j = 0; j < numberOfLines - i; j++) {
+
+            for(int j = 0; j < numberOfLines - i - 1; j++) {
                 if(comparator(&pointers[j], &pointers[j+1])){
                     char* buf = pointers[j];
                     pointers[j] = pointers[j+1];
                     pointers[j+1] = buf;
                 }
             }
+
         }
 
         return pointers;
@@ -82,13 +91,22 @@ bool comparator(char** adress1, char** adress2){
     char char2 = getChar(adress2);
 
     while(((int)char1 != (int)'\n') && ((int)char2 != (int)'\n')){
+        //printf("HEY %c %c\n", char1, char2);
+        //printf("adresses are %ld %ld\n", adress1, adress2);
+        //printf("(int)char1=%d (int)char2=%d\n", (int)char1, (int)char2);
         if((char1 != NULL) && (char2 != NULL)){
             if((int)char1 != (int)char2){
                 return ((int)char1 > (int)char2);
             }
         }
+        if((char1 != NULL) && ((int)char1 == (int)char2)){
+            adress1++;
+            adress2++;
+        }
         if(char1 == NULL) adress1++;
         if(char2 == NULL) adress2++;
+        char1 = getChar(adress1);
+        char2 = getChar(adress2);
     }
     return false;
 };
