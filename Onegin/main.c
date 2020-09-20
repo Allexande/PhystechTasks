@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define FILE_NAME "text.txt"
-
+#define READING_FILE_NAME "text.txt"
+#define WRITING_FILE_NAME "sorted.txt"
 
 bool getText(const char *fileName, char* text);
 
@@ -16,43 +16,45 @@ bool comparator(char** adress1, char** adress2);
 
 char getChar(char** adress);
 
+void textOut(char** pointers); //TODO detele this function
+
 int main()
 {
-
-    char* txt;
-    txt = (char *) calloc(getNumberOfBytes(FILE_NAME), sizeof(char));
-    if(getText(FILE_NAME, txt)){
-            printf("%d\n", getNumberOfLines(txt, getNumberOfBytes(FILE_NAME)));
-            for(int i=0; i<getNumberOfBytes(FILE_NAME);i++){
-                printf("%d %ld %c\n", i, &txt[i], txt[i]);
-            }
-    } else {
-        printf("%s\n", "ERROR");
-    }
-
     char** pointers = getSortedArrayOfPointers();
+    textOut(pointers);
 
-    //char** pointers = getSortedArrayOfPointers();
-    for(int i = 0; i < 5; i++){
-        printf("HEY\n");
-    }
-
-    for(int i = 0; i < 5; i++){
-        printf("HEY\n");
-        printf("%d %s %ld\n", i, "pointers[i] = ", pointers[i]);
-        printf("%d %s %c\n", i, "**(pointers[i]) = ", *(pointers[i]));
-    }
     return 1;
 };
 
+void textOut(char** pointers){
+    int point = 0;
+    int symbol = 0;
+    char sum;
+    while(true){
+        sum = *(pointers[point]+symbol);
+        if((int)sum == (int)'\n'){
+            point++;
+            symbol = 0;
+            printf("\n");
+        } else {
+            if(sum == NULL){
+                break;
+            }
+            printf("%c", sum);
+            symbol++;
+        }
+
+    }
+};
+
 char** getSortedArrayOfPointers(){
-    int length = getNumberOfBytes(FILE_NAME);
+    int length = getNumberOfBytes(READING_FILE_NAME);
     if(length < 1) return NULL;
     char* text = (char *) calloc(length, sizeof(char));
 
 
 
-    if(getText(FILE_NAME, text)){
+    if(getText(READING_FILE_NAME, text)){
         int numberOfLines = getNumberOfLines(text, length);
         char** pointers = (char **) calloc(numberOfLines, sizeof(char*));;
         int pointer = 1;
@@ -75,6 +77,8 @@ char** getSortedArrayOfPointers(){
             }
 
         }
+
+        pointers[numberOfLines] = NULL;
 
         return pointers;
     } else {
