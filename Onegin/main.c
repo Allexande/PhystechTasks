@@ -10,7 +10,7 @@ int getNumberOfBytes(const char *fileName);
 
 int getNumberOfLines(const char *text, int length);
 
-bool fillArrayOfPointers(char** pointers);
+char** getArrayOfPointers();
 
 int main()
 {
@@ -26,35 +26,38 @@ int main()
         printf("%s\n", "ERROR");
     }
 
-    char** pointers;
-    fillArrayOfPointers(pointers);
-    for(int i = 0; i < getNumberOfLines(txt, getNumberOfBytes(FILE_NAME)); i++){
+    char** pointers = getArrayOfPointers();
+    for(int i = 0; i < getNumberOfLines(txt, getNumberOfBytes(FILE_NAME))-1; i++){
         printf("%d %s %ld\n", i, "pointers[i] = ", pointers[i]);
+        printf("%d %s %c\n", i, "*(pointers[i]) = ", *(pointers[i]));
     }
-
     return 1;
-}
+};
 
-bool fillArrayOfPointers(char** pointers){
+char** getArrayOfPointers(){
     int length = getNumberOfBytes(FILE_NAME);
     if(length < 1) return false;
     char* text = (char *) calloc(length, sizeof(char));
 
     if(getText(FILE_NAME, text)){
         int numberOfLines = getNumberOfLines(text, length);
-
-        pointers = (char **) calloc(numberOfLines, sizeof(char));
-        for(int i = 0; i < length; i++){
+        char** pointers = (char **) calloc(numberOfLines, sizeof(char*));;
+        int pointer = 1;
+        pointers[0] = &text[0];
+        for(int i = 1; i < length-1; i++){
             if(text[i] == '\n'){
-                pointers[i] = &text[i];
+                pointers[pointer] = (&text[i]+1);
+                pointer++;
             }
         }
 
-        return true;
+        return pointers;
     } else {
-        return false;
+        return NULL;
     }
 };
+
+
 
 int getNumberOfLines(const char *text, int length){
     int lines = 1;
@@ -71,8 +74,7 @@ int getNumberOfBytes(const char *fileName){
         return -1;
     } else {
         int number = 0;
-        char sym;
-        while((sym = fgetc(file)) != EOF){ // -!!!!!
+        while(fgetc(file) != EOF){
             number++;
         }
         fclose(file);
