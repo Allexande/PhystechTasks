@@ -4,6 +4,8 @@
 #define READING_FILE_NAME "text.txt"
 #define WRITING_FILE_NAME "sorted.txt"
 
+#define READING_BUFFER_SIZE 255
+
 //------------------------------------------------
 //! Writes text from file in text
 //!
@@ -45,7 +47,7 @@ int getNumberOfLines(const char *text, int length);
 //!
 //! @note In case of error returns NULL
 //------------------------------------------------
-char** getSortedArrayOfPointers();
+char** getSortedArrayOfPointers(const char *fileName);
 
 //------------------------------------------------
 //! Determines which line should come first
@@ -90,19 +92,23 @@ bool textOutIntoFIle(const char *fileName, char** pointers);
 
 void textOut(char** pointers); //TODO detele this function
 
+#include "tests.c"
+
 int main()
 {
-    char** pointers = getSortedArrayOfPointers();
+    test();
+
+    char** pointers = getSortedArrayOfPointers(READING_FILE_NAME);
     if(pointers == NULL){
-        Printf("ERROR File for reading has not been accessed");
-        exit(-1);
+        return 1; //Error during reading from file
     }
+
     if(!textOutIntoFIle(WRITING_FILE_NAME, pointers)){
-        Printf("ERROR File for writing has not been accessed");
-        exit(-1);
+        return 2; //Error during writing to file
     }
+
     textOut(pointers);
-    return 1;
+    return 0; //No errors
 };
 
 bool textOutIntoFIle(const char *fileName, char** pointers){
@@ -157,14 +163,14 @@ void textOut(char** pointers){
     }
 };
 
-char** getSortedArrayOfPointers(){
-    int length = getNumberOfBytes(READING_FILE_NAME);
+char** getSortedArrayOfPointers(const char *fileName){
+    int length = getNumberOfBytes(fileName);
     if(length < 1) return NULL;
     char* text = (char *) calloc(length, sizeof(char));
 
 
 
-    if(getText(READING_FILE_NAME, text)){
+    if(getText(fileName, text)){
         int numberOfLines = getNumberOfLines(text, length);
         char** pointers = (char **) calloc(numberOfLines, sizeof(char*));;
         int pointer = 1;
@@ -263,6 +269,34 @@ bool getText(const char *fileName, char* text){
     if ((file = fopen(fileName, "r")) == NULL) {
         return false;
     } else {
+        char buffer[READING_BUFFER_SIZE];
+        int buffersReaded = 0;
+        int readed;
+
+        while((readed = fread(buffer, sizeof(char), READING_BUFFER_SIZE, file)) == READING_BUFFER_SIZE){
+            for(int i = 0; i < READING_BUFFER_SIZE; i++){
+                *(text+(buffersReaded*READING_BUFFER_SIZE)+i) = buffer[i];
+            }
+            buffersReaded++;
+        }
+
+        for(int i = 0; i < readed; i++){
+            *(text+(buffersReaded*READING_BUFFER_SIZE)+i) = buffer[i];
+        }
+
+        fclose(file);
+        return true;
+    }
+};
+
+//Bad function: reads each character one by one
+/*
+bool getText(const char *fileName, char* text){
+    FILE *file;
+
+    if ((file = fopen(fileName, "r")) == NULL) {
+        return false;
+    } else {
         int numberOfSymbol = -1;
         while(*(text+(numberOfSymbol++)) != EOF){
             fscanf(file, "%c", text+(numberOfSymbol));
@@ -271,5 +305,6 @@ bool getText(const char *fileName, char* text){
         return true;
     }
 };
+*/
 
 
