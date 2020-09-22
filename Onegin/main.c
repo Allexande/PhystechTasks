@@ -43,6 +43,8 @@ int getNumberOfLines(const char *text, int length);
 //! Creates array of pointers there pointers
 //! points to strings sorted alphabetically
 //!
+//! @param [in] fileName Name of file
+//!
 //! @return Pointer on array of pointers
 //!
 //! @note In case of error returns NULL
@@ -61,7 +63,7 @@ char** getSortedArrayOfPointers(const char *fileName);
 //! @return True if second string should come
 //!         first and false in any other case
 //------------------------------------------------
-bool comparator(char** adress1, char** adress2);
+bool comparator(char* adress1, char* adress2);
 
 //------------------------------------------------
 //! Gets char from the pointer on char and
@@ -75,7 +77,7 @@ bool comparator(char** adress1, char** adress2);
 //! @note Returns NULL if char is not an
 //! english letter or newline character
 //------------------------------------------------
-char getChar(char** adress);
+char getChar(char* adress);
 
 //------------------------------------------------
 //! Writes text in file
@@ -96,7 +98,7 @@ void textOut(char** pointers); //TODO detele this function
 
 int main()
 {
-    test();
+    //test();
 
     char** pointers = getSortedArrayOfPointers(READING_FILE_NAME);
     if(pointers == NULL){
@@ -134,7 +136,6 @@ bool textOutIntoFIle(const char *fileName, char** pointers){
                 fputc(sum, file);
                 symbol++;
             }
-
         }
 
         fclose(file);
@@ -159,7 +160,6 @@ void textOut(char** pointers){
             printf("%c", sum);
             symbol++;
         }
-
     }
 };
 
@@ -167,8 +167,6 @@ char** getSortedArrayOfPointers(const char *fileName){
     int length = getNumberOfBytes(fileName);
     if(length < 1) return NULL;
     char* text = (char *) calloc(length, sizeof(char));
-
-
 
     if(getText(fileName, text)){
         int numberOfLines = getNumberOfLines(text, length);
@@ -185,13 +183,12 @@ char** getSortedArrayOfPointers(const char *fileName){
         for(int i = 1; i < numberOfLines; i++){
 
             for(int j = 0; j < numberOfLines - i - 1; j++) {
-                if(comparator(&pointers[j], &pointers[j+1])){
+                if(comparator((pointers[j]), (pointers[j+1]))){
                     char* buf = pointers[j];
                     pointers[j] = pointers[j+1];
                     pointers[j+1] = buf;
                 }
             }
-
         }
 
         pointers[numberOfLines] = NULL;
@@ -202,13 +199,13 @@ char** getSortedArrayOfPointers(const char *fileName){
     }
 };
 
-bool comparator(char** adress1, char** adress2){
-    int sym = 0;
+bool comparator(char* adress1, char* adress2){
 
     char char1 = getChar(adress1);
     char char2 = getChar(adress2);
 
     while(((int)char1 != (int)'\n') && ((int)char2 != (int)'\n')){
+
         if((char1 != NULL) && (char2 != NULL)){
             if((int)char1 != (int)char2){
                 return ((int)char1 > (int)char2);
@@ -220,14 +217,15 @@ bool comparator(char** adress1, char** adress2){
         }
         if(char1 == NULL) adress1++;
         if(char2 == NULL) adress2++;
+
         char1 = getChar(adress1);
         char2 = getChar(adress2);
     }
     return false;
 };
 
-char getChar(char** adress){
-    char charFromAdress = **(adress);
+char getChar(char* adress){
+    char charFromAdress = *(adress);
     if(((int)charFromAdress >= (int)'A') && ((int)charFromAdress <= (int)'Z')){
         return (charFromAdress+32);
     } else {
@@ -238,7 +236,6 @@ char getChar(char** adress){
         }
     }
 };
-
 
 int getNumberOfLines(const char *text, int length){
     int lines = 1;
