@@ -16,6 +16,7 @@ bool processMainArguments(int argc, char* argv[], char** input, char** output){
             if (strcmp(argv[i], "-t") == 0  || strcmp(argv[i], "--test")    == 0) {
                 *input  = DEFAULT_TESTING_READING_FILE_NAME;
                 *output = DEFAULT_TESTING_WRITING_FILE_NAME;
+                test(*input, *output);
             }
         }
 
@@ -190,9 +191,10 @@ int getNumberOfBytes(const char *fileName){
 };
 
 bool getText(const char *fileName, char* text){
-    FILE *file;
 
-    if ((file = fopen(fileName, "r")) == NULL) {
+    FILE *file = fopen(fileName, "r");
+
+    if (file == NULL) {
         return false;
     } else {
         char buffer[READING_BUFFER_SIZE];

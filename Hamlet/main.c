@@ -13,11 +13,12 @@
 
 //Files uploading
 #include "functions.h"
-#include "functions.c"
 #include "test.c"
+#include "functions.c"
 
 int main(int argc, char *argv[])
 {
+    test(DEFAULT_TESTING_READING_FILE_NAME, DEFAULT_TESTING_WRITING_FILE_NAME);
 
     char* input  = DEFAULT_READING_FILE_NAME;
     char* output = DEFAULT_WRITING_FILE_NAME;
