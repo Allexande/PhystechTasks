@@ -53,6 +53,9 @@ bool doTest(const char *input, const char *output, int numberOfSymbols, int line
 
         textOut(pointers);
 
+        free(pointers);
+        pointers = NULL;
+
         return true;
     } else {
         return false;

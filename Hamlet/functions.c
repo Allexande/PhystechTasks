@@ -229,5 +229,9 @@ int doSort(const char *input, const char *output){
     }
 
     //textOut(pointers);
+
+    free(pointers);
+    pointers = NULL;
+
     return 0; //No errors
 };
