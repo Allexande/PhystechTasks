@@ -9,10 +9,10 @@
 //! @param [out] output Pointer on name of file
 //!             for writing text in
 //!
-//! @return True if more that 1 argument was
-//!         processed and false if none
+//! @return True if test mod was activated and
+//!         false if not
 //------------------------------------------------
-bool processMainArguments(int argc, char* argv[], char** input, char** output);
+bool processMainArguments (int argc, char* argv[], char** input, char** output);
 
 //------------------------------------------------
 //! Writes text from file in text
@@ -24,7 +24,7 @@ bool processMainArguments(int argc, char* argv[], char** input, char** output);
 //!         and its content was written in text,
 //!         false if not
 //------------------------------------------------
-bool getText(const char *fileName, char* text);
+bool getText (const char *fileName, char* text);
 
 //------------------------------------------------
 //! Counts bytes of text file
@@ -35,7 +35,7 @@ bool getText(const char *fileName, char* text);
 //!
 //! @note Returns -1 if file has not been accessed
 //------------------------------------------------
-int getNumberOfBytes(const char *fileName);
+int getNumberOfBytes (const char *fileName);
 
 //------------------------------------------------
 //! Counts lines in text
@@ -45,7 +45,7 @@ int getNumberOfBytes(const char *fileName);
 //!
 //! @return Number of lines in text
 //------------------------------------------------
-int getNumberOfLines(const char *text, int length);
+int getNumberOfLines (const char *text, int length);
 
 //------------------------------------------------
 //! Creates array of pointers there pointers
@@ -57,7 +57,7 @@ int getNumberOfLines(const char *text, int length);
 //!
 //! @note In case of error returns NULL
 //------------------------------------------------
-char** getSortedArrayOfPointers(const char *fileName);
+char** getSortedArrayOfPointers (const char *fileName);
 
 //------------------------------------------------
 //! Determines which line should come first
@@ -71,7 +71,7 @@ char** getSortedArrayOfPointers(const char *fileName);
 //! @return True if second string should come
 //!         first and false in any other case
 //------------------------------------------------
-bool comparator(char* adress1, char* adress2);
+bool comparator (char* adress1, char* adress2);
 
 //------------------------------------------------
 //! Gets char from the pointer on char and
@@ -85,7 +85,7 @@ bool comparator(char* adress1, char* adress2);
 //! @note Returns NULL if char is not an
 //! english letter or newline character
 //------------------------------------------------
-char getChar(char* adress);
+char getChar (char* adress);
 
 //------------------------------------------------
 //! Writes text in file
@@ -98,7 +98,7 @@ char getChar(char* adress);
 //!         and content was written in it,
 //!         false if not
 //------------------------------------------------
-bool textOutIntoFIle(const char *fileName, char** pointers);
+bool textOutIntoFIle (const char *fileName, char** pointers);
 
 //------------------------------------------------
 //! Reads text from file, sorts it and writes to
@@ -112,6 +112,6 @@ bool textOutIntoFIle(const char *fileName, char** pointers);
 //! @return Number of error or 0 if there are
 //!         no errors
 //------------------------------------------------
-int doSort(const char *input, const char *output);
+int doSort (const char *input, const char *output);
 
-void textOut(char** pointers); //TODO detele this function
+void textOut (char** pointers); //TODO detele this function

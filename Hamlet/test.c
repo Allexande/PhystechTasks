@@ -2,18 +2,34 @@
 
 //TESTING FUNCTIONS
 
-#define CODE_OF_FIRST_ENGLISH_LETTER 97
-#define NUMBER_OF_ENGLISH_LETTERS    26
-#define MAXIMUM_VALUE_OF_INTEGER     4294967293
+#define CODE_OF_FIRST_ENGLISH_LETTER   97
+#define NUMBER_OF_ENGLISH_LETTERS      26
+#define MAXIMUM_VALUE_OF_UNSIGNED_LONG 0xffffffff
 
+unsigned long int getCurrentTime(){
+    return (unsigned long int) time(NULL);
+}
+
+//Function for generating random chars which I have written myself
+/*static unsigned long int seed = getCurrentTime() % MAXIMUM_VALUE_OF_UNSIGNED_LONG;
 char geterateRandomChar(){
-    static unsigned int seed = time(NULL) % MAXIMUM_VALUE_OF_INTEGER;
 
-    seed = (time(NULL) * seed + time(NULL)) % MAXIMUM_VALUE_OF_INTEGER;
+    unsigned long int time = getCurrentTime();
+    seed = (time * seed + 12345) % MAXIMUM_VALUE_OF_UNSIGNED_LONG;
     int code = seed % NUMBER_OF_ENGLISH_LETTERS;
 
     return (char)(code + CODE_OF_FIRST_ENGLISH_LETTER);
-};
+};*/
+
+//Function for generating random chars which uses tools made by K&R
+char geterateRandomChar(){
+    return (char)(rand() % NUMBER_OF_ENGLISH_LETTERS + CODE_OF_FIRST_ENGLISH_LETTER);
+}
+
+void setRandSeed(){
+    unsigned int time_ = (unsigned int)time(NULL);
+    srand(time_);
+}
 
 bool writeRandomText(const char *fileName, int numberOfSymbols, int linesLength){
 
@@ -24,6 +40,9 @@ bool writeRandomText(const char *fileName, int numberOfSymbols, int linesLength)
     } else {
 
         char c;
+
+        setRandSeed();
+
         for(int i = 0; i < numberOfSymbols; i++){
             if(i % linesLength == 0){
                 c = '\n';

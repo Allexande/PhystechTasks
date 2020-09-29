@@ -18,35 +18,41 @@
 
 int main(int argc, char *argv[])
 {
-    test(DEFAULT_TESTING_READING_FILE_NAME, DEFAULT_TESTING_WRITING_FILE_NAME);
+    //test(DEFAULT_TESTING_READING_FILE_NAME, DEFAULT_TESTING_WRITING_FILE_NAME);
 
     char* input  = DEFAULT_READING_FILE_NAME;
     char* output = DEFAULT_WRITING_FILE_NAME;
 
-    processMainArguments(argc, argv, &input, &output);
+    if (processMainArguments (argc, argv, &input, &output)){
 
-    int sortResult = doSort(input, output);
-    switch (sortResult)
-    {
-        case 0:
-            printf("%s\n", "Program completed successfully.");
-            return 0;
-        break;
+       printf ("\n%s\n", "Program completed with activated testing mod.");
+       return 0;
 
-        case 1:
-            printf("%s\n", "Failed to read information from file.");
-            return 1;
-        break;
+    } else {
 
-        case 2:
-            printf("%s\n", "Failed to write information to file.");
-            return 2;
-        break;
+        int sortResult = doSort (input, output);
+        switch (sortResult)
+        {
+            case 0:
+                printf ("\n%s\n", "Program completed successfully.");
+                return 0;
+            break;
 
-        default:
-            printf("%s%d\n", "Undefined program behavior. Code of error: ", sortResult);
-            return sortResult;
-        break;
+            case 1:
+                printf ("\n%s\n", "Failed to read information from file.");
+                return 1;
+            break;
+
+            case 2:
+                printf ("\n%s\n", "Failed to write information to file.");
+                return 2;
+            break;
+
+            default:
+                printf ("\n%s%d\n", "Undefined program behavior. Code of error: ", sortResult);
+                return sortResult;
+            break;
+        }
     }
 
 }
