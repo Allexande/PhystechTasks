@@ -1,22 +1,22 @@
 #include <string.h>
 
-bool processMainArguments (int argc, char* argv[], char** input, char** output){
+bool processMainArguments (int argc, char* argv[], char** input, char** output) {
 
-    if (argc>1) {
+    if (argc > 1) {
 
         for (int i = 1; i < argc; i++) {
-            if (strcmp (argv[i], "-i") == 0  || strcmp (argv[i], "--input")   == 0) {
+            if (strcmp (argv[i], "-i") == 0 || strcmp (argv[i], "--input")  == 0) {
                 *input = argv[i];
             }
 
-            if (strcmp (argv[i], "-o") == 0  || strcmp (argv[i], "--output")  == 0) {
+            if (strcmp (argv[i], "-o") == 0 || strcmp (argv[i], "--output") == 0) {
                 *output = argv[i];
             }
 
-            if (strcmp (argv[i], "-t") == 0  || strcmp (argv[i], "--test")    == 0) {
+            if (strcmp (argv[i], "-t") == 0 || strcmp (argv[i], "--test")   == 0) {
                 *input  = DEFAULT_TESTING_READING_FILE_NAME;
                 *output = DEFAULT_TESTING_WRITING_FILE_NAME;
-                test(*input, *output);
+                test (*input, *output);
                 return true;
             }
         }
@@ -26,36 +26,59 @@ bool processMainArguments (int argc, char* argv[], char** input, char** output){
 
 }
 
-bool getText (const char *fileName, char* text){
+bool getText (const char *fileName, char* text) {
+
+    assert(fileName);
 
     FILE *file = fopen (fileName, "r");
 
     if (file == NULL) {
         return false;
-    } else {
-        char buffer[READING_BUFFER_SIZE];
-        int buffersReaded = 0;
-        int readed;
 
-        while ((readed = fread(buffer, sizeof(char), READING_BUFFER_SIZE, file)) == READING_BUFFER_SIZE){
-            for (int i = 0; i < READING_BUFFER_SIZE; i++){
-                *(text+(buffersReaded*READING_BUFFER_SIZE)+i) = buffer[i];
+    } else {
+        char buffer[READING_BUFFER_SIZE] = {};
+        int buffersReaded = 0;
+        int readed = 0;
+
+        while ((readed = fread (buffer, sizeof(char), READING_BUFFER_SIZE, file)) == READING_BUFFER_SIZE) {
+            for (int i = 0; i < READING_BUFFER_SIZE; i++) {
+                *(text + (buffersReaded * READING_BUFFER_SIZE) + i) = buffer[i];
             }
             buffersReaded++;
         }
 
-        for (int i = 0; i < readed; i++){
+        for (int i = 0; i < readed; i++) {
             *(text+(buffersReaded*READING_BUFFER_SIZE)+i) = buffer[i];
         }
 
         fclose (file);
-        free (buffer);
 
         return true;
     }
 };
 
-int getNumberOfBytes (const char *fileName){
+/*
+int getNumberOfBytes (const char *fileName) {
+
+    FILE *file = fopen (fileName, "r");
+
+    if (file == NULL) {
+        return NULL;
+    } else {
+        long int save_pos, size_of_file;
+
+        save_pos = ftell(file);
+        fseek(file, 0L, SEEK_END);
+        size_of_file = ftell(file);
+        fseek(file, save_pos, SEEK_SET);
+
+        return (int)(size_of_file - 1) ;
+    }
+};*/
+
+int getNumberOfBytes (const char *fileName) {
+
+    assert(fileName);
 
     FILE *file = fopen (fileName, "r");
 
@@ -64,7 +87,7 @@ int getNumberOfBytes (const char *fileName){
     } else {
 
         int number = 0;
-        while (fgetc(file) != EOF){
+        while (fgetc(file) != EOF) {
             number++;
         }
 
@@ -73,26 +96,23 @@ int getNumberOfBytes (const char *fileName){
     }
 };
 
-int getNumberOfLines (const char *text, int length){
+int getNumberOfLines (const char *text, int length) {
 
     int lines = 1;
-    for (int i = 0; i < length; i++){
+    for (int i = 0; i < length; i++) {
         if (text[i] == '\n') lines++;
     }
 
     return lines;
 };
 
-/*void quickSort (char** pointers, int first, int last)
-{
+/*void quickSort (char** pointers, int first, int last) {
     printf ("first=%d last=%d", first, last);
-    if (first < last)
-    {
+    if (first < last) {
 
         int left = first, right = last;
         char* middle = pointers[(left + right) / 2];
-        do
-        {
+        do {
 
             while (comparator(pointers[left], middle)) {
                 left++;
@@ -119,66 +139,68 @@ int getNumberOfLines (const char *text, int length){
     }
 } */
 
-char** getSortedArrayOfPointers (const char *fileName){
+char** getSortedArrayOfPointers (const char *fileName) {
+
+    assert(fileName);
 
     int length = getNumberOfBytes (fileName);
+
+    char* text = (char *) calloc (length, sizeof(char));
+
+    if(!getText(fileName, text)) {
+        return NULL;
+    }
 
     if (length < 1) {
         return NULL;
     }
 
-    char* text = (char *) calloc (length, sizeof(char));
+    int numberOfLines = getNumberOfLines(text, length);
+    char** pointers = (char **) calloc (numberOfLines, sizeof(char*));
+    int pointer = 1;
+    pointers[0] = &text[0];
 
-    if(getText(fileName, text)){
-
-        int numberOfLines = getNumberOfLines(text, length);
-        char** pointers = (char **) calloc (numberOfLines, sizeof(char*));
-        int pointer = 1;
-        pointers[0] = &text[0];
-
-        for(int i = 1; i < length-1; i++){
-            if(text[i] == '\n'){
-                pointers[pointer] = (&text[i]+1);
-                pointer++;
-            }
+    for(int i = 1; i < length-1; i++) {
+        if(text[i] == '\n') {
+            pointers[pointer] = (&text[i]+1);
+            pointer++;
         }
-
-        //quickSort(pointers, numberOfLines - 1);
-
-        for (int i = 1; i < numberOfLines; i++){
-
-            for (int j = 0; j < numberOfLines - i - 1; j++) {
-                if (comparator((pointers[j]), (pointers[j+1]))){
-
-                    char* buf     = pointers[j];
-                    pointers[j]   = pointers[j+1];
-                    pointers[j+1] = buf;
-
-                }
-            }
-        }
-
-        pointers[numberOfLines] = NULL;
-
-        return pointers;
-    } else {
-        return NULL;
     }
+
+    //quickSort(pointers, numberOfLines - 1);
+
+    for (int i = 1; i < numberOfLines; i++) {
+
+        for (int j = 0; j < numberOfLines - i - 1; j++) {
+            if (comparator((pointers[j]), (pointers[j+1]))) {
+
+                char* buf     = pointers[j];
+                pointers[j]   = pointers[j+1];
+                pointers[j+1] = buf;
+
+            }
+        }
+    }
+
+    pointers[numberOfLines] = NULL;
+
+    return pointers;
+
 };
 
-bool comparator (char* adress1, char* adress2){
+bool comparator (char* adress1, char* adress2) {
 
     char char1 = getChar(adress1);
     char char2 = getChar(adress2);
 
-    while (((int)char1 != (int)'\n') && ((int)char2 != (int)'\n')){
-        if ((char1 != NULL) && (char2 != NULL)){
-            if ((int)char1 != (int)char2){
+    while (((int)char1 != (int)'\n') && ((int)char2 != (int)'\n')) {
+        if ((char1 != NULL) && (char2 != NULL)) {
+            if ((int)char1 != (int)char2) {
                 return ((int)char1 > (int)char2);
             }
         }
 
-        if ((char1 != NULL) && ((int)char1 == (int)char2)){
+        if ((char1 != NULL) && ((int)char1 == (int)char2)) {
             adress1++;
             adress2++;
         }
@@ -192,12 +214,14 @@ bool comparator (char* adress1, char* adress2){
     return false;
 };
 
-char getChar (char* adress){
+char getChar (char* adress) {
+
     char charFromAdress = *(adress);
-    if (((int)charFromAdress >= (int)'A') && ((int)charFromAdress <= (int)'Z')){
+
+    if (((int)charFromAdress >= (int)'A') && ((int)charFromAdress <= (int)'Z')) {
         return (charFromAdress + 32);
     } else {
-        if (((int)charFromAdress >= (int)'a') && ((int)charFromAdress <= (int)'z') || ((int)charFromAdress == (int)'\n')){
+        if (((int)charFromAdress >= (int)'a') && ((int)charFromAdress <= (int)'z') || ((int)charFromAdress == (int)'\n')) {
             return charFromAdress;
         } else {
             return NULL;
@@ -205,7 +229,9 @@ char getChar (char* adress){
     }
 };
 
-bool textOutIntoFIle (const char *fileName, char** pointers){
+bool textOutIntoFIle (const char *fileName, char** pointers) {
+
+    assert(fileName);
 
     FILE *file = fopen (fileName, "w");
 
@@ -216,9 +242,9 @@ bool textOutIntoFIle (const char *fileName, char** pointers){
         int point  = 0;
         int symbol = 0;
 
-        while((pointers[point] + symbol) != NULL){
+        while((pointers[point] + symbol) != NULL) {
             char sum = *(pointers[point]+symbol);
-            if((int)sum == (int)'\n'){
+            if((int)sum == (int)'\n') {
                 point++;
                 symbol = 0;
                 fputc ('\n', file);
@@ -234,14 +260,17 @@ bool textOutIntoFIle (const char *fileName, char** pointers){
     }
 };
 
-int doSort (const char *input, const char *output){
+int doSort (const char *input, const char *output) {
+
+    assert(input);
+    assert(output);
 
     char** pointers = getSortedArrayOfPointers (input);
-    if (pointers == NULL){
+    if (pointers == NULL) {
         return 1; //Error during reading from file
     }
 
-    if (!textOutIntoFIle(output, pointers)){
+    if (!textOutIntoFIle(output, pointers)) {
         return 2; //Error during writing to file
     }
 
@@ -253,19 +282,19 @@ int doSort (const char *input, const char *output){
     return 0; //No errors
 };
 
-void textOut (char** pointers){
+void textOut (char** pointers) {
 
     int point  = 0;
     int symbol = 0;
 
-    while((pointers[point] + symbol) != NULL){
+    while((pointers[point] + symbol) != NULL) {
         char sum = *(pointers[point]+symbol);
         if((int)sum == (int)'\n'){
             point++;
             symbol = 0;
             printf ("\n");
         } else {
-            if (sum == NULL){
+            if (sum == NULL) {
                 break;
             }
             printf ("%c", sum);

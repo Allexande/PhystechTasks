@@ -6,7 +6,7 @@
 #define NUMBER_OF_ENGLISH_LETTERS      26
 #define MAXIMUM_VALUE_OF_UNSIGNED_LONG 0xffffffff
 
-unsigned long int getCurrentTime(){
+unsigned long int getCurrentTime() {
     return (unsigned long int) time(NULL);
 }
 
@@ -22,16 +22,16 @@ char geterateRandomChar(){
 };*/
 
 //Function for generating random chars which uses tools made by K&R
-char geterateRandomChar(){
+char geterateRandomChar() {
     return (char)(rand() % NUMBER_OF_ENGLISH_LETTERS + CODE_OF_FIRST_ENGLISH_LETTER);
 }
 
-void setRandSeed(){
+void setRandSeed() {
     unsigned int time_ = (unsigned int)time(NULL);
     srand(time_);
 }
 
-bool writeRandomText(const char *fileName, int numberOfSymbols, int linesLength){
+bool writeRandomText(const char *fileName, int numberOfSymbols, int linesLength) {
 
     FILE *file = fopen(fileName, "w");
 
@@ -43,7 +43,7 @@ bool writeRandomText(const char *fileName, int numberOfSymbols, int linesLength)
 
         setRandSeed();
 
-        for(int i = 0; i < numberOfSymbols; i++){
+        for(int i = 0; i < numberOfSymbols; i++) {
             if(i % linesLength == 0){
                 c = '\n';
             } else {
@@ -59,14 +59,14 @@ bool writeRandomText(const char *fileName, int numberOfSymbols, int linesLength)
     }
 }
 
-bool doTest(const char *input, const char *output, int numberOfSymbols, int linesLength){
+bool doTest(const char *input, const char *output, int numberOfSymbols, int linesLength) {
 
     printf("\n\ndoTest(%s, %s, %d, %d) :\n", input, output, numberOfSymbols, linesLength);
-    if(writeRandomText(input, numberOfSymbols, linesLength)){
+    if(writeRandomText(input, numberOfSymbols, linesLength)) {
 
         char** pointers = getSortedArrayOfPointers(input);
 
-        if((pointers == NULL) || (!textOutIntoFIle(output, pointers))){
+        if((pointers == NULL) || (!textOutIntoFIle(output, pointers))) {
             return false;
         }
 
@@ -81,7 +81,7 @@ bool doTest(const char *input, const char *output, int numberOfSymbols, int line
     }
 };
 
-bool test(const char *input, const char *output){
+bool test(const char *input, const char *output) {
 
     doTest(input, output, 10,  2);
     doTest(input, output, 200,  10);
