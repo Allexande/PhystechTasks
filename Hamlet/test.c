@@ -1,35 +1,5 @@
-#include <time.h>
 
 //TESTING FUNCTIONS
-
-#define CODE_OF_FIRST_ENGLISH_LETTER   97
-#define NUMBER_OF_ENGLISH_LETTERS      26
-#define MAXIMUM_VALUE_OF_UNSIGNED_LONG 0xffffffff
-
-unsigned long int getCurrentTime() {
-    return (unsigned long int) time(NULL);
-}
-
-//Function for generating random chars which I have written myself
-/*static unsigned long int seed = getCurrentTime() % MAXIMUM_VALUE_OF_UNSIGNED_LONG;
-char geterateRandomChar(){
-
-    unsigned long int time = getCurrentTime();
-    seed = (time * seed + 12345) % MAXIMUM_VALUE_OF_UNSIGNED_LONG;
-    int code = seed % NUMBER_OF_ENGLISH_LETTERS;
-
-    return (char)(code + CODE_OF_FIRST_ENGLISH_LETTER);
-};*/
-
-//Function for generating random chars which uses tools made by K&R
-char geterateRandomChar() {
-    return (char)(rand() % NUMBER_OF_ENGLISH_LETTERS + CODE_OF_FIRST_ENGLISH_LETTER);
-}
-
-void setRandSeed() {
-    unsigned int time_ = (unsigned int)time(NULL);
-    srand(time_);
-}
 
 bool writeRandomText(const char *fileName, int numberOfSymbols, int linesLength) {
 
@@ -84,24 +54,9 @@ bool doTest(const char *input, const char *output, int numberOfSymbols, int line
 bool test(const char *input, const char *output) {
 
     doTest(input, output, 10,  2);
-    doTest(input, output, 200,  10);
-    doTest(input, output, 1000, 50);
+    doTest(input, output, 500,  10);
+    doTest(input, output, 50, 50);
 
     return true;
-
-    /*
-    bool testsPassedSuccessfully = (
-            doTest(input, output, 10,  3) ||
-            doTest(input, output, 20,  4) ||
-            doTest(input, output, 100, 5) );
-
-    if(testsPassedSuccessfully){
-
-        printf("\nALL TESTS PASSED SUCCESSFULLY\n");
-        return true;
-    } else {
-        printf("\nTHERE WERE SOME ERRORS IN TESTS\n");
-        return false;
-    } */
 
 }

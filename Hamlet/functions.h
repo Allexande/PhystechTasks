@@ -18,13 +18,50 @@ bool processMainArguments (int argc, char* argv[], char** input, char** output);
 //! Writes text from file in text
 //!
 //! @param [in] fileName Name of file
-//! @param [out] text Variable for text
 //!
-//! @return True if the file has been accessed
-//!         and its content was written in text,
-//!         false if not
+//! @return Pointer on text if the file
+//!         has been accessed and its content was
+//!         written in text, NULL if not
 //------------------------------------------------
-bool getText (const char *fileName, char* text);
+char* getText (const char *fileName);
+
+//------------------------------------------------
+//! Generates pointers on lines in text
+//!
+//! @param [in] text Pointer on text
+//!
+//! @return Pointer on pointers on lines in text
+//!
+//------------------------------------------------
+char** getPointers (char* text);
+
+//------------------------------------------------
+//! Sort lines alphabetically
+//!
+//! @param [out] pointers Pointer on pointers on
+//!              lines in text
+//------------------------------------------------
+void sortPointers (char** pointers);
+
+//------------------------------------------------
+//! Sort lines alphabetically backwards
+//!
+//! @param [out] pointers Pointer on pointers on
+//!              lines in text
+//------------------------------------------------
+void sortPointersViseVersa (char** pointers);
+
+//------------------------------------------------
+//! Generates poem from random lines of text
+//!
+//! @param [in] pointers Pointers on pointers on
+//!             lines on text
+//! @param [in] rhymedPairs How much pairs of
+//!             lines of poem to return
+//!
+//! @return Pointers on pointers of lines of poem
+//------------------------------------------------
+char** getPointersOfPoem (char** pointers, unsigned int rhymedPairs);
 
 //------------------------------------------------
 //! Counts bytes of text file
@@ -33,19 +70,19 @@ bool getText (const char *fileName, char* text);
 //!
 //! @return Number of bytes in file
 //!
-//! @note Returns -1 if file has not been accessed
+//! @note Returns 0 if file has not been accessed
 //------------------------------------------------
-int getNumberOfBytes (const char *fileName);
+size_t getNumberOfBytes (const char *fileName);
 
 //------------------------------------------------
-//! Counts lines in text
+//! Counts symbol in text
 //!
 //! @param [in] text Text in which you count
-//! @param [in] length Number of bytes in text
+//! @param [in] symbol Symbol to find
 //!
 //! @return Number of lines in text
 //------------------------------------------------
-int getNumberOfLines (const char *text, int length);
+int getNumberOfSymbol (const char *text, char symbol);
 
 //------------------------------------------------
 //! Creates array of pointers there pointers
@@ -54,8 +91,6 @@ int getNumberOfLines (const char *text, int length);
 //! @param [in] fileName Name of file
 //!
 //! @return Pointer on array of pointers
-//!
-//! @note In case of error returns NULL
 //------------------------------------------------
 char** getSortedArrayOfPointers (const char *fileName);
 
@@ -67,11 +102,13 @@ char** getSortedArrayOfPointers (const char *fileName);
 //!        of the first string
 //! @param [in] adress2 Pointer on beginning
 //!        of the second string
+//! @param [in] direction What add to adresses
+//!        during comparison
 //!
 //! @return True if second string should come
 //!         first and false in any other case
 //------------------------------------------------
-bool comparator (char* adress1, char* adress2);
+bool comparator (char* adress1, char* adress2, int direction);
 
 //------------------------------------------------
 //! Gets char from the pointer on char and
@@ -113,5 +150,7 @@ bool textOutIntoFIle (const char *fileName, char** pointers);
 //!         no errors
 //------------------------------------------------
 int doSort (const char *input, const char *output);
+
+void writePoem (const char *fileName, unsigned int rhymedPairs); //???
 
 void textOut (char** pointers); //TODO detele this function

@@ -10,9 +10,10 @@
 #define DEFAULT_TESTING_READING_FILE_NAME DIRECTORY"testin.txt"
 #define DEFAULT_TESTING_WRITING_FILE_NAME DIRECTORY"testout.txt"
 
-#define READING_BUFFER_SIZE 511
+#define READING_BUFFER_SIZE 255
 
 //Files uploading
+#include "random.c"
 #include "functions.h"
 #include "test.c"
 #include "functions.c"
@@ -23,6 +24,8 @@ int main(int argc, char *argv[]) {
 
     char* input  = DEFAULT_READING_FILE_NAME;
     char* output = DEFAULT_WRITING_FILE_NAME;
+
+    writePoem (input, 30);
 
     if (processMainArguments (argc, argv, &input, &output)) {
 
