@@ -1,7 +1,3 @@
-size_t getNumberOfBytes (const char *fileName);
-
-char* getText (const char *fileName);
-
 char* getTextOfProgram (const char *fileName); //DONT WORK???
 
 bool isInteger (char symbol);

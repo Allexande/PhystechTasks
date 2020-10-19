@@ -1,54 +1,8 @@
-size_t getNumberOfBytes (const char *fileName) {
-
-    assert (fileName);
-
-    FILE *file = fopen (fileName, "r");
-
-    if (file == NULL) {
-        return 0;
-
-    } else {
-        fseek(file, 0, SEEK_END);
-        size_t pos = ftell(file);
-        fseek(file, 0, SEEK_SET);
-        fclose (file);
-        return pos;
-    }
-};
-
-char* getText (const char *fileName) {
-
-    assert (fileName);
-
-    size_t length = getNumberOfBytes (fileName);
-
-    if (length < 1) {
-        return NULL;
-    }
-
-    char* text = (char *) calloc (length + 2, sizeof(char));
-
-    FILE *file = fopen (fileName, "r");
-
-    if (file == NULL) {
-        return NULL;
-
-    } else {
-
-        //*(text) = '\0';
-
-        int lengthWasRead = fread ((text + 1), sizeof(char), length, file);
-        fclose (file);
-        *(text+lengthWasRead) = '\0';
-        return text;
-    }
-};
-
 char* getTextOfProgram (const char *fileName) {
 
     assert (fileName);
 
-    char* text = getText (fileName);
+    char* text = readTextFromFile (fileName);
 
     char* textOfProgram = (char *) calloc (getLengthOfString(text), sizeof(char));
 

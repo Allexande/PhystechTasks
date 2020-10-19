@@ -14,5 +14,7 @@ const char* command[] = {
     "rot", //9  //root
     "pow", //10 //power
     "sin", //11 //sinus
-    "cos", //12 //cosine
+    "cos"  //12 //cosine
+    //"jmp", //13 //jump
+    //"ife", //14 //if else
 };

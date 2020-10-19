@@ -12,6 +12,8 @@
 #define DEFAULT_READING_FILE_NAME DIRECTORY"in.txt"
 #define DEFAULT_WRITING_FILE_NAME DIRECTORY"out.txt"
 
+#define DEFAULT_TESTING_WRITING_FILE_NAME DIRECTORY"testin.txt"
+
 //FILES FOR UPLOADING
 
 //List of possible commands and their codes
@@ -21,6 +23,10 @@
 #include "stack.h"
 #include "stack.c"
 
+//Function for reading and writing from file
+#include "filemaster.h"
+#include "filemaster.c"
+
 //The translator for assembler (to and from)
 #include "translator.h"
 #include "translator.c"
@@ -29,8 +35,12 @@
 #include "cpu.h"
 #include "cpu.c"
 
+//TEST MODULE
+#define DEBUG_MODE
+#ifdef DEBUG_MODE
 //UNIT-tests
 #include "tests.c"
+#endif
 
 //TROUBLES IN TRANSLATOR
 
