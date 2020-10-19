@@ -1,180 +1,72 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <assert.h>
+#include <ctype.h>
+#include <string.h>
 #include <math.h>
 
-const int NOT_QUADRATIC_CODE = -1;
-const double MINIMUM_DIFFERENCE = 1E-6;
-const int MAX_LENGTH_OF_DOUBLE = 25;
+//PATHS TO INPUT/OUTPUT FILES
 
-//------------------------------------------------
-//! Raises a number to a power
-//!
-//! @param [in] number Number
-//! @param [in] power Power
-//!
-//! @return Raised to a power number
-//!
-//! @note If power lower that 2, returns number
-//!       without changes.
-//------------------------------------------------
-double power (double number, int power);
+#define DIRECTORY ""
 
-//------------------------------------------------
-//! Checks if number is equal to zero
-//!
-//! @param [in] number Number
-//!
-//! @return Is this number equal to zero
-//------------------------------------------------
-bool numberIsNearZero(double number);
+#define DEFAULT_READING_FILE_NAME DIRECTORY"in.txt"
+#define DEFAULT_WRITING_FILE_NAME DIRECTORY"out.txt"
 
-//------------------------------------------------
-//! Solves a square equation
-//!
-//! @param [in]   a     a-coefficient
-//! @param [in]   b     b-coefficient
-//! @param [in]   c     c-coefficient
-//! @param [out]  root1 Pointer to the first root
-//! @param [out]  root2 Pointer to the second root
-//!
-//! @return Number of roots
-//!
-//! @note If a-coefficient equal to 0, returns
-//!       NOT_QUADRATIC_CODE
-//------------------------------------------------
-int solveQuadraticEquation (double a ,double b ,double c, double* root1, double* root2);
+//FILES FOR UPLOADING
 
-//------------------------------------------------
-//! Checks if char can be a symbol of double
-//!
-//! @param [in] symbol Symbol
-//!
-//! @return If char can be a symbol of double
-//------------------------------------------------
-bool thisSymbolIsNumber(char symbol);
+//List of possible commands and their codes
+#include "commands.h"
 
-//------------------------------------------------
-//! Performs safe input of double
-//!
-//! @return Double from input
-//------------------------------------------------
-double getNumberFromUser();
+//The struct of stack
+#include "stack.h"
+#include "stack.c"
 
+//The translator for assembler (to and from)
+#include "translator.h"
+#include "translator.c"
+
+//The CPU which executes commands
+#include "cpu.h"
+#include "cpu.c"
+
+//UNIT-tests
 #include "tests.c"
 
-int main()
-{
-    doTest(4,3,-1);
-    doTest(2,0,0);
-    doTest(4,3,5);
-    doTest(0,9,8);
+//TROUBLES IN TRANSLATOR
 
-    doTestWithRandomValues(100.0, 200.0);
-    doTestWithRandomValues(100.0, 200.0);
-    doTestWithRandomValues(-100.0, 200.0);
-    doTestWithRandomValues(-200.0, -100.0);
+int main() {
 
-    printf("%s\n", "Write coefficient a:");
-    double a = getNumberFromUser();
+    stack_t* programStack = newStack (20);
 
-    printf("%s\n", "Write coefficient b:");
-    double b = getNumberFromUser();
+    /*stackPush (programStack, 1);
+    stackPush (programStack, 1);
+    stackPush (programStack, 7);
+    stackPush (programStack, 3);
+    stackPush (programStack, -4);
+    stackPush (programStack, 7);
+    stackPush (programStack, 3);
+    stackPush (programStack, 2);
+    stackPush (programStack, 1);
+    stackPush (programStack, 10);
+    stackPush (programStack, 5);
+    stackPush (programStack, 2);
+    stackPush (programStack, 0);*/
 
-    printf("%s\n", "Write coefficient c:");
-    double c = getNumberFromUser();
+    stackPush (programStack, 0);
+    stackPush (programStack, 2);
+    stackPush (programStack, 5);
+    stackPush (programStack, 10);
+    stackPush (programStack, 1);
+    stackPush (programStack, 2);
+    stackPush (programStack, 3);
+    stackPush (programStack, 7);
+    stackPush (programStack, -4);
+    stackPush (programStack, 3);
+    stackPush (programStack, 7);
+    stackPush (programStack, 1);
+    stackPush (programStack, 1);
 
-    double root1 = 0;
-    double root2 = 0;
-    int numberOfRoots = solveQuadraticEquation (a ,b ,c, &root1, &root2);
-
-    switch(numberOfRoots) {
-
-        case 0:
-        printf("%s\n", "There are no roots.");
-        break;
-
-        case 1:
-        printf("%s\n%.2lf", "There is one root:", root1);
-        break;
-
-        case 2:
-        printf("%s\n%.2lf\n%.2lf", "There are two roots:", root1, root2);
-        break;
-
-        case NOT_QUADRATIC_CODE:
-        printf("%s\n", "The a coefficient cannot be equal to 0!");
-        break;
-
-    }
+    executeProgram (programStack);
 
     return 0;
-}
-
-double power (double number, int power) {
-    for(int i=1; i<power; i++) {
-        number = number*number;
-    }
-    return number;
-}
-
-bool numberIsNearZero(double number){
-    return (abs(number) - MINIMUM_DIFFERENCE < 0);
-}
-
-int solveQuadraticEquation (double a ,double b ,double c, double* root1, double* root2) {
-
-    if(numberIsNearZero(a)) {
-        return NOT_QUADRATIC_CODE;
-    }
-
-    double discriminant = power(b, 2) - 4*a*c;
-    if(discriminant >= 0) {
-        if(numberIsNearZero(discriminant)){
-            *root1 = (-b / (2*a));
-            *root2 = *root1;
-            return 1;
-        } else {
-            double sqrtOfDiscriminant = sqrt(discriminant);
-            *root1 = ((-b + sqrtOfDiscriminant) / (2*a));
-            *root2 = ((-b - sqrtOfDiscriminant) / (2*a));
-            return 2;
-        }
-    } else {
-        return 0;
-    }
-}
-
-bool thisSymbolIsNumber(char symbol) {
-
-    char possibleSymbols[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.', '-'};
-
-    bool thisIsNumber = false;
-
-    for(int i = 0; i < sizeof(possibleSymbols); i++){
-        if(possibleSymbols[i] == symbol){
-            thisIsNumber = true;
-            break;
-        }
-    }
-
-    return thisIsNumber;
-}
-
-double getNumberFromUser(){
-
-    char str[MAX_LENGTH_OF_DOUBLE] = { 0 };
-    int length = 0;
-
-    while(true){
-        char newChar = getchar();
-
-        if(newChar == '\n'){
-            return atof(str);
-        }
-
-        if(thisSymbolIsNumber(newChar)){
-            str[length] = newChar;
-            length++;
-        }
-    }
 }
