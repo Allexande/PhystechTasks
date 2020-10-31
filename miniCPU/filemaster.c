@@ -114,7 +114,29 @@ bool writeCodeToFile (const char *fileName, double* code) {
 
     return true;
 
-}
+};
+
+bool writeProgramInFile (const char *fileName, double* progText, int progLength, char* header) {
+
+    assert (fileName);
+
+    FILE *file = fopen (fileName, "wb");
+
+    if (file == NULL) {
+        return false;
+
+    } else {
+        // 3 - длина header (константа)
+        fwrite(header, 3, sizeof(char), file);
+        // если проблемы, поменять sizeof(char) на sizeof(double)
+        fwrite(progText, progLength, sizeof(char), file);
+
+        fclose(file);
+    }
+
+    return true;
+};
+
 
 bool writeTextInFile (const char *fileName, char* text) {
 

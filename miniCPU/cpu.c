@@ -1,3 +1,5 @@
+
+/*
 bool executeProgram (stack_t* programStack) {
     stack_t* computeStack = newStack (4);
     int currentCommand;
@@ -91,4 +93,4 @@ bool executeProgram (stack_t* programStack) {
             }
         }
     }
-};
+}; */

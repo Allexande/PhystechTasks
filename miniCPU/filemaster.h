@@ -18,6 +18,8 @@ progText* getCommandsFromText (const char *fileName);
 
 char* readTextFromFile (const char *fileName);
 
+bool writeProgramInFile (const char *fileName, double* progText, int progLength, char* header);
+
 bool writeTextInFile (const char *fileName, char* text);
 
 size_t getNumberOfSymbol (const char *text, char symbol);

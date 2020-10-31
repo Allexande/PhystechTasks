@@ -15,7 +15,7 @@ struct argumentFeatures {
     bool haveMemory;
 };
 
-double* convertToCode (progText* prog);
+double* convertToCode (progText* prog, int* resultSize);
 
 char* getHeader ();
 

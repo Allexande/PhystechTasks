@@ -25,12 +25,15 @@ int main(int argc, char* argv[]) {
     }
 
     progText* prog = getCommandsFromText (input);
-    double* code = convertToCode (prog);
+    int resultSize = 0;
+    double* code = convertToCode (prog, &resultSize);
+
+    writeProgramInFile (output, code, resultSize, getHeader ());
 
     return 0;
 };
 
-double* convertToCode (progText* prog) {
+double* convertToCode (progText* prog, int* resultSize) {
     double* codeOfProg = (double*) calloc (sizeof(double), prog->numberOfLines * 2);
     unsigned int ofs = 0;
 
@@ -77,11 +80,12 @@ double* convertToCode (progText* prog) {
     }
 
     #undef DEF_CMD
+    resultSize = ofs;
     return codeOfProg;
 };
 
 char* getHeader () {
-    return "Tuzman1version";
+    return "TA1";
 };
 
 bool isInteger (char symbol) {
