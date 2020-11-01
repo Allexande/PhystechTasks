@@ -1,3 +1,4 @@
+//version 0.1.2
 #define MAXIMUM_LENGTH_OF_WORD 100
 
 struct line {

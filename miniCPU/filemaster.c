@@ -1,3 +1,4 @@
+//version 0.1.2
 #include "filemaster.h"
 
 size_t getNumberOfBytesOfFile (const char *fileName) {

@@ -1,3 +1,6 @@
+//version 0.1.2
+#include "stack.h"
+
 bool stackConstructor (stack_t* thov, size_t capacity) {
 
     thov->data = (Elem_t*) calloc (capacity, sizeof(Elem_t));

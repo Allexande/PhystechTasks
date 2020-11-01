@@ -1,3 +1,4 @@
+//version 0.1.2
 #include "enum.h"
 
 #include "filemaster.c"
@@ -6,11 +7,12 @@
 #include "string.c"
 
 #define DEFAULT_READING_FILE_NAME "in.txt"
-#define DEFAULT_WRITING_FILE_NAME "out.txt"
+#define DEFAULT_WRITING_FILE_NAME "out.asm"
 
 int main(int argc, char* argv[]) {
+
     char *input  = DEFAULT_READING_FILE_NAME;
-    char *output = DEFAULT_READING_FILE_NAME;
+    char *output = DEFAULT_WRITING_FILE_NAME;
 
     if (argc > 1) {
         for (int i = 1; i < argc; i++) {
@@ -24,8 +26,11 @@ int main(int argc, char* argv[]) {
         }
     }
 
+
     progText* prog = getCommandsFromText (input);
     int resultSize = 0;
+
+
     double* code = convertToCode (prog, &resultSize);
 
     writeProgramInFile (output, code, resultSize, getHeader ());
@@ -55,19 +60,19 @@ double* convertToCode (progText* prog, int* resultSize) {
         argumentFeatures* features = processArgument (prog->lines[i].arg);
         //int toAdd = addingNumberForCodeOfCommand (features);
 
-        #define DEF_CMD(name, num, arg, code)                                                   \
+        #define DEF_CMD(name, num, argum, code)                                                   \
                 if (strcmp(prog->lines[i].command, #name) == 0) {                              \
-                    if (arg == 1) {                                                                            \
+                    if (argum == 1) {                                                                            \
                         codeOfProg[ofs] = num + addingNumberForCodeOfCommand (features);           \
                     } else {                                                                \
                         codeOfProg[ofs] = num;                                                 \
                     }                                                                        \
                     ofs += sizeof(char);	                                                    \
-                    if (arg == 1) {                                                                           \
-                        writeArguments(prog->lines[i].arg, features, codeOfProg, &ofs);                      \
+                    if (argum == 1) {                                                                           \
+                        writeArguments (prog->lines[i].arg, codeOfProg, features, &ofs);                      \
                     }                                                                         \
-                    if (arg == 2) {                                                                           \
-                        writeJumpArguments(prog->lines[i].arg, labels, codeOfProg, &ofs); \
+                    if (argum == 2) {                                                                           \
+                        writeJumpArguments (prog->lines[i].arg, labels, codeOfProg, &ofs); \
                     }                                                                           \
                 } else
         #include "commands.h"
@@ -80,7 +85,7 @@ double* convertToCode (progText* prog, int* resultSize) {
     }
 
     #undef DEF_CMD
-    resultSize = ofs;
+    *resultSize = ofs;
     return codeOfProg;
 };
 

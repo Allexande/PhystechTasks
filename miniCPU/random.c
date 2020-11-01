@@ -1,3 +1,4 @@
+//version 0.1.2
 #include <time.h>
 
 #define CODE_OF_FIRST_ENGLISH_LETTER   97

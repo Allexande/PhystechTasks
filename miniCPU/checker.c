@@ -1,3 +1,4 @@
+//version 0.1.2
 #include "enum.h"
 #include "checker.h"
 #include "filemaster.c"
