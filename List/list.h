@@ -1,4 +1,4 @@
-//Version 0.1
+//Version 1.0
 #include <assert.h>
 #include <stdbool.h>
 #include <ctype.h>
@@ -44,8 +44,9 @@ struct List {
 List*  ListConstruct (size_t capacity);
 //Get information about elements and their position
 index_t GetIndexFromOrder (List* thisList, elem_t number);
-//Reallocation of arrays
+//Work with list and it's data
 bool TryToRealloc (List* thisList);
+bool ListDestroy  (List* thisList);
 //Insert in list
 index_t ListInsertAtIndex     (List* thisList, elem_t newElem, index_t index);
 index_t ListInsertAfterIndex  (List* thisList, elem_t newElem, index_t index);

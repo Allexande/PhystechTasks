@@ -1,4 +1,4 @@
-//Version 0.1
+//Version 1.0
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -6,6 +6,7 @@
 
 int main()
 {
+
     List* MyList = ListConstruct(10);
 
     ListInsertBegin(MyList, 6);
@@ -19,12 +20,14 @@ int main()
     ListEraseFromEnd(MyList);
 
     ListInsertBegin(MyList, 55);
-    ListInsertEnd(MyList, 66);
+    ListInsertEnd(MyList, 78);
 
     ConsoleData(MyList);
     ConsoleDump(MyList);
 
 	HTMLList(MyList);
+
+	ListDestroy(MyList);
 
     return 0;
 }

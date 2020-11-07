@@ -1,4 +1,5 @@
-//Version 0.1
+//Version 1.0
+#define POISON 30234
 
 List* ListConstruct (size_t capacity) {
 
@@ -19,7 +20,10 @@ List* ListConstruct (size_t capacity) {
     newList->length   = 0;
     newList->capacity = capacity;
 
+    newList->data[0] = POISON;
+
     for (size_t point = 1; point <= capacity; point++) {
+        newList->data[point] = POISON;
 		newList->prev[point] = -1;
 		newList->next[point] = point + 1;
     }
@@ -62,6 +66,7 @@ bool TryToRealloc (List* thisList) {
         thisList->free = thisList->capacity;
 
 		for (index_t point = thisList->capacity; point <= thisList->capacity * REALLOC_UP; point++) {
+            thisList->data[point] = POISON;
 			thisList->next[point] = point + 1;
 			thisList->prev[point] = -1;
 		}
@@ -74,6 +79,21 @@ bool TryToRealloc (List* thisList) {
     }
 
     return false;
+};
+
+bool ListDestroy (List* thisList) {
+
+    if (thisList == NULL) {
+        return false;
+    }
+
+    free(thisList->data); thisList->data = nullptr;
+    free(thisList->next); thisList->next = nullptr;
+    free(thisList->prev); thisList->prev = nullptr;
+
+    free(thisList); thisList = nullptr;
+
+    return true;
 };
 
 index_t ListInsertAtIndex (List* thisList, elem_t newElem, index_t index) {
@@ -179,6 +199,7 @@ bool ListEraseAtIndex (List* thisList, index_t index) {
     thisList->prev[thisList->next[index]] = thisList->prev[index];
     thisList->next[thisList->prev[index]] = thisList->next[index];
 
+    thisList->data[index] = POISON;
     thisList->next[index] = thisList->free;
     thisList->prev[index] = -1;
     thisList->free = index;
@@ -207,13 +228,23 @@ bool HTMLList (List* thisList) {
         return false;
     }
 
-    fprintf (file, "<html> <head> <style> .container { overflow:hidden; } .info { white-space:nowrap; } .info div { width:30%; display:inline-block; border:1px solid black; } .adress { background:gray; margin:5px; } .node { width:200px; border:1px solid black; padding-bottom: 5px; padding-left: 5px; padding-right: 5px; padding-top: 5px; background:red; margin:5px; } .nodeadress { background:yellow; } .next { background:brown; } .prev { background:purple; } </style> </head> <body>");
+    fprintf (file, "<html> <head> <style> body { margin-top:0px; background:LightCyan; font-family: cursive; } table {font-size: 20px; width:100%%} td { vertical-align: top; width:33%% } .container { overflow:hidden; } .info { white-space:nowrap; } .info div { display:inline-block; border:1px solid black; } .adress { background:PaleTurquoise; margin:5px; border:1px solid black; border-radius: 8px;} .node { width: revert; border:1px solid black; border-radius: 12px; text-align: center; padding-bottom: 5px; padding-left: 5px; padding-right: 5px; padding-top: 5px; background:SteelBlue; margin:5px; } .data { background:PaleTurquoise; } .next { background:PaleTurquoise; } .prev { background:PaleTurquoise; } .field { width: 30%% !important; border-radius: 8px; } i {border: solid black;border-width: 0 3px 3px 0; display: inline-block;padding: 3px;} .up { transform: rotate(-135deg);-webkit-transform: rotate(-135deg);} .down {transform: rotate(45deg);-webkit-transform: rotate(45deg);} </style> </head> <body><table><tr> <td><p>List of nodes in order they are located in memory:</p>");
 
     for (index_t point = 0; point < thisList->capacity; point++) {
-        fprintf (file, "<div class='node'> <center class='adress's>%d</center> <div class='container'> <div class='info'> <div class='nodeAdress'>%d</div> <div class='next'>%d</div> <div class='prev'>%d</div> </div> </div> </div>", GetIndexFromOrder(thisList, point), thisList->data[point], thisList->next[point], thisList->prev[point]);
+        fprintf (file, "<div class='node'> <center class='adress'>%d</center> <div class='container'> <div class='info'> <div class='data field'>%d</div> <div class='next field'>%d</div> <div class='prev field'>%d</div> </div> </div> </div>\n", GetIndexFromOrder(thisList, point), thisList->data[point], thisList->next[point], thisList->prev[point]);
     }
 
-    fprintf (file, "</body></html>");
+    fprintf (file, "</td><td style='border-left: 1px solid Aquamarine;border-right: 1px solid Aquamarine;'><p>List of nodes in order they are linked between each other:</p><div class='node' style='background:Orange'>HEAD</div><center><i class='down'></i></center>");
+
+    index_t link = thisList->head;
+    for(index_t point = 1; point <= thisList->length; point++) {
+        fprintf (file, "<div class='node'> <center class='adress'>%d</center> <div class='container'> <div class='info'> <div class='data field'>%d</div> <div class='next field'>%d</div> <div class='prev field'>%d</div> </div> </div> </div><center><i class='down'></i></center>\n", link, thisList->data[link], thisList->next[link], thisList->prev[link]);
+        link = thisList->next[link];
+    }
+
+    fprintf (file, "<div class='node' style='background:Orange'>TAIL</div></td><td><p>This is dump of special list.</p><div class='node'> <center class='adress'>ADRESS</center> <div class='container'> <div class='info'> <div class='data field'>DATA</div> <div class='next field'>NEXT</div> <div class='prev field'>PREV</div></div></div></div><p>ADRESS - the physical position of node in array in memory<br>DATA - the value which the node keeps<br>NEXT - the pointer on physical position of next node<br>PREV - the pointer on physical position of previous node<br><br>Free nodes have value which is equal to POISON (%d)</p>", POISON);
+
+    fprintf (file, "</td></tr></table></body></html>");
 	fclose (file);
 
     return true;
@@ -256,7 +287,11 @@ void ConsoleDump(List* thisList) {
 
     printf("    thisList->data [%ld] {\n", thisList->data);
     for (index_t point = 0; point < thisList->capacity; point++) {
-        printf("        [%d] %d\n", point, thisList->data[point]);
+        printf("        [%d] %d ", point, thisList->data[point]);
+        if (thisList->data[point] == POISON) {
+            printf("(POISON!)");
+        }
+        printf("\n");
     };
     printf("    }\n\n");
 
@@ -272,7 +307,7 @@ void ConsoleDump(List* thisList) {
     };
     printf("    }\n\n");
 
-    printf("- - - END OF DUMP - - -\n");
+    printf("- - - END OF DUMP - - -\n\n");
 };
 
 void ConsoleData(List* thisList) {
@@ -286,5 +321,5 @@ void ConsoleData(List* thisList) {
         link = thisList->next[link];
     }
 
-    printf("* * * END OF DATA * * *\n");
+    printf("* * * END OF DATA * * *\n\n");
 };
