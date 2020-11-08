@@ -1,13 +1,12 @@
-//Version 1.1
+//Version 1.2
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "list.h"
+#include "list.c"
 
-int main()
-{
+int main() {
 
-    List* MyList = ListConstruct(6);
+    List* MyList = ListConstruct (6);
 
     ListInsertBegin (MyList, 6);
     ListInsertBegin (MyList, 12);
@@ -22,6 +21,7 @@ int main()
 
     printf ("At 2 index is %d\n", ListGetByIndex (MyList, 2));
     printf ("At 2 order is %d\n", ListGetByOrder (MyList, 2));
+
     printf ("List contains 35 = %d\n", ListContains (MyList, 35));
     printf ("List contains 45 = %d\n", ListContains (MyList, 45));
 
@@ -30,7 +30,7 @@ int main()
 
 	HTMLList (MyList);
 
-	//ListDestroy(MyList);
+	ListDestroy(MyList);
 
     return 0;
 }

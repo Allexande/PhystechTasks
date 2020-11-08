@@ -1,4 +1,4 @@
-//Version 1.1
+//Version 1.2
 #include <assert.h>
 #include <stdbool.h>
 #include <ctype.h>
@@ -68,12 +68,9 @@ elem_t ListGetByIndex (List* thisList, index_t index);
 bool   ListContains   (List* thisList, elem_t element);
 
 //Make HTML dump
-bool HTMLList(List* thisList);
+bool HTMLList (List* thisList);
 
 //Debug functions
 bool ListOK      (List* thisList);
 void ConsoleDump (List* thisList);
 void ConsoleData (List* thisList);
-
-//Code in list.c
-#include "list.c"

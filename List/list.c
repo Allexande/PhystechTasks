@@ -1,4 +1,6 @@
-//Version 1.1
+//Version 1.2
+#include "list.h"
+
 #define POISON 30234
 
 List* ListConstruct (size_t capacity) {
@@ -6,11 +8,11 @@ List* ListConstruct (size_t capacity) {
     List* newList = (List*) calloc (sizeof(List), 1);
     assert (newList);
 
-    newList->data = (elem_t*) calloc (sizeof(elem_t), capacity);
+    newList->data = (elem_t*) calloc (sizeof(elem_t), capacity + 1);
     assert (newList->data);
-    newList->next = (index_t*) calloc (sizeof(index_t), capacity);
+    newList->next = (index_t*) calloc (sizeof(index_t), capacity + 1);
     assert (newList->next);
-    newList->prev = (index_t*) calloc (sizeof(index_t), capacity);
+    newList->prev = (index_t*) calloc (sizeof(index_t), capacity + 1);
     assert (newList->prev);
 
     newList->head = 1;
@@ -56,11 +58,11 @@ bool TryToRealloc (List* thisList) {
 
     if (thisList->length >= thisList->capacity) {
 
-        thisList->data = (elem_t*) realloc (thisList->data, sizeof(elem_t)  * thisList->capacity * REALLOC_UP);
+        thisList->data = (elem_t*)  realloc (thisList->data, sizeof(elem_t)  * thisList->capacity * REALLOC_UP + 1);
         assert(thisList->data);
-        thisList->next = (index_t*) realloc (thisList->next, sizeof(index_t) * thisList->capacity * REALLOC_UP);
+        thisList->next = (index_t*) realloc (thisList->next, sizeof(index_t) * thisList->capacity * REALLOC_UP + 1);
         assert(thisList->next);
-        thisList->prev = (index_t*) realloc (thisList->prev, sizeof(index_t) * thisList->capacity * REALLOC_UP);
+        thisList->prev = (index_t*) realloc (thisList->prev, sizeof(index_t) * thisList->capacity * REALLOC_UP + 1);
         assert(thisList->prev);
 
         thisList->free = thisList->capacity;
@@ -314,7 +316,7 @@ bool HTMLList (List* thisList) {
     fprintf (file, "<div class='node' style='background:Orange'>TAIL</div>\n</td><td><p>\
     This is dump of special list.</p><div class='node'><center class='adress'>ADRESS</center>\
     <div class='container'><div class='info'><div class='data field'>DATA</div> \
-    <div class='next field'>NEXT</div> <div class='prev field'>PREV</div></div></div></div>\
+    <div class='next field'>NEXT</div> <div class='prev field'>PREV</div></div></div></div>\n\
     <p>ADRESS - the physical position of node in array in memory\
     <br>DATA - the value which the node keeps\
     <br>NEXT - the pointer on physical position of next node\
