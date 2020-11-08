@@ -1,9 +1,8 @@
-//Version 1.0
+//Version 1.1
 #include <assert.h>
 #include <stdbool.h>
 #include <ctype.h>
 #include <math.h>
-#include <conio.h>
 #include <string.h>
 
 #define DEBUG
@@ -40,25 +39,37 @@ struct List {
 };
 
 //FUNCTIONS
+
 //Create new list
-List*  ListConstruct (size_t capacity);
+List* ListConstruct (size_t capacity);
+
 //Get information about elements and their position
 index_t GetIndexFromOrder (List* thisList, elem_t number);
+
 //Work with list and it's data
 bool TryToRealloc (List* thisList);
 bool ListDestroy  (List* thisList);
+
 //Insert in list
 index_t ListInsertAtIndex     (List* thisList, elem_t newElem, index_t index);
 index_t ListInsertAfterIndex  (List* thisList, elem_t newElem, index_t index);
 index_t ListInsertBeforeIndex (List* thisList, elem_t newElem, index_t index);
 index_t ListInsertBegin       (List* thisList, elem_t newElem);
 index_t ListInsertEnd         (List* thisList, elem_t newElem);
+
 //Delete from list
 bool ListEraseAtIndex   (List* thisList, index_t index);
 bool ListEraseFromBegin (List* thisList);
 bool ListEraseFromEnd   (List* thisList);
-//Drawing
+
+//Get data from list
+elem_t ListGetByOrder (List* thisList, index_t order);
+elem_t ListGetByIndex (List* thisList, index_t index);
+bool   ListContains   (List* thisList, elem_t element);
+
+//Make HTML dump
 bool HTMLList(List* thisList);
+
 //Debug functions
 bool ListOK      (List* thisList);
 void ConsoleDump (List* thisList);

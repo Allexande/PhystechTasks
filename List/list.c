@@ -1,4 +1,4 @@
-//Version 1.0
+//Version 1.1
 #define POISON 30234
 
 List* ListConstruct (size_t capacity) {
@@ -221,6 +221,49 @@ bool ListEraseFromEnd (List* thisList) {
     return result;
 };
 
+elem_t ListGetByOrder (List* thisList, index_t order) {
+
+    ASSERT_OK(thisList)
+
+    if (order > thisList->length) {
+        return POISON;
+    }
+
+    index_t link = thisList->head;
+
+    for (index_t point = 1; point <= order; point++) {
+        link = thisList->next[link];
+    }
+
+    return thisList->data[link + 1];
+};
+
+elem_t ListGetByIndex (List* thisList, index_t index) {
+
+    ASSERT_OK(thisList)
+
+    if (index < 1 || index > thisList-> capacity) {
+        return POISON;
+    }
+
+    return thisList->data[index - 1];
+};
+
+bool ListContains (List* thisList, elem_t element) {
+
+    index_t link = thisList->head;
+
+    for (index_t point = 0;  point <= thisList->length; point++) {
+        if(thisList->data[link] == element) {
+            return true;
+        }
+
+        link = thisList->next[link];
+    }
+
+    return false;
+};
+
 bool HTMLList (List* thisList) {
     FILE* file = fopen ("list.html", "w");
 
@@ -228,21 +271,55 @@ bool HTMLList (List* thisList) {
         return false;
     }
 
-    fprintf (file, "<html> <head> <style> body { margin-top:0px; background:LightCyan; font-family: cursive; } table {font-size: 20px; width:100%%} td { vertical-align: top; width:33%% } .container { overflow:hidden; } .info { white-space:nowrap; } .info div { display:inline-block; border:1px solid black; } .adress { background:PaleTurquoise; margin:5px; border:1px solid black; border-radius: 8px;} .node { width: revert; border:1px solid black; border-radius: 12px; text-align: center; padding-bottom: 5px; padding-left: 5px; padding-right: 5px; padding-top: 5px; background:SteelBlue; margin:5px; } .data { background:PaleTurquoise; } .next { background:PaleTurquoise; } .prev { background:PaleTurquoise; } .field { width: 30%% !important; border-radius: 8px; } i {border: solid black;border-width: 0 3px 3px 0; display: inline-block;padding: 3px;} .up { transform: rotate(-135deg);-webkit-transform: rotate(-135deg);} .down {transform: rotate(45deg);-webkit-transform: rotate(45deg);} </style> </head> <body><table><tr> <td><p>List of nodes in order they are located in memory:</p>");
+    fprintf (file, "<html><head><style>\nbody{margin-top:0px;background:LightCyan;font-family:cursive;}\n\
+    table{font-size:20px;width:100%%}\n\
+    td{vertical-align:top;width:33%%}\n\
+    .container{overflow:hidden;}\n\
+    .info{white-space:nowrap;}\n\
+    .info div{display:inline-block;border:1px solid black;}\n\
+    .adress{background:PaleTurquoise;margin:5px;border:1px solid black;border-radius:8px;}\n\
+    .node{width:revert;border:1px solid black;border-radius:12px;text-align:center; padding-bottom:5px;padding-left:5px;padding-right:5px;padding-top:5px;background:SteelBlue;margin:5px;}\n\
+    .data{background:PaleTurquoise;}\n\
+    .next{background:PaleTurquoise;}\n\
+    .prev{background:PaleTurquoise;}\n\
+    .field{width:30%% !important;border-radius:8px;}\n\
+    i{border:solid black;border-width:0 3px 3px 0;display:inline-block;padding:3px;}\n\
+    .up{transform:rotate(-135deg);-webkit-transform:rotate(-135deg);}\n\
+    .down{transform: rotate(45deg);-webkit-transform:rotate(45deg);}\n\
+    </style></head><body><table><tr><td><p>List of nodes in order they are located in memory:</p>\n");
 
     for (index_t point = 0; point < thisList->capacity; point++) {
-        fprintf (file, "<div class='node'> <center class='adress'>%d</center> <div class='container'> <div class='info'> <div class='data field'>%d</div> <div class='next field'>%d</div> <div class='prev field'>%d</div> </div> </div> </div>\n", GetIndexFromOrder(thisList, point), thisList->data[point], thisList->next[point], thisList->prev[point]);
+        fprintf (file, "<div class='node'>\
+        <center class='adress'>%d</center><div class='container'>\
+        <div class='info'><div class='data field'>%d</div> <div class='next field'>%d</div> \
+        <div class='prev field'>%d</div></div></div></div>\n",
+        GetIndexFromOrder(thisList, point), thisList->data[point],
+        thisList->next[point], thisList->prev[point]);
     }
 
-    fprintf (file, "</td><td style='border-left: 1px solid Aquamarine;border-right: 1px solid Aquamarine;'><p>List of nodes in order they are linked between each other:</p><div class='node' style='background:Orange'>HEAD</div><center><i class='down'></i></center>");
+    fprintf (file, "</td>\n<td style='border-left: 1px solid Aquamarine;\
+    border-right: 1px solid Aquamarine;'><p>List of nodes in order they are linked between each other:</p>\
+    \n<div class='node' style='background:Orange'>HEAD</div><center><i class='down'></i></center>\n");
 
     index_t link = thisList->head;
     for(index_t point = 1; point <= thisList->length; point++) {
-        fprintf (file, "<div class='node'> <center class='adress'>%d</center> <div class='container'> <div class='info'> <div class='data field'>%d</div> <div class='next field'>%d</div> <div class='prev field'>%d</div> </div> </div> </div><center><i class='down'></i></center>\n", link, thisList->data[link], thisList->next[link], thisList->prev[link]);
+        fprintf (file, "<div class='node'> <center class='adress'>%d</center> \
+        <div class='container'> <div class='info'> <div class='data field'>%d</div> \
+        <div class='next field'>%d</div> <div class='prev field'>%d</div></div></div>\
+        </div><center><i class='down'></i></center>\n",
+        link, thisList->data[link], thisList->next[link], thisList->prev[link]);
         link = thisList->next[link];
     }
 
-    fprintf (file, "<div class='node' style='background:Orange'>TAIL</div></td><td><p>This is dump of special list.</p><div class='node'> <center class='adress'>ADRESS</center> <div class='container'> <div class='info'> <div class='data field'>DATA</div> <div class='next field'>NEXT</div> <div class='prev field'>PREV</div></div></div></div><p>ADRESS - the physical position of node in array in memory<br>DATA - the value which the node keeps<br>NEXT - the pointer on physical position of next node<br>PREV - the pointer on physical position of previous node<br><br>Free nodes have value which is equal to POISON (%d)</p>", POISON);
+    fprintf (file, "<div class='node' style='background:Orange'>TAIL</div>\n</td><td><p>\
+    This is dump of special list.</p><div class='node'><center class='adress'>ADRESS</center>\
+    <div class='container'><div class='info'><div class='data field'>DATA</div> \
+    <div class='next field'>NEXT</div> <div class='prev field'>PREV</div></div></div></div>\
+    <p>ADRESS - the physical position of node in array in memory\
+    <br>DATA - the value which the node keeps\
+    <br>NEXT - the pointer on physical position of next node\
+    <br>PREV - the pointer on physical position of previous node\
+    <br><br>Free nodes have value which is equal to POISON (%d)</p>\n", POISON);
 
     fprintf (file, "</td></tr></table></body></html>");
 	fclose (file);
