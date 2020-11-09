@@ -1,4 +1,4 @@
-//Version 1.2
+//Version 1.3
 #include "list.h"
 
 #define POISON 30234
@@ -25,9 +25,11 @@ List* ListConstruct (size_t capacity) {
     newList->data[0] = POISON;
 
     for (size_t point = 1; point <= capacity; point++) {
+
         newList->data[point] = POISON;
 		newList->prev[point] = -1;
 		newList->next[point] = point + 1;
+
     }
 
     ASSERT_OK(newList)
@@ -42,12 +44,16 @@ index_t GetIndexFromOrder (List* thisList, index_t number) {
 	index_t indexToFind = thisList->head;
 	if (number > thisList->length) {
         return -1;
+
     }
 
 	for (index_t point = 1; point < number; point++) {
+
         if (point > thisList->length) {
             return -1;
+
         };
+
 		indexToFind = thisList->next[indexToFind];
 	}
 
@@ -78,6 +84,7 @@ bool TryToRealloc (List* thisList) {
 		thisList->next[thisList->capacity] = 0;
 
         return true;
+
     }
 
     return false;
@@ -102,16 +109,13 @@ index_t ListInsertAtIndex (List* thisList, elem_t newElem, index_t index) {
 
     ASSERT_OK(thisList)
 
-	thisList->length++;
-
-	TryToRealloc(thisList);
-
 	if (index == 0) {
 		return ListInsertBegin(thisList, newElem);
+
 	}
 
 	index_t nextIndex = GetIndexFromOrder(thisList, index);
-
+    /*
 	if (nextIndex == thisList->tail) {
 		return ListInsertEnd(thisList, newElem);
 	}
@@ -127,6 +131,8 @@ index_t ListInsertAtIndex (List* thisList, elem_t newElem, index_t index) {
 
 	thisList->data[insertedIndex] = newElem;
 	return insertedIndex;
+	*/
+    return ListInsertAtPlace (thisList, newElem, nextIndex);
 };
 
 index_t ListInsertAfterIndex (List* thisList, elem_t newElem, index_t index) {
@@ -186,6 +192,36 @@ index_t ListInsertEnd (List* thisList, elem_t newElem) {
 	return insertedIndex;
 };
 
+index_t ListInsertAtPlace (List* thisList, elem_t newElem, index_t place) {
+
+    thisList->length++;
+
+	TryToRealloc(thisList);
+
+    if (place == thisList->tail) {
+		return ListInsertEnd(thisList, newElem);
+
+	}
+
+	if (place < 0 || place > thisList->capacity || thisList->data[place] == POISON) {
+        return -1;
+
+	}
+
+	index_t insertedIndex = thisList->free;
+    thisList->free = thisList->next[thisList->free];
+
+	thisList->prev[insertedIndex] = place;
+	thisList->next[insertedIndex] = thisList->next[place];
+
+	thisList->prev[thisList->next[insertedIndex]] = insertedIndex;
+	thisList->next[place] = insertedIndex;
+
+	thisList->data[insertedIndex] = newElem;
+
+	return place;
+};
+
 bool ListEraseAtIndex (List* thisList, index_t index) {
 
     ASSERT_OK(thisList)
@@ -194,6 +230,7 @@ bool ListEraseAtIndex (List* thisList, index_t index) {
 
     if (index < 0) {
         return false;
+
     }
 
     thisList->length--;
@@ -210,16 +247,20 @@ bool ListEraseAtIndex (List* thisList, index_t index) {
 };
 
 bool ListEraseFromBegin (List* thisList) {
+
     index_t elem = thisList->next[thisList->head];
 	bool result = ListEraseAtIndex(thisList, 1);
 	thisList->head = elem;
+
     return result;
 };
 
 bool ListEraseFromEnd (List* thisList) {
+
     index_t elem = thisList->prev[thisList->tail];
     bool result = ListEraseAtIndex(thisList, thisList->length);
     thisList->tail = elem;
+
     return result;
 };
 
@@ -229,6 +270,7 @@ elem_t ListGetByOrder (List* thisList, index_t order) {
 
     if (order > thisList->length) {
         return POISON;
+
     }
 
     index_t link = thisList->head;
@@ -246,6 +288,7 @@ elem_t ListGetByIndex (List* thisList, index_t index) {
 
     if (index < 1 || index > thisList-> capacity) {
         return POISON;
+
     }
 
     return thisList->data[index - 1];
@@ -258,6 +301,7 @@ bool ListContains (List* thisList, elem_t element) {
     for (index_t point = 0;  point <= thisList->length; point++) {
         if(thisList->data[link] == element) {
             return true;
+
         }
 
         link = thisList->next[link];
@@ -271,6 +315,7 @@ bool HTMLList (List* thisList) {
 
     if (file == NULL) {
         return false;
+
     }
 
     fprintf (file, "<html><head><style>\nbody{margin-top:0px;background:LightCyan;font-family:cursive;}\n\
@@ -291,12 +336,26 @@ bool HTMLList (List* thisList) {
     </style></head><body><table><tr><td><p>List of nodes in order they are located in memory:</p>\n");
 
     for (index_t point = 0; point < thisList->capacity; point++) {
-        fprintf (file, "<div class='node'>\
-        <center class='adress'>%d</center><div class='container'>\
-        <div class='info'><div class='data field'>%d</div> <div class='next field'>%d</div> \
-        <div class='prev field'>%d</div></div></div></div>\n",
-        GetIndexFromOrder(thisList, point), thisList->data[point],
-        thisList->next[point], thisList->prev[point]);
+
+        if (thisList->data[point] != POISON) {
+
+            fprintf (file, "<div class='node'>\
+            <center class='adress'>%d</center><div class='container'>\
+            <div class='info'><div class='data field'>%d</div> <div class='next field'>%d</div> \
+            <div class='prev field'>%d</div></div></div></div>\n",
+            GetIndexFromOrder(thisList, point), thisList->data[point],
+            thisList->next[point], thisList->prev[point]);
+
+        } else {
+
+            fprintf (file, "<div class='node' style='background:yellow'>\
+            <center class='adress'>%d [FREE]</center><div class='container'>\
+            <div class='info'><div class='data field'>%d</div> <div class='next field'>%d</div> \
+            <div class='prev field'>%d</div></div></div></div>\n",
+            GetIndexFromOrder(thisList, point), thisList->data[point],
+            thisList->next[point], thisList->prev[point]);
+
+        }
     }
 
     fprintf (file, "</td>\n<td style='border-left: 1px solid Aquamarine;\
@@ -304,26 +363,30 @@ bool HTMLList (List* thisList) {
     \n<div class='node' style='background:Orange'>HEAD</div><center><i class='down'></i></center>\n");
 
     index_t link = thisList->head;
+
     for(index_t point = 1; point <= thisList->length; point++) {
+
         fprintf (file, "<div class='node'> <center class='adress'>%d</center> \
         <div class='container'> <div class='info'> <div class='data field'>%d</div> \
         <div class='next field'>%d</div> <div class='prev field'>%d</div></div></div>\
         </div><center><i class='down'></i></center>\n",
         link, thisList->data[link], thisList->next[link], thisList->prev[link]);
         link = thisList->next[link];
+
     }
 
     fprintf (file, "<div class='node' style='background:Orange'>TAIL</div>\n</td><td><p>\
-    This is dump of special list.</p><div class='node'><center class='adress'>ADRESS</center>\
+    This is dump of special list.</p><div class='node'><center class='adress'>POSITION</center>\
     <div class='container'><div class='info'><div class='data field'>DATA</div> \
     <div class='next field'>NEXT</div> <div class='prev field'>PREV</div></div></div></div>\n\
-    <p>ADRESS - the physical position of node in array in memory\
+    <p>POSITION - the locical position of node in array in memory\
     <br>DATA - the value which the node keeps\
     <br>NEXT - the pointer on physical position of next node\
     <br>PREV - the pointer on physical position of previous node\
     <br><br>Free nodes have value which is equal to POISON (%d)</p>\n", POISON);
 
     fprintf (file, "</td></tr></table></body></html>");
+
 	fclose (file);
 
     return true;
@@ -333,20 +396,24 @@ bool ListOK (List* thisList) {
 
     if (thisList->length > thisList->length) {
         return false;
+
     }
 
     for (index_t point = 1; point <= thisList->length; point++) {
         if (thisList->next[point] == thisList->prev[point]) {
             return false;
+
         }
     }
 
     if (thisList->tail < 0 || thisList->tail > thisList->capacity) {
         return false;
+
     }
 
     if (thisList->head < 0 || thisList->head > thisList->capacity) {
         return false;
+
     }
 
     return true;

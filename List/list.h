@@ -1,4 +1,4 @@
-//Version 1.2
+//Version 1.3
 #include <assert.h>
 #include <stdbool.h>
 #include <ctype.h>
@@ -48,6 +48,7 @@ index_t GetIndexFromOrder (List* thisList, elem_t number);
 
 //Work with list and it's data
 bool TryToRealloc (List* thisList);
+//void ListLeadLogicAdressToPhysical (List* thisList);
 bool ListDestroy  (List* thisList);
 
 //Insert in list
@@ -56,6 +57,8 @@ index_t ListInsertAfterIndex  (List* thisList, elem_t newElem, index_t index);
 index_t ListInsertBeforeIndex (List* thisList, elem_t newElem, index_t index);
 index_t ListInsertBegin       (List* thisList, elem_t newElem);
 index_t ListInsertEnd         (List* thisList, elem_t newElem);
+
+index_t ListInsertAtPlace     (List* thisList, elem_t newElem, index_t place);
 
 //Delete from list
 bool ListEraseAtIndex   (List* thisList, index_t index);

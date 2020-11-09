@@ -1,4 +1,4 @@
-//Version 1.2
+//Version 1.3
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -8,16 +8,40 @@ int main() {
 
     List* MyList = ListConstruct (6);
 
-    ListInsertBegin (MyList, 6);
-    ListInsertBegin (MyList, 12);
-    ListInsertBegin (MyList, 35);
-    ListInsertBegin (MyList, 9);
+    // ------------------------------------------------
+    //WHEN WE INSERT TO LOGICAL ADRESS
+    //O(N)
+
+    /*
+    ListInsertAtIndex (MyList, 6,  1);
+    ListInsertAtIndex (MyList, 14, 2);
+    ListInsertAtIndex (MyList, 35, 3);
+    */
+
+    // ------------------------------------------------
+    //WHEN WE INSERT TO PHYSICAL ADRESS
+    //O(1)
+
+    /*
+    ListInsertAtPlace (MyList, 9, 1);
+    */
+
+    // ------------------------------------------------
+    //WHEN WE INSERT TO LOGICAL ADRESS EFFECTIVLY (!!!!!)
+    //~ O(1)
+
+    index_t LastIndex = ListInsertEnd (MyList, 45);
+    ListInsertEnd (MyList, 20);
+    ListInsertAtPlace (MyList, 14, LastIndex);
+    ListInsertAtPlace (MyList, 35, LastIndex);
+    ListInsertAtPlace (MyList, 60, LastIndex);
+
+    // ------------------------------------------------
 
     ListEraseFromBegin (MyList);
-    ListEraseFromEnd (MyList);
 
     ListInsertBegin (MyList, 55);
-    ListInsertEnd (MyList, 78);
+    ListInsertEnd   (MyList, 78);
 
     printf ("At 2 index is %d\n", ListGetByIndex (MyList, 2));
     printf ("At 2 order is %d\n", ListGetByOrder (MyList, 2));
@@ -30,7 +54,7 @@ int main() {
 
 	HTMLList (MyList);
 
-	ListDestroy(MyList);
+	ListDestroy (MyList);
 
     return 0;
 }
