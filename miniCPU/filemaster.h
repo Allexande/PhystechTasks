@@ -1,4 +1,4 @@
-//version 0.1.2
+//version 0.1.3
 #define MAXIMUM_LENGTH_OF_WORD 100
 
 struct line {
@@ -15,9 +15,11 @@ size_t getNumberOfBytesOfFile (const char *fileName);
 
 void clearStr (char* str);
 
-progText* getCommandsFromText (const char *fileName);
+progText* getCommandsFromText (char* text);
 
 char* readTextFromFile (const char *fileName);
+
+char* readBinaryFromFile (const char *fileName);
 
 bool writeProgramInFile (const char *fileName, double* progText, int progLength, char* header);
 

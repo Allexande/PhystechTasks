@@ -1,9 +1,11 @@
-//version 0.1.2
+//version 0.1.3
 #include "enum.h"
 #include "filemaster.c"
 #include "stack.c"
 #include "string.c"
 #include "cpu.h"
+
+//#define DIRECTORY "programs/"
 
 #define DEFAILT_READING_FILE_NAME "out.asm"
 
@@ -44,10 +46,11 @@ void ConstructCPU (CPU* cpu, FILE* file ) {
 
     cpu->vers = "TA1";
     //TODO делать с нормальными размерами!!!
-    cpu->computeStack = newStack (1000);
+    cpu->computeStack = newStack (10);
     cpu->callings = newStack (1000);
     cpu->code = (char*) calloc (1000, sizeof(char));
     cpu->totalSize = fread (cpu->code, sizeof(char), 1000, file);
+    cpu->registers = (double*) calloc (20, sizeof(double));
     cpu->RAM = (double*) calloc (RAM_SIZE, sizeof(double));
 
     CheckVersion (cpu);
@@ -66,6 +69,10 @@ void deleteCPU (CPU* cpu) {
 void execute (CPU* cpu) {
     int command = cpu->code[cpu->ofs];
 
+    printf("cpu->ofs=%d cpu->code[cpu->ofs]=%x command=%d\n\n", cpu->ofs, cpu->code[cpu->ofs], command);
+
+
+
     #define DEF_CMD(name, num, arg, code) \
         case num :                        \
         {                                 \
@@ -81,8 +88,15 @@ void execute (CPU* cpu) {
             printf("THIS COMMAND DOES NOT EXIST: code[%d] = %d\n", cpu->ofs, cpu->code[cpu->ofs]);
         }
     }
-    printf("cpu->ofs=%d cpu->code[cpu->ofs]=%d\n", cpu->ofs, cpu->code[cpu->ofs]);
     cpu->ofs += sizeof(char);
+
+    #undef DEF_CMD
+
+    printf("\n");
+    /*if (cpu->computeStack->length > 0) {
+    printf("TOP IS %lf\n", stackTop(cpu->computeStack));
+    }
+    stackDump (cpu->computeStack);*/
 }
 
 void process (CPU* cpu)

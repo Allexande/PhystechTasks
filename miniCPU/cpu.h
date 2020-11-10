@@ -1,4 +1,4 @@
-//version 0.1.2
+//version 0.1.3
 #define RAM_SIZE 10000
 
 struct CPU {
@@ -11,6 +11,12 @@ struct CPU {
     size_t totalSize;
     size_t ofs;
 };
+
+//TODO
+//¬озможно нужно заменить на подсчитываемые
+//enum Consts {
+//
+//}
 
 bool CheckVersion    (CPU* cpu);
 

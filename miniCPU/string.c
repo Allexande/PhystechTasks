@@ -1,4 +1,4 @@
-//version 0.1.2
+//version 0.1.3
 #include "string.h"
 
 FunctionalString* createFunctionalString (size_t capacity) {
@@ -55,6 +55,7 @@ FunctionalString* cutFunctionalString (FunctionalString* str, size_t left, size_
 };
 
 FunctionalString* mergeFunctionalStrings (FunctionalString* first, FunctionalString* second) {
+    printf("!!! mergeFunctionalStrings: first=%s second=%s\n\n",first->str, second->str);
     FunctionalString* newStr = createFunctionalString (first->length + second->length);
 
     for (int i = 0; i < first->length; i++) {
@@ -66,6 +67,9 @@ FunctionalString* mergeFunctionalStrings (FunctionalString* first, FunctionalStr
     }
 
     newStr->length = first->length + second->length;
+
+    printf("!!! mergeFunctionalStrings: result=%s\n\n", newStr->str);
+
 
     return newStr;
 };

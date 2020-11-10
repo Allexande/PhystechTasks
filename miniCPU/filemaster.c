@@ -1,4 +1,4 @@
-//version 0.1.2
+//version 0.1.3
 #include "filemaster.h"
 
 size_t getNumberOfBytesOfFile (const char *fileName) {
@@ -6,6 +6,8 @@ size_t getNumberOfBytesOfFile (const char *fileName) {
     assert (fileName);
 
     FILE *file = fopen (fileName, "r");
+
+    assert(file);
 
     if (file == NULL) {
         return 0;
@@ -31,17 +33,56 @@ char* readTextFromFile (const char *fileName) {
 
     char* text = (char *) calloc (length + 2, sizeof(char));
 
+    assert (text);
+
     FILE *file = fopen (fileName, "r");
+
+    assert (file);
 
     if (file == NULL) {
         return NULL;
 
-    } else {
-        int lengthWasRead = fread ((text), sizeof(char), length, file);
-        fclose (file);
-        *(text+lengthWasRead) = '\0';
-        return text;
     }
+
+    int lengthWasRead = fread (text, sizeof(char), length, file);
+
+    assert (text);
+
+    fclose (file);
+    *(text+lengthWasRead) = '\0';
+    return text;
+
+};
+
+char* readBinaryFromFile (const char *fileName) {
+
+    assert (fileName);
+
+    size_t length = getNumberOfBytesOfFile (fileName);
+
+    if (length < 1) {
+        return NULL;
+    }
+
+    char* binaryCode = (char *) calloc (sizeof(char), length);
+
+    assert (binaryCode);
+
+    FILE *file = fopen (fileName, "rb");
+
+    assert (file);
+
+    fread (binaryCode, sizeof(char), length, file);
+
+    /*
+    for (int i = 0; i < length; i++) {
+        printf("binaryCode[%d] = %d [%x]\n",i, binaryCode[i], binaryCode[i]);
+    }
+    */
+
+    fclose (file);
+
+    return binaryCode;
 };
 
 void clearStr (char* str) {
@@ -51,6 +92,9 @@ void clearStr (char* str) {
 }
 
 progText* readCommandsFromText (char* text) {
+
+    assert (text);
+
     size_t linesWasRead = 0;
     unsigned int offsetFromBegining = 0;
     char str[MAXIMUM_LENGTH_OF_WORD]; clearStr (str);
@@ -172,6 +216,12 @@ size_t getNumberOfSymbol (const char *text, char symbol) {
 };
 
 progText* getCommandsFromText (const char *fileName) {
+
+    assert(fileName);
+
     char* text = readTextFromFile (fileName);
+
+    assert(text);
+
     return readCommandsFromText (text);
 };
