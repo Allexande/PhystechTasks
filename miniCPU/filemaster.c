@@ -1,4 +1,5 @@
-//version 0.1.3
+//version 0.2.0
+
 #include "filemaster.h"
 
 size_t getNumberOfBytesOfFile (const char *fileName) {
@@ -13,10 +14,12 @@ size_t getNumberOfBytesOfFile (const char *fileName) {
         return 0;
 
     } else {
+
         fseek(file, 0, SEEK_END);
         size_t pos = ftell(file);
         fseek(file, 0, SEEK_SET);
         fclose (file);
+
         return pos;
     }
 };
@@ -74,21 +77,17 @@ char* readBinaryFromFile (const char *fileName) {
 
     fread (binaryCode, sizeof(char), length, file);
 
-    /*
-    for (int i = 0; i < length; i++) {
-        printf("binaryCode[%d] = %d [%x]\n",i, binaryCode[i], binaryCode[i]);
-    }
-    */
-
     fclose (file);
 
     return binaryCode;
 };
 
 void clearStr (char* str) {
+
     for (int i = 0; i < MAXIMUM_LENGTH_OF_WORD; i++) {
         str[i] = 0;
     }
+
 }
 
 progText* readCommandsFromText (char* text) {
@@ -102,44 +101,59 @@ progText* readCommandsFromText (char* text) {
     bool commandIsRead = true;
 
     progText* prog = (progText*) calloc (sizeof(progText), 1);
+    assert(prog);
+
     prog->lines = (line*) calloc (sizeof(line), getNumberOfSymbol (text, '\n'));
+    assert(prog->lines);
 
     while (true) {
+
         if (text[offsetFromBegining] == '\0') {
+
             if (commandIsRead) {
                 memcpy (prog->lines[linesWasRead].command, str, MAXIMUM_LENGTH_OF_WORD);
             } else {
                 memcpy (prog->lines[linesWasRead].arg, str, MAXIMUM_LENGTH_OF_WORD);
             }
+
             linesWasRead++;
             break;
         }
+
         if (text[offsetFromBegining] == ' ' && commandIsRead) {
+
             commandIsRead = false;
             memcpy (prog->lines[linesWasRead].command, str, MAXIMUM_LENGTH_OF_WORD);
             wasReadInStr = 0;
             clearStr (str);
+
         } else {
+
             if (text[offsetFromBegining] == '\n') {
+
                 if (commandIsRead) {
                     memcpy (prog->lines[linesWasRead].command, str, MAXIMUM_LENGTH_OF_WORD);
                 } else {
                     memcpy (prog->lines[linesWasRead].arg, str, MAXIMUM_LENGTH_OF_WORD);
                 }
+
                 commandIsRead = true;
                 wasReadInStr = 0;
                 clearStr (str);
                 linesWasRead++;
+
             } else {
+
                 str[wasReadInStr] = text[offsetFromBegining];
                 wasReadInStr++;
+
             }
         }
         offsetFromBegining++;
-        //printf("y\n");
     }
 
     prog->numberOfLines = linesWasRead;
+
     return prog;
 };
 
@@ -158,7 +172,6 @@ bool writeCodeToFile (const char *fileName, double* code) {
     }
 
     return true;
-
 };
 
 bool writeProgramInFile (const char *fileName, double* progText, int progLength, char* header) {
@@ -171,9 +184,9 @@ bool writeProgramInFile (const char *fileName, double* progText, int progLength,
         return false;
 
     } else {
-        // 3 - длина header (константа)
+        //Size of header = 3 bytes
         fwrite(header, 3, sizeof(char), file);
-        // если проблемы, поменять sizeof(char) на sizeof(double)
+
         fwrite(progText, progLength, sizeof(char), file);
 
         fclose(file);
@@ -193,8 +206,10 @@ bool writeTextInFile (const char *fileName, char* text) {
         return false;
 
     } else {
+
         fputs(text, file);
         fclose(file);
+
     }
 
     return true;
@@ -208,8 +223,10 @@ size_t getNumberOfSymbol (const char *text, char symbol) {
     int point = 1;
 
     while (*(text + point) != '\0') {
+
         if (*(text + point) == symbol) symbols++;
         point++;
+
     }
 
     return symbols;

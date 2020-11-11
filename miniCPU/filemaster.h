@@ -1,4 +1,5 @@
-//version 0.1.3
+//version 0.2.0
+
 #define MAXIMUM_LENGTH_OF_WORD 100
 
 struct line {
@@ -7,7 +8,7 @@ struct line {
 };
 
 struct progText {
-    line* lines;
+    line*  lines;
     size_t numberOfLines;
 };
 

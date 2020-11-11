@@ -164,6 +164,10 @@ bool lessMemory (stack_t* thov) {
     }
 };
 
+void stackDelete (stack_t* thov) {
+    free(thov->data);
+};
+
 hash_t getHash (stack_t* thov) {
 
     assert (thov); //Can't use ASSERT_OK

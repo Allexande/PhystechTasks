@@ -64,6 +64,8 @@ bool addMemory  (stack_t* thov);
 
 bool lessMemory (stack_t* thov);
 
+void stackDelete (stack_t* thov);
+
 error_t stackNotOK (stack_t* thov);
 
 hash_t getHash (stack_t* thov);

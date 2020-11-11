@@ -1,8 +1,6 @@
-//version 0.1.3
+//version 0.2.0
 
 char* convertToText (char* FunctionalBinaryCode);
-
-//void processPushAndPop ();
 
 char* intToString (int number);
 

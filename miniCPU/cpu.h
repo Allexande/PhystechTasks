@@ -1,29 +1,38 @@
-//version 0.1.3
-#define RAM_SIZE 10000
+//version 0.2.0
 
 struct CPU {
+
     char* vers;
+
     stack_t* computeStack;
+
     stack_t* callings;
-    char* code;
+
+    char*   code;
+
     double* registers;
     double* RAM;
+
     size_t totalSize;
+
     size_t ofs;
+
 };
 
-//TODO
-//¬озможно нужно заменить на подсчитываемые
-//enum Consts {
-//
-//}
+enum CPUfeatures {
+    startComputeStackSize = 100,
+    startCallingStackSize = 100,
+    limitSizeOfCode       = 1000,
+    numberOfRegisters     = 26,
+    sizeOfRAM             = 10000,
+};
 
-bool CheckVersion    (CPU* cpu);
+bool CheckVersion (CPU* cpu);
 
-void ConstructCPU    (CPU* cpu, FILE* input);
+void ConstructCPU (CPU* cpu, FILE* input);
 
-void deleteCPU      (CPU* cpu);
+void deleteCPU    (CPU* cpu);
 
-void execute         (CPU* cpu);
+void execute      (CPU* cpu);
 
-void process         (CPU* cpu);
+void process      (CPU* cpu);
