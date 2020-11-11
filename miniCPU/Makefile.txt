@@ -1,2 +1,0 @@
-all:
-	g++ translator.c -o translator
