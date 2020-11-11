@@ -1,4 +1,4 @@
-//Version 1.3
+//Version 1.4
 #include "list.h"
 
 #define POISON 30234
@@ -115,23 +115,7 @@ index_t ListInsertAtIndex (List* thisList, elem_t newElem, index_t index) {
 	}
 
 	index_t nextIndex = GetIndexFromOrder(thisList, index);
-    /*
-	if (nextIndex == thisList->tail) {
-		return ListInsertEnd(thisList, newElem);
-	}
 
-	index_t insertedIndex = thisList->free;
-    thisList->free = thisList->next[thisList->free];
-
-	thisList->prev[insertedIndex] = nextIndex;
-	thisList->next[insertedIndex] = thisList->next[nextIndex];
-
-	thisList->prev[thisList->next[insertedIndex]] = insertedIndex;
-	thisList->next[nextIndex] = insertedIndex;
-
-	thisList->data[insertedIndex] = newElem;
-	return insertedIndex;
-	*/
     return ListInsertAtPlace (thisList, newElem, nextIndex);
 };
 
@@ -310,82 +294,179 @@ bool ListContains (List* thisList, elem_t element) {
     return false;
 };
 
+char* DeleteRepetitiveSymbols (char* str, char symbol, size_t limit) {
+
+    assert(str);
+
+    char* newStr = (char*) calloc (sizeof(char), strlen(str));
+    assert(newStr);
+
+    size_t pointerStr = 0;
+    size_t pointerNew = 0;
+
+    size_t recentCount = 0;
+
+    do {
+
+        if (str[pointerStr] == symbol) {
+            recentCount++;
+            if (recentCount > limit) {
+                pointerStr++;
+                continue;
+            }
+        } else {
+            recentCount = 0;
+        }
+
+        newStr[pointerNew] = str[pointerStr];
+        pointerNew++;
+        pointerStr++;
+
+    } while (str[pointerStr] != '\0');
+
+    return newStr;
+};
+
+char* DeleteExcessSpaces (char* str) {
+    return DeleteRepetitiveSymbols (str, ' ', 1);
+};
+
 bool HTMLList (List* thisList) {
-    FILE* file = fopen ("list.html", "w");
+    FILE* file = fopen ("list.js", "w");
 
     if (file == NULL) {
         return false;
 
     }
 
-    fprintf (file, "<html><head><style>\nbody{margin-top:0px;background:LightCyan;font-family:cursive;}\n\
-    table{font-size:20px;width:100%%}\n\
-    td{vertical-align:top;width:33%%}\n\
-    .container{overflow:hidden;}\n\
-    .info{white-space:nowrap;}\n\
-    .info div{display:inline-block;border:1px solid black;}\n\
-    .adress{background:PaleTurquoise;margin:5px;border:1px solid black;border-radius:8px;}\n\
-    .node{width:revert;border:1px solid black;border-radius:12px;text-align:center; padding-bottom:5px;padding-left:5px;padding-right:5px;padding-top:5px;background:SteelBlue;margin:5px;}\n\
-    .data{background:PaleTurquoise;}\n\
-    .next{background:PaleTurquoise;}\n\
-    .prev{background:PaleTurquoise;}\n\
-    .field{width:30%% !important;border-radius:8px;}\n\
-    i{border:solid black;border-width:0 3px 3px 0;display:inline-block;padding:3px;}\n\
-    .up{transform:rotate(-135deg);-webkit-transform:rotate(-135deg);}\n\
-    .down{transform: rotate(45deg);-webkit-transform:rotate(45deg);}\n\
-    </style></head><body><table><tr><td><p>List of nodes in order they are located in memory:</p>\n");
+    //Adding JS command which will insert code from list.js to body of HTMLdump.html
+    fprintf (file, "document.body.innerHTML = '");
+
+    //Adding beginning of table and beginning (title) of first column
+    fprintf (file, DeleteExcessSpaces ("<table>                                                             \
+                        <tr>                                                            \
+                            <td>                                                        \
+                                <p>                                                     \
+                                    List of nodes in order they are located in memory:  \
+                                </p>                                                    \
+            "));
 
     for (index_t point = 0; point < thisList->capacity; point++) {
 
         if (thisList->data[point] != POISON) {
 
-            fprintf (file, "<div class='node'>\
-            <center class='adress'>%d</center><div class='container'>\
-            <div class='info'><div class='data field'>%d</div> <div class='next field'>%d</div> \
-            <div class='prev field'>%d</div></div></div></div>\n",
-            GetIndexFromOrder(thisList, point), thisList->data[point],
-            thisList->next[point], thisList->prev[point]);
+            //Adding a usual node in first column
+            fprintf (file, DeleteExcessSpaces ("<div class=\"node\">                                  \
+                                <center class=\"adress\">%d</center>              \
+                                    <div class=\"container\">                     \
+                                        <div class=\"info\">                      \
+                                            <div class=\"data field\">%d</div>    \
+                                            <div class=\"next field\">%d</div>    \
+                                            <div class=\"prev field\">%d</div>    \
+                                        </div>                                    \
+                                    </div>                                        \
+                                </div>"),
+            GetIndexFromOrder(thisList, point),
+            thisList->data[point],
+            thisList->next[point],
+            thisList->prev[point]);
 
         } else {
 
-            fprintf (file, "<div class='node' style='background:yellow'>\
-            <center class='adress'>%d [FREE]</center><div class='container'>\
-            <div class='info'><div class='data field'>%d</div> <div class='next field'>%d</div> \
-            <div class='prev field'>%d</div></div></div></div>\n",
-            GetIndexFromOrder(thisList, point), thisList->data[point],
-            thisList->next[point], thisList->prev[point]);
+            //Adding a free node in first column
+            fprintf (file, DeleteExcessSpaces ("<div class=\"node\" style=\"background:yellow\">      \
+                                <center class=\"adress\">%d [FREE]</center>       \
+                                    <div class=\"container\">                     \
+                                        <div class=\"info\">                      \
+                                            <div class=\"data field\">%d</div>    \
+                                            <div class=\"next field\">%d</div>    \
+                                            <div class=\"prev field\">%d</div>    \
+                                        </div>                                    \
+                                    </div>                                        \
+                                </div>"),
+            GetIndexFromOrder(thisList, point),
+            thisList->data[point],
+            thisList->next[point],
+            thisList->prev[point]);
 
         }
     }
 
-    fprintf (file, "</td>\n<td style='border-left: 1px solid Aquamarine;\
-    border-right: 1px solid Aquamarine;'><p>List of nodes in order they are linked between each other:</p>\
-    \n<div class='node' style='background:Orange'>HEAD</div><center><i class='down'></i></center>\n");
+    //Adding ending of first column and beginning (title) of second column and first node "HEAD"
+    fprintf (file, DeleteExcessSpaces ("</td>                                                                                   \
+                    <td style=\"border-left: 1px solid Aquamarine; border-right: 1px solid Aquamarine;\">   \
+                        <p>                                                                                 \
+                            List of nodes in order they are linked between each other:                      \
+                        </p>                                                                                \
+                        <div class=\"node\" style=\"background:Orange\">HEAD</div>                          \
+                        <center>                                                                            \
+                            <i class=\"down\"></i>                                                          \
+                        </center>                                                                           \
+            "));
 
     index_t link = thisList->head;
 
     for(index_t point = 1; point <= thisList->length; point++) {
 
-        fprintf (file, "<div class='node'> <center class='adress'>%d</center> \
-        <div class='container'> <div class='info'> <div class='data field'>%d</div> \
-        <div class='next field'>%d</div> <div class='prev field'>%d</div></div></div>\
-        </div><center><i class='down'></i></center>\n",
-        link, thisList->data[link], thisList->next[link], thisList->prev[link]);
+        //Adding a node in second column
+        fprintf (file, DeleteExcessSpaces ("<div class=\"node\">                                      \
+                            <center class=\"adress\">%d</center>                  \
+                            <div class=\"container\">                             \
+                                <div class=\"info\">                              \
+                                    <div class=\"data field\">%d</div>            \
+                                    <div class=\"next field\">%d</div>            \
+                                    <div class=\"prev field\">%d</div>            \
+                                </div>                                            \
+                            </div>                                                \
+                        </div>                                                    \
+                        <center>                                                  \
+                            <i class=\"down\"></i>                                \
+                        </center>"),
+        link, thisList->data[link],
+        thisList->next[link],
+        thisList->prev[link]);
+
         link = thisList->next[link];
 
     }
 
-    fprintf (file, "<div class='node' style='background:Orange'>TAIL</div>\n</td><td><p>\
-    This is dump of special list.</p><div class='node'><center class='adress'>POSITION</center>\
-    <div class='container'><div class='info'><div class='data field'>DATA</div> \
-    <div class='next field'>NEXT</div> <div class='prev field'>PREV</div></div></div></div>\n\
-    <p>POSITION - the locical position of node in array in memory\
-    <br>DATA - the value which the node keeps\
-    <br>NEXT - the pointer on physical position of next node\
-    <br>PREV - the pointer on physical position of previous node\
-    <br><br>Free nodes have value which is equal to POISON (%d)</p>\n", POISON);
+    //Adding ending of second column and beginning (title) of third column
+    fprintf (file, DeleteExcessSpaces ("<div class=\"node\" style=\"background:Orange\">              \
+                        TAIL                                                      \
+                    </div>                                                        \
+                </td>                                                             \
+                <td>                                                              \
+                    <p>                                                           \
+                        This is dump of special list.                             \
+                    </p>                                                          \
+                    <div class=\"node\">                                          \
+                        <center class=\"adress\">                                 \
+                            POSITION                                              \
+                        </center>                                                 \
+                        <div class=\"container\">                                 \
+                            <div class=\"info\">                                  \
+                                <div class=\"data field\">                        \
+                                    DATA                                          \
+                                </div>                                            \
+                                <div class=\"next field\">                        \
+                                    NEXT                                          \
+                                </div>                                            \
+                                <div class=\"prev field\">                        \
+                                    PREV                                          \
+                                </div>                                            \
+                            </div>                                                \
+                        </div>                                                    \
+                    </div>                                                        \
+    <p>                                                                           \
+        POSITION - the locical position of node in array in memory                \
+        <br>DATA - the value which the node keeps                                 \
+        <br>NEXT - the pointer on physical position of next node                  \
+        <br>PREV - the pointer on physical position of previous node              \
+        <br><br>Free nodes have value which is equal to POISON (%d)               \
+    </p>"), POISON);
 
-    fprintf (file, "</td></tr></table></body></html>");
+    //Adding the end of JS command
+    fprintf (file, "';");
 
 	fclose (file);
 

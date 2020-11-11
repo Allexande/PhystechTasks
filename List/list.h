@@ -1,4 +1,4 @@
-//Version 1.3
+//Version 1.4
 #include <assert.h>
 #include <stdbool.h>
 #include <ctype.h>
@@ -69,6 +69,10 @@ bool ListEraseFromEnd   (List* thisList);
 elem_t ListGetByOrder (List* thisList, index_t order);
 elem_t ListGetByIndex (List* thisList, index_t index);
 bool   ListContains   (List* thisList, elem_t element);
+
+//Work with string
+char* DeleteRepetitiveSymbols (char* str, char symbol, size_t limit);
+char* DeleteExcessSpaces (char* str);
 
 //Make HTML dump
 bool HTMLList (List* thisList);
