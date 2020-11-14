@@ -1,10 +1,11 @@
-//version 0.2.0
+//version 0.2.1
+
 #include "enum.h"
 
 #include "checker.h"
 #include "filemaster.c"
 
-#define DEFAULT_READING_FILE_NAME "in.txt"
+#define DEFAULT_READING_FILE_NAME "test.asm"
 
 #define TYPE_OF_ASSEMBLER_FILES "asm"
 
@@ -40,8 +41,50 @@ int main(int argc, char* argv[]) {
 };
 
 bool checkAssemblerFile (char* input) {
-    //TODO
     bool isOK = true;
+
+    FILE* file = fopen(input, "rb");
+
+    if (file == NULL) {
+        return -1;
+    }
+
+    char* binaryCode = (char*) calloc (limitSizeOfCode, sizeof(char));
+    assert(binaryCode);
+
+    size_t totalSize = fread (binaryCode, sizeof(char), limitSizeOfCode, file);
+
+    fclose(file);
+
+    for (size_t i = 3; i < totalSize; i++) {
+
+        //ERRORS
+        #define DEF_CMD(name, num, arg, code) \
+            binaryCode[i] != num &&
+        if (
+            #include "commands.h"
+            true) {
+                isOK = false;
+                printf ("ERROR Byte [%d]: Command '%d' does not exist.\n", i, binaryCode[i]);
+            }
+        #undef DEF_CMD
+
+        if (binaryCode[i] == 32 || binaryCode[i] == 64) {
+            i += 2;
+        }
+
+        if (binaryCode[i] >= 20 && binaryCode[i] <= 27) {
+            i++;
+            if (binaryCode[i] < 3) {
+                isOK = false;
+                printf ("ERROR Byte [%d]: Trying to jump to '%d' (adress is before the beginning of file).\n", i, binaryCode[i] - 3);
+            }
+            if (binaryCode[i] > totalSize) {
+                isOK = false;
+                printf ("ERROR Byte [%d]: Trying to jump to '%d' (adress is after the ending (%d) of file).\n", i, binaryCode[i] - 3, totalSize);
+            }
+        }
+    }
 
     return isOK;
 };
@@ -51,7 +94,7 @@ bool checkTextFile (char* input) {
 
     progText* prog = getCommandsFromText (input);
 
-    for (int i = 0; i < prog->numberOfLines; i++) {
+    for (size_t i = 0; i < prog->numberOfLines; i++) {
 
         printf("THIS IS %d LINE\n", i);
 
@@ -61,8 +104,14 @@ bool checkTextFile (char* input) {
             printf ("WARNING Line [%d]: Command '%s' is empty.\n", i, prog->lines[i].command);
         }
 
+        // ----
+
         if (containsCapitalLetter (prog->lines[i].command)) {
             printf ("WARNING Line [%d]: Command '%s' contains some capital letters.\n", i, prog->lines[i].command);
+        }
+
+        if (containsCapitalLetter (prog->lines[i].arg)) {
+            printf ("WARNING Line [%d]: Argument '%s' contains some capital letters.\n", i, prog->lines[i].arg);
         }
 
         //ERRORS
@@ -71,6 +120,7 @@ bool checkTextFile (char* input) {
         if (
             #include "commands.h"
             prog->lines[i].command[0] != '\0') {
+                isOK = false;
                 printf ("ERROR Line [%d]: Command '%s' does not exist.\n", i, prog->lines[i].command);
             }
         #undef DEF_CMD
@@ -84,19 +134,16 @@ bool checkTextFile (char* input) {
             rigthArg = getNumberOfSymbol (prog->lines[i].arg, ' ') + 1;
         }
 
-        //Checking number of arguments
-        /*
-        #define DEF_CMD(name, num, arg, code)                               \
+        #define DEF_CMD(name, num, arg, code)                                      \
             ((rigthArg != arg) && (strcmp(prog->lines[i].command, #name) == 0)) ||
 
         if (
             #include "commands.h"
             false) {
+                isOK = false;
                 printf ("ERROR Line [%d]: Command '%s' have too few arguments (%d).\n", i, prog->lines[i].command, rigthArg);
             }
         #undef DEF_CMD
-        */
-
 
     }
 
@@ -104,6 +151,7 @@ bool checkTextFile (char* input) {
 };
 
 bool containsCapitalLetter (char* str) {
+
     int pointer = 0;
     while (str[pointer] != '\0') {
         if ('A' <= str[pointer] && str[pointer] <= 'Z') {

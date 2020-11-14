@@ -1,4 +1,4 @@
-//version 0.2.0
+//version 0.2.1
 
 #define MAXIMUM_LENGTH_OF_WORD 100
 
@@ -16,13 +16,13 @@ size_t getNumberOfBytesOfFile (const char *fileName);
 
 void clearStr (char* str);
 
-progText* getCommandsFromText (char* text);
+progText* getCommandsFromText (const char *fileName);
 
 char* readTextFromFile (const char *fileName);
 
 char* readBinaryFromFile (const char *fileName);
 
-bool writeProgramInFile (const char *fileName, double* progText, int progLength, char* header);
+bool writeProgramInFile (const char *fileName, char* progText, int progLength, char* header);
 
 bool writeTextInFile (const char *fileName, char* text);
 

@@ -1,30 +1,14 @@
-//version 0.2.0
+//version 0.2.1
+
 //For assembler
 
-//TODO
-
-enum asmWarning {
-
-};
-
-enum asmError {
-
+enum BinaryFileFeatures {
+    limitSizeOfCode = 1000
 };
 
 bool checkAssemblerFile (char* input);
 
-// ------------------------------
 //For text
-
-enum textWarning {
-
-};
-
-enum textError {
-
-};
-
-bool checkAssemblerFile (char* input);
 
 bool checkTextFile (char* input);
 

@@ -1,4 +1,4 @@
-//version 0.2.0
+//version 0.2.1
 
 #include "filemaster.h"
 
@@ -103,7 +103,7 @@ progText* readCommandsFromText (char* text) {
     progText* prog = (progText*) calloc (sizeof(progText), 1);
     assert(prog);
 
-    prog->lines = (line*) calloc (sizeof(line), getNumberOfSymbol (text, '\n'));
+    prog->lines = (line*) calloc (sizeof(line), getNumberOfSymbol (text, '\n') + 1);
     assert(prog->lines);
 
     while (true) {
@@ -129,7 +129,7 @@ progText* readCommandsFromText (char* text) {
 
         } else {
 
-            if (text[offsetFromBegining] == '\n') {
+            if (text[offsetFromBegining] == '\n' || text[offsetFromBegining] == ';') {
 
                 if (commandIsRead) {
                     memcpy (prog->lines[linesWasRead].command, str, MAXIMUM_LENGTH_OF_WORD);
@@ -174,7 +174,7 @@ bool writeCodeToFile (const char *fileName, double* code) {
     return true;
 };
 
-bool writeProgramInFile (const char *fileName, double* progText, int progLength, char* header) {
+bool writeProgramInFile (const char *fileName, char* progText, int progLength, char* header) {
 
     assert (fileName);
 
@@ -220,7 +220,7 @@ size_t getNumberOfSymbol (const char *text, char symbol) {
     assert (text);
 
     size_t symbols = 0;
-    int point = 1;
+    int point = 0;
 
     while (*(text + point) != '\0') {
 

@@ -1,4 +1,5 @@
-//version 0.2.0
+//version 0.2.1
+
 #include "enum.h"
 
 #include "filemaster.c"
@@ -27,26 +28,30 @@ int main(int argc, char* argv[]) {
     }
 
     progText* prog = getCommandsFromText (input);
+
     int resultSize = 0;
 
-    double* code = convertToCode (prog, &resultSize);
+    char* code = convertToCode (prog, &resultSize);
 
     writeProgramInFile (output, code, resultSize, getHeader ());
 
     return 0;
 };
 
-double* convertToCode (progText* prog, int* resultSize) {
+char* convertToCode (progText* prog, int* resultSize) {
 
-    double* codeOfProg = (double*) calloc (sizeof(double), prog->numberOfLines * 2);
+    assert(prog);
+    assert(prog->numberOfLines);
+
+    char* codeOfProg = (char*) calloc (sizeof(char), prog->numberOfLines * 4);
     assert(codeOfProg);
 
-    unsigned int ofs = 0;
+    size_t ofs = 0;
 
     labelsList* labels = createLabelsList (prog->numberOfLines);
 
     //Pre-adding of labels
-    for (int i = 0; i < prog->numberOfLines; i++) {
+    for (size_t i = 0; i < prog->numberOfLines; i++) {
         //Checking is it a label
         if (getNumberOfSymbol (prog->lines[i].command, ':') > 0) {
             FunctionalString* thisCommand = convertToFunctionalString (prog->lines[i].command);
@@ -55,7 +60,7 @@ double* convertToCode (progText* prog, int* resultSize) {
         }
     }
 
-    for (int i = 0; i < prog->numberOfLines; i++) {
+    for (size_t i = 0; i < prog->numberOfLines; i++) {
 
         argumentFeatures* features = processArgument (prog->lines[i].arg);
 
@@ -100,9 +105,11 @@ bool isLetter (char symbol) {
     return ((symbol >= 'a' && symbol <= 'z') || (symbol >= 'A' && symbol <= 'Z'));
 };
 
-void addLabel (char* labelName, labelsList* labels, int adressOfLabel) {
+void addLabel (char* labelName, labelsList* labels, size_t adressOfLabel) {
 
-    labels->labels[labels->length].name = labelName; //!!!!!
+    assert(labels);
+
+    labels->labels[labels->length].name = labelName;
     labels->labels[labels->length].adress = adressOfLabel;
     labels->length++;
 
@@ -124,9 +131,7 @@ argumentFeatures* processArgument (char* argument) {
     argumentFeatures* features = (argumentFeatures*) calloc (sizeof(argumentFeatures), 1);
     assert(features);
 
-    features->numberOfArguments = getNumberOfSymbol (argument, '+')
-                                //+ getNumberOfSymbol (argument, '-')
-                                + 1;
+    features->numberOfArguments = getNumberOfSymbol (argument, '+') + 1;
 
     features->haveConstant = false;
     features->haveRegister = false;
@@ -155,6 +160,8 @@ argumentFeatures* processArgument (char* argument) {
 
 int addingNumberForCodeOfCommand (argumentFeatures* features) {
 
+    assert(features);
+
     int addingNumber = 0;
 
     if (features->haveConstant) {
@@ -172,7 +179,10 @@ int addingNumberForCodeOfCommand (argumentFeatures* features) {
     return addingNumber;
 };
 
-void writeArguments (char* arg, double* codeOfProg, argumentFeatures* features, unsigned int* ofs) {
+void writeArguments (char* arg, char* codeOfProg, argumentFeatures* features, size_t* ofs) {
+
+    assert(codeOfProg);
+    assert(features);
 
     FunctionalString* argValue = convertToFunctionalString (arg);
 
@@ -199,7 +209,10 @@ void writeArguments (char* arg, double* codeOfProg, argumentFeatures* features, 
 
 };
 
-void writeJumpArguments (char* arg, labelsList* labels, double* codeOfProg, unsigned int* ofs) {
+void writeJumpArguments (char* arg, labelsList* labels, char* codeOfProg, size_t* ofs) {
+
+    assert(labels);
+    assert(codeOfProg);
 
     if (isInteger(arg[0])) {
         codeOfProg[*ofs] = atof(arg);

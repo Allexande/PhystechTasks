@@ -1,9 +1,9 @@
-//version 0.2.0
+//version 0.2.1
 
 struct label {
 
     char* name;
-    unsigned int adress;
+    size_t adress;
 
 };
 
@@ -23,7 +23,7 @@ struct argumentFeatures {
 
 };
 
-double* convertToCode (progText* prog, int* resultSize);
+char* convertToCode (progText* prog, int* resultSize);
 
 char* getHeader ();
 
@@ -31,7 +31,7 @@ bool isInteger (char symbol);
 
 bool isLetter (char symbol);
 
-void addLabel (char* labelName, labelsList* labels, int adressOfLabel);
+void addLabel (char* labelName, labelsList* labels, size_t adressOfLabel);
 
 labelsList* createLabelsList (size_t capacity);
 
@@ -39,6 +39,6 @@ argumentFeatures* processArgument (char* argument);
 
 int addingNumberForCodeOfCommand (argumentFeatures* features);
 
-void writeArguments (char* arg, double* codeOfProg, argumentFeatures* features, unsigned int* ofs);
+void writeArguments (char* arg, char* codeOfProg, argumentFeatures* features, size_t* ofs);
 
-void writeJumpArguments (char* arg, labelsList* labels, double* codeOfProg, unsigned int* ofs);
+void writeJumpArguments (char* arg, labelsList* labels, char* codeOfProg, size_t* ofs);
