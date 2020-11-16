@@ -1,4 +1,5 @@
-//Version 1.4
+//Version 1.5
+
 #include "list.h"
 
 #define POISON 30234
@@ -400,6 +401,8 @@ bool HTMLList (List* thisList) {
                         </p>                                                                                \
                         <div class=\"node\" style=\"background:Orange\">HEAD</div>                          \
                         <center>                                                                            \
+                            <i class=\"up\"></i>                                                            \
+                                                                                                            \
                             <i class=\"down\"></i>                                                          \
                         </center>                                                                           \
             "));
@@ -409,7 +412,7 @@ bool HTMLList (List* thisList) {
     for(index_t point = 1; point <= thisList->length; point++) {
 
         //Adding a node in second column
-        fprintf (file, DeleteExcessSpaces ("<div class=\"node\">                                      \
+        fprintf (file, DeleteExcessSpaces ("<div class=\"node\">                  \
                             <center class=\"adress\">%d</center>                  \
                             <div class=\"container\">                             \
                                 <div class=\"info\">                              \
@@ -420,6 +423,8 @@ bool HTMLList (List* thisList) {
                             </div>                                                \
                         </div>                                                    \
                         <center>                                                  \
+                            <i class=\"up\"></i>                                  \
+                                                                                  \
                             <i class=\"down\"></i>                                \
                         </center>"),
         link, thisList->data[link],
