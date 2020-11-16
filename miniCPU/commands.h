@@ -12,7 +12,7 @@
     double first  = stackPop(cpu->computeStack);
 
 #define WRITE_argument_TO_ofs                     \
-    cpu->ofs = (int)(cpu->code[cpu->ofs++]) - 1;
+    cpu->ofs = (int)(cpu->code[++cpu->ofs]) - 1;
 
 #define M_CONST    type & 1
 
@@ -337,6 +337,8 @@ DEF_CMD (jb, 23, 2, {
 
         MOVE_ADRESS_BECAUSE_OF_HEADER
 
+        printf(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> now cpu->ofs=%d\n",cpu->ofs);
+
     } else {
         cpu->ofs++;
     }
@@ -445,7 +447,9 @@ DEF_CMD (call, 30, 2, {
 
     stackPush(cpu->callings, cpu->ofs + sizeof(char));
 
-    cpu->ofs = (int)(cpu->code[++cpu->ofs]) - 2;
+    WRITE_argument_TO_ofs
+
+    cpu->ofs--;
 
     MOVE_ADRESS_BECAUSE_OF_HEADER
 
