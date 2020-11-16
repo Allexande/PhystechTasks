@@ -1,4 +1,4 @@
-//version 0.2.1
+//version 0.2.2
 
 #include "enum.h"
 
@@ -7,21 +7,24 @@
 #include "stack.h"
 #include "string.c"
 
+//#define DEBUG
+
 #define DEFAULT_READING_FILE_NAME "in.txt"
 #define DEFAULT_WRITING_FILE_NAME "out.asm"
 
-int main(int argc, char* argv[]) {
+int main (int argc, char* argv[]) {
 
     char *input  = DEFAULT_READING_FILE_NAME;
     char *output = DEFAULT_WRITING_FILE_NAME;
 
     if (argc > 1) {
         for (int i = 1; i < argc; i++) {
-            if (strcmp(argv[i], "-i") == 0  || strcmp(argv[i], "--input")   == 0) {
+
+            if (strcmp(argv[i], "-i") == 0 || strcmp(argv[i], "--input")  == 0) {
                 input = argv[i];
             }
 
-            if (strcmp(argv[i], "-o") == 0  || strcmp(argv[i], "--output")  == 0) {
+            if (strcmp(argv[i], "-o") == 0 || strcmp(argv[i], "--output") == 0) {
                 output = argv[i];
             }
         }
@@ -33,7 +36,15 @@ int main(int argc, char* argv[]) {
 
     char* code = convertToCode (prog, &resultSize);
 
-    writeProgramInFile (output, code, resultSize, getHeader ());
+    #ifdef DEBUG
+        for (int i = 0; i < resultSize; i++) {
+            printf("main: code[%d]=%d\n", i, code[i]);
+        }
+    #endif
+
+    #ifndef DEBUG
+        writeProgramInFile (output, code, resultSize, getHeader ());
+    #endif
 
     return 0;
 };
@@ -41,25 +52,15 @@ int main(int argc, char* argv[]) {
 char* convertToCode (progText* prog, int* resultSize) {
 
     assert(prog);
-    assert(prog->numberOfLines);
 
     char* codeOfProg = (char*) calloc (sizeof(char), prog->numberOfLines * 4);
     assert(codeOfProg);
 
     size_t ofs = 0;
 
-    labelsList* labels = createLabelsList (prog->numberOfLines);
+    labelsList* listOfLabels = createLabelsList (prog->numberOfLines);
 
     //Pre-adding of labels
-    for (size_t i = 0; i < prog->numberOfLines; i++) {
-        //Checking is it a label
-        if (getNumberOfSymbol (prog->lines[i].command, ':') > 0) {
-            FunctionalString* thisCommand = convertToFunctionalString (prog->lines[i].command);
-            thisCommand->length--;
-            addLabel (thisCommand->str, labels, i);
-        }
-    }
-
     for (size_t i = 0; i < prog->numberOfLines; i++) {
 
         argumentFeatures* features = processArgument (prog->lines[i].arg);
@@ -67,29 +68,93 @@ char* convertToCode (progText* prog, int* resultSize) {
         #define DEF_CMD(name, num, argum, code)                                             \
                 if (strcmp(prog->lines[i].command, #name) == 0) {                           \
                     if (argum == 1) {                                                       \
-                        codeOfProg[ofs] = num + addingNumberForCodeOfCommand (features);    \
-                    } else {                                                                \
-                        codeOfProg[ofs] = num;                                              \
+                        ofs += sizeof(char);                                                \
+                        if (features->haveConstant) {                                       \
+                            ofs += sizeof(char);                                            \
+                        }                                                                   \
+                        if (features->haveRegister) {                                       \
+                            ofs += sizeof(char);                                            \
+                        }                                                                   \
                     }                                                                       \
-                    ofs += sizeof(char);	                                                \
+                    if (argum == 2) {                                                       \
+                        ofs += sizeof(char);                                                \
+                    }                                                                       \
+                } else
+
+        #include "commands.h"
+
+            //else
+            {
+                #ifdef DEBUG
+                    printf("convertToCode: Unknown command during pre-translation prog->lines[%d].command=%s\n", i, prog->lines[i].command);
+                #endif
+            }
+
+
+
+        #undef DEF_CMD
+
+        //Checking is it a label
+        if (getNumberOfSymbol (prog->lines[i].command, ':') > 0) {
+
+            #ifdef DEBUG
+                printf("convertToCode: New label prog->lines[%d].command=%s\n", i, prog->lines[i].command);
+            #endif
+
+            FunctionalString* thisCommand = convertToFunctionalString (prog->lines[i].command);
+            addLabel (thisCommand->str, listOfLabels, ofs);
+
+            #ifdef DEBUG
+                printf("convertToCode: New label was added. It's adress is %d\n", listOfLabels->labels[listOfLabels->length-1].adress);
+            #endif
+
+        }
+
+        ofs++;
+    }
+
+    ofs = 0;
+
+    for (size_t i = 0; i < prog->numberOfLines; i++) {
+
+        if (prog->lines[i].command == "skip") {
+            continue;
+        }
+
+        argumentFeatures* features = processArgument (prog->lines[i].arg);
+
+        #ifdef DEBUG
+            printf("convertToCode: prog->lines[%d].command=%s prog->lines[%d].arg=%s\n", i, prog->lines[i].command, i, prog->lines[i].arg);
+        #endif
+
+        #define DEF_CMD(name, num, argum, code)                                             \
+                if (strcmp(prog->lines[i].command, #name) == 0) {                           \
+                    codeOfProg[ofs] = num;                                                  \
+                    ofs += sizeof(char);                                                    \
                     if (argum == 1) {                                                       \
+                        codeOfProg[ofs] = addingNumberForCodeOfCommand (features);          \
+                        ofs += sizeof(char);                                                \
                         writeArguments (prog->lines[i].arg, codeOfProg, features, &ofs);    \
                     }                                                                       \
                     if (argum == 2) {                                                       \
-                        writeJumpArguments (prog->lines[i].arg, labels, codeOfProg, &ofs);  \
+                        writeJumpArguments (prog->lines[i].arg, listOfLabels, codeOfProg, &ofs);  \
                     }                                                                       \
                 } else
         #include "commands.h"
 
             //else
             {
-                printf("ERROR ON LINE %d\n%s\n", i, prog->lines[i].command);
+                #ifdef DEBUG
+                    printf("convertToCode: Unknown command during translation prog->lines[%d].command=%s\n", i, prog->lines[i].command);
+                 #endif
             }
 
     }
 
     #undef DEF_CMD
+
     *resultSize = ofs;
+
     return codeOfProg;
 };
 
@@ -121,6 +186,8 @@ labelsList* createLabelsList (size_t capacity) {
     assert(newLabelsList);
 
     newLabelsList->labels = (label*) calloc (sizeof(label), capacity);
+    assert(newLabelsList->labels);
+
     newLabelsList->length = 0;
 
     return newLabelsList;
@@ -192,9 +259,8 @@ void writeArguments (char* arg, char* codeOfProg, argumentFeatures* features, si
     }
 
     if (features->haveRegister) {
-
-        codeOfProg[*ofs] = argValue->str[2] - 'a';
-        *ofs += sizeof(double);
+        codeOfProg[*ofs] = argValue->str[1] - 'a';
+        *ofs += sizeof(char);
         //Deleting of register ("r_x+")
         argValue = cutFunctionalString (argValue, 4, argValue->length);
 
@@ -203,7 +269,7 @@ void writeArguments (char* arg, char* codeOfProg, argumentFeatures* features, si
     if (features->haveConstant) {
 
         codeOfProg[*ofs] = atof(argValue->str);
-        *ofs += sizeof(double);
+        *ofs += sizeof(char);
 
     }
 
@@ -220,13 +286,16 @@ void writeJumpArguments (char* arg, labelsList* labels, char* codeOfProg, size_t
     } else {
 
         for (int i = 0; i < labels->length; i++) {
-            if (labels->labels[i].name == arg) {
+
+            if (strcmp(labels->labels[i].name, arg) == 0) {
+
                 codeOfProg[*ofs] = labels->labels[i].adress;
                 break;
+
             }
         }
 
     }
 
-    *ofs += sizeof(double);
+    *ofs += sizeof(char);
 };
