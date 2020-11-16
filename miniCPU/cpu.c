@@ -1,15 +1,18 @@
-//version 0.2.0
+//version 1.0.0
+
 #include "enum.h"
 #include "filemaster.c"
 #include "stack.c"
 #include "string.c"
 #include "cpu.h"
 
-#define DEFAILT_READING_FILE_NAME "out.asm"
+//#define DEBUG_CPU
+
+#define DEFAILT_READING_FILE_NAME "prog_demo.asm"
 
 int main (const int argc, const char* argv[]) {
 
-    const char* inputFile;
+    const char* inputFile = DEFAILT_READING_FILE_NAME;
 
     if (argc > 1) {
 
@@ -21,14 +24,13 @@ int main (const int argc, const char* argv[]) {
 
         }
 
-    } else {
-        inputFile = DEFAILT_READING_FILE_NAME;
     }
 
     FILE* input = fopen(inputFile, "rb");
 
     if (input == NULL) {
         return -1;
+
     }
 
     CPU* cpu = (CPU*) calloc (sizeof(CPU), 1);
@@ -41,7 +43,7 @@ int main (const int argc, const char* argv[]) {
 
     process (cpu);
 
-    return 0;
+    return 1;
 }
 
 bool CheckVersion (CPU* cpu) {
@@ -81,11 +83,9 @@ void ConstructCPU (CPU* cpu, FILE* file ) {
 
 void deleteCPU (CPU* cpu) {
 
-    cpu->vers = nullptr;
-
-    free(cpu->code);      cpu->code      = nullptr;
-    free(cpu->registers); cpu->registers = nullptr;
-    free(cpu->RAM);       cpu->RAM       = nullptr;
+    free(cpu->code);
+    free(cpu->registers);
+    free(cpu->RAM);
 
     stackDelete (cpu->computeStack);
     stackDelete (cpu->callings);
@@ -94,6 +94,22 @@ void deleteCPU (CPU* cpu) {
 void execute (CPU* cpu) {
 
     int command = cpu->code[cpu->ofs];
+
+    #ifdef DEBUG_CPU
+        printf("\n");
+        for (size_t k = 0; k < cpu->totalSize; k++) {
+            if (k == cpu->ofs) {
+                printf(">%x< ", cpu->code[k]);
+            } else {
+                printf("%x ", cpu->code[k]);
+            }
+        }
+        printf("\n\n");
+    #endif
+
+    #ifdef DEBUG_CPU
+        printf("execute: Current command cpu->code[%d]=%d\n", cpu->ofs, command);
+    #endif
 
     #define DEF_CMD(name, num, arg, code) \
         case num :                        \
@@ -107,17 +123,20 @@ void execute (CPU* cpu) {
 
         default :
         {
-            printf("THIS COMMAND DOES NOT EXIST: code[%d] = %d\n", cpu->ofs, cpu->code[cpu->ofs]);
+            #ifdef DEBUG_CPU
+                printf("THIS COMMAND DOES NOT EXIST: code[%d] = %d\n", cpu->ofs, cpu->code[cpu->ofs]);
+            #endif
         }
     }
-    cpu->ofs += sizeof(char);
-
     #undef DEF_CMD
+
+    cpu->ofs += sizeof(char);
 }
 
-void process (CPU* cpu)
-{
+void process (CPU* cpu) {
+
     while (cpu->ofs < cpu->totalSize) {
         execute(cpu);
     }
+
 }

@@ -1,4 +1,5 @@
-//version 0.1.2
+//version 1.0.0
+
 #include "stack.h"
 
 bool stackConstructor (stack_t* thov, size_t capacity) {

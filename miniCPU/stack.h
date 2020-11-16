@@ -1,4 +1,5 @@
-//version 0.1.2
+//version 1.0.0
+
 #define COEF_OF_REALLOC 2
 
 #define BEGIN_CORONARY_VALUE 0xBADC0FFE

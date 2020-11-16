@@ -1,4 +1,5 @@
-//version 0.2.0
+//version 1.0.0
+
 #include "enum.h"
 
 #include "string.c"
@@ -14,7 +15,7 @@
     }                                                                       \
     positionInText+=positionInAdding;
 
-#define DEFAULT_READING_FILE_NAME "out.asm"
+#define DEFAULT_READING_FILE_NAME "prog_qquation.asm"
 #define DEFAULT_WRITING_FILE_NAME "retranslated.txt"
 
 int main(int argc, char* argv[]) {

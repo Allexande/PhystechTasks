@@ -1,3 +1,5 @@
+#Version 1.0.0
+
 translator.exe : translator.c
 	g++ translator.c
 

@@ -1,0 +1,21 @@
+in
+push rax
+in
+push [2]
+call registers:
+call ram:
+jmp end:
+registers:
+pop rax
+pop rax
+add
+out
+ret
+ram:
+pop [2]
+pop [2]
+add
+out
+ret
+end: 
+hlt
