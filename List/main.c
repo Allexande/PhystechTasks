@@ -1,14 +1,16 @@
-//Version 1.5
+//Version 1.5.1
 
 #include <stdio.h>
 #include <stdlib.h>
 
-#define TESTING
+//#define TESTING
 
 #include "list.c"
 #include "test.c"
 
 int main() {
+
+    test ();
 
     #ifndef TESTING
 
@@ -19,7 +21,7 @@ int main() {
 
         //For testing
         if (!GeneralTest ()) {
-            printf("General test is failed!\n");
+            printf("General test was failed!\n");
             return -1;
 
         } else {

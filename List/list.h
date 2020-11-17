@@ -1,4 +1,4 @@
-//Version 1.5
+//Version 1.5.1
 
 #include <assert.h>
 #include <stdbool.h>
@@ -10,7 +10,7 @@
 #ifdef DEBUG
 	#define ASSERT_OK(thisList) if (!ListOK(thisList)) { ConsoleDump(thisList); assert(!"ERROR"); }
 #else
-	#define ASSERT_OK(thisList) ;
+	#define ASSERT_OK(thisList)
 #endif
 
 typedef int    elem_t;
@@ -44,6 +44,12 @@ struct List {
 //Create new list
 List* ListConstruct (size_t capacity);
 
+//Work with fields of list
+index_t GetHead     (List* thisList);
+index_t GetTail     (List* thisList);
+index_t GetLenght   (List* thisList);
+index_t GetCapacity (List* thisList);
+
 //Get information about elements and their position
 index_t GetIndexFromOrder (List* thisList, elem_t number);
 
@@ -62,9 +68,11 @@ index_t ListInsertEnd         (List* thisList, elem_t newElem);
 index_t ListInsertAtPlace     (List* thisList, elem_t newElem, index_t place);
 
 //Delete from list
-bool ListEraseAtIndex   (List* thisList, index_t index);
-bool ListEraseFromBegin (List* thisList);
-bool ListEraseFromEnd   (List* thisList);
+index_t ListEraseAtIndex   (List* thisList, index_t index);
+index_t ListEraseFromBegin (List* thisList);
+index_t ListEraseFromEnd   (List* thisList);
+
+index_t ListEraseAtPlace   (List* thisList, index_t place);
 
 //Get data from list
 elem_t ListGetByOrder (List* thisList, index_t order);
