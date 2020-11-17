@@ -1,10 +1,16 @@
-//Version 1.5.1
+//Version 1.5.2
 
 #include "list.h"
 
+//Consts
+
 #define POISON 30234
 
+//Flags
+
 #define WARNINGS
+
+#define LIST_DEBUG
 
 //Defines for working with list
 
@@ -222,6 +228,11 @@ index_t ListInsertBegin (List* thisList, elem_t newElem) {
 
 	HEAD = insertedIndex;
 
+	#ifdef LIST_DEBUG
+        printf("DEBUG: After calling ListInsertBegin(thisList, %d):\n", newElem);
+        ConsoleDump (thisList);
+	#endif
+
 	return insertedIndex;
 };
 
@@ -243,6 +254,11 @@ index_t ListInsertEnd (List* thisList, elem_t newElem) {
 	PREV(insertedIndex) = -1;
 
 	TAIL = insertedIndex;
+
+	#ifdef LIST_DEBUG
+        printf("DEBUG: After calling ListInsertEnd(thisList, %d):\n", newElem);
+        ConsoleDump (thisList);
+	#endif
 
 	return insertedIndex;
 };
@@ -279,6 +295,11 @@ index_t ListInsertAtPlace (List* thisList, elem_t newElem, index_t place) {
 	NEXT(place) = insertedIndex;
 
 	DATA(insertedIndex) = newElem;
+
+	#ifdef LIST_DEBUG
+        printf("DEBUG: After calling ListInsertAtPlace(thisList, %d, %d):\n", newElem, place);
+        ConsoleDump (thisList);
+	#endif
 
 	return place;
 };
@@ -328,6 +349,11 @@ index_t ListEraseAtPlace (List* thisList, index_t place) {
 
     FREE = place;
 
+    #ifdef LIST_DEBUG
+        printf("DEBUG: After calling ListEraseAtPlace (thisList, %d):\n", place);
+        ConsoleDump (thisList);
+	#endif
+
     return place;
 };
 
@@ -346,6 +372,13 @@ elem_t ListGetByOrder (List* thisList, index_t order) {
     for (index_t point = 1; point <= order; point++) {
         link = NEXT(link);
     }
+
+    #ifdef WARNINGS
+        printf ("WARNING!                                                         \n"
+                "You have just got data of the node from it's logical position.   \n"
+                "It was a long operation with O(N) asymptotic.                    \n"
+        );
+    #endif
 
     return DATA(link + 1);
 };
@@ -374,6 +407,13 @@ bool ListContains (List* thisList, elem_t element) {
 
         link = NEXT(link);
     }
+
+     #ifdef WARNINGS
+        printf ("WARNING!                                                                  \n"
+                "You have just checked if there is a node with certain data in the list.   \n"
+                "It was a long operation with O(N) asymptotic.                             \n"
+        );
+    #endif
 
     return false;
 };
@@ -440,19 +480,22 @@ bool HTMLList (List* thisList) {
         if (DATA(point) != POISON) {
 
             //Adding a usual node in first column
-            fprintf (file, DeleteExcessSpaces ("<div class=\"node\">              \
-                                <center class=\"adress\">%d</center>              \
-                                    <div class=\"container\">                     \
-                                        <div class=\"info\">                      \
-                                            <div class=\"data field\">%d</div>    \
-                                            <div class=\"next field\">%d</div>    \
-                                            <div class=\"prev field\">%d</div>    \
-                                        </div>                                    \
-                                    </div>                                        \
+            fprintf (file, DeleteExcessSpaces ("<div class=\"node\" id=\"%d\">                            \
+                                <center class=\"adress\">%d</center>                                      \
+                                    <div class=\"container\">                                             \
+                                        <div class=\"info\">                                              \
+                                            <div class=\"data field\">%d</div>                            \
+                                            <div class=\"next field\" onclick=\"Conduct(%d)\">%d</div>    \
+                                            <div class=\"prev field\" onclick=\"Conduct(%d)\">%d</div>    \
+                                        </div>                                                            \
+                                    </div>                                                                \
                                 </div>"),
-            GetIndexFromOrder(thisList, point),
+            point,
+            point,
             DATA(point),
             NEXT(point),
+            NEXT(point),
+            PREV(point),
             PREV(point));
 
         } else {
@@ -468,7 +511,7 @@ bool HTMLList (List* thisList) {
                                         </div>                                                        \
                                     </div>                                                            \
                                 </div>"),
-            GetIndexFromOrder(thisList, point),
+            point,
             DATA(point),
             NEXT(point),
             PREV(point));
@@ -524,7 +567,7 @@ bool HTMLList (List* thisList) {
                         TAIL                                                                          \
                     </div>                                                                            \
                 </td>                                                                                 \
-                <td>                                                                                  \
+                <td style=\"position:fixed\">                                                         \
                     <p>                                                                               \
                         This is dump of special list.                                                 \
                     </p>                                                                              \
@@ -547,7 +590,7 @@ bool HTMLList (List* thisList) {
                         </div>                                                                        \
                     </div>                                                                            \
     <p>                                                                                               \
-        POSITION - the locical position of node in array in memory                                    \
+        POSITION - the physical position of node in array in memory                                   \
         <br>DATA - the value which the node keeps                                                     \
         <br>NEXT - the pointer on physical position of next node                                      \
         <br>PREV - the pointer on physical position of previous node                                  \
