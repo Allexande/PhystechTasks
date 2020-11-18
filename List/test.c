@@ -1,4 +1,4 @@
-//Version 1.5.2
+//Version 1.5.3
 
 void GeneralProcess (List* MyList) {
 
@@ -95,7 +95,28 @@ void GeneralShow () {
 }
 
 //For testing
-int test () {
+int Test () {
 
+    List* MyList = ListConstruct (10);
+
+    ListInsertEnd (MyList, 11);
+    ListInsertEnd (MyList, 22);
+    ListInsertEnd (MyList, 33);
+    ListInsertEnd (MyList, 44);
+    ListInsertEnd (MyList, 55);
+    ListInsertEnd (MyList, 66);
+    ListInsertEnd (MyList, 77);
+
+    ListEraseAtIndex (MyList, 3);
+    ListInsertEnd (MyList, 99);
+
+    ListEraseFromBegin(MyList);
+    ListEraseFromEnd(MyList);
+
+    ListEraseAtPlace(MyList, 4);
+
+
+    HTMLList (MyList);
+    ConsoleData (MyList);
 
 }

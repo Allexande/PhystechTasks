@@ -1,4 +1,4 @@
-//Version 1.5.2
+//Version 1.5.3
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -10,12 +10,14 @@
 
 int main() {
 
-    test ();
+    //TODO
+    //янпрхпнбйю х свхршбюмхе ее опх бгърхх щкелемрю
 
     #ifndef TESTING
 
         //For demonstration
         GeneralShow ();
+        //Test ();
 
     #else
 

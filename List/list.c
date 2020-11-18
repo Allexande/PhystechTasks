@@ -1,4 +1,4 @@
-//Version 1.5.2
+//Version 1.5.3
 
 #include "list.h"
 
@@ -10,7 +10,7 @@
 
 #define WARNINGS
 
-#define LIST_DEBUG
+//#define LIST_DEBUG
 
 //Defines for working with list
 
@@ -230,7 +230,8 @@ index_t ListInsertBegin (List* thisList, elem_t newElem) {
 
 	#ifdef LIST_DEBUG
         printf("DEBUG: After calling ListInsertBegin(thisList, %d):\n", newElem);
-        ConsoleDump (thisList);
+        //ConsoleDump (thisList);
+        ConsoleData   (thisList);
 	#endif
 
 	return insertedIndex;
@@ -250,14 +251,15 @@ index_t ListInsertEnd (List* thisList, elem_t newElem) {
 	NEXT(TAIL) = insertedIndex;
 
 	DATA(insertedIndex) = newElem;
-	NEXT(insertedIndex) = TAIL;
-	PREV(insertedIndex) = -1;
+	NEXT(insertedIndex) = -1;
+	PREV(insertedIndex) = TAIL;
 
 	TAIL = insertedIndex;
 
 	#ifdef LIST_DEBUG
         printf("DEBUG: After calling ListInsertEnd(thisList, %d):\n", newElem);
-        ConsoleDump (thisList);
+        //ConsoleDump (thisList);
+        ConsoleData   (thisList);
 	#endif
 
 	return insertedIndex;
@@ -298,7 +300,8 @@ index_t ListInsertAtPlace (List* thisList, elem_t newElem, index_t place) {
 
 	#ifdef LIST_DEBUG
         printf("DEBUG: After calling ListInsertAtPlace(thisList, %d, %d):\n", newElem, place);
-        ConsoleDump (thisList);
+        //ConsoleDump (thisList);
+        ConsoleData   (thisList);
 	#endif
 
 	return place;
@@ -321,6 +324,7 @@ index_t ListEraseAtIndex (List* thisList, index_t index) {
 index_t ListEraseFromBegin (List* thisList) {
 
     index_t elem = NEXT(HEAD);
+
 	bool result = ListEraseAtIndex(thisList, 1);
 	HEAD = elem;
 
@@ -330,6 +334,7 @@ index_t ListEraseFromBegin (List* thisList) {
 index_t ListEraseFromEnd (List* thisList) {
 
     index_t elem = PREV(TAIL);
+
     bool result = ListEraseAtIndex(thisList, LENGTH);
     TAIL = elem;
 
@@ -351,7 +356,8 @@ index_t ListEraseAtPlace (List* thisList, index_t place) {
 
     #ifdef LIST_DEBUG
         printf("DEBUG: After calling ListEraseAtPlace (thisList, %d):\n", place);
-        ConsoleDump (thisList);
+        //ConsoleDump (thisList);
+        ConsoleData   (thisList);
 	#endif
 
     return place;
@@ -595,7 +601,19 @@ bool HTMLList (List* thisList) {
         <br>NEXT - the pointer on physical position of next node                                      \
         <br>PREV - the pointer on physical position of previous node                                  \
         <br><br>Free nodes have value which is equal to POISON (%d)                                   \
-    </p>"), POISON);
+        <br><br>HEAD = %d                                                                             \
+        <br>TAIL = %d                                                                                 \
+        <br>FREE = %d                                                                                 \
+        <br>LENGTH = %d                                                                               \
+        <br>CAPACITY = %d                                                                             \
+        </p>"),
+    POISON,
+    HEAD,
+    TAIL,
+    FREE,
+    LENGTH,
+    CAPACITY
+    );
 
     //Adding the end of JS command
     fprintf (file, "';");
