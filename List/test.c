@@ -1,4 +1,4 @@
-//Version 1.5.3
+//Version 1.5.4
 
 void GeneralProcess (List* MyList) {
 
@@ -115,6 +115,14 @@ int Test () {
 
     ListEraseAtPlace(MyList, 4);
 
+    ListEraseFromEnd(MyList);
+    ListEraseFromEnd(MyList);
+
+    ListInsertEnd (MyList, 44);
+    ListInsertEnd (MyList, 55);
+    ListInsertEnd (MyList, 66);
+
+    ListMakeLinear (&MyList);
 
     HTMLList (MyList);
     ConsoleData (MyList);

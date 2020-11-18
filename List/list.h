@@ -1,4 +1,4 @@
-//Version 1.5.3
+//Version 1.5.4
 
 #include <assert.h>
 #include <stdbool.h>
@@ -37,6 +37,9 @@ struct List {
     size_t length;
     size_t capacity;
 
+    //Features
+    bool linear;
+
 };
 
 //FUNCTIONS
@@ -54,9 +57,10 @@ index_t GetCapacity (List* thisList);
 index_t GetIndexFromOrder (List* thisList, elem_t number);
 
 //Work with list and it's data
-bool TryToRealloc (List* thisList);
+bool ListMakeLinear (List** thisList);
+bool TryToRealloc   (List*  thisList);
 //void ListLeadLogicAdressToPhysical (List* thisList);
-bool ListDestroy  (List* thisList);
+bool ListDestroy    (List*  thisList);
 
 //Insert in list
 index_t ListInsertAtIndex     (List* thisList, elem_t newElem, index_t index);

@@ -1,4 +1,4 @@
-//Version 1.5.3
+//Version 1.5.4
 
 #include "list.h"
 
@@ -25,6 +25,8 @@
 #define LENGTH   thisList->length
 #define CAPACITY thisList->capacity
 
+#define LINEAR thisList->linear
+
 List* ListConstruct (size_t capacity) {
 
     List* thisList = (List*) calloc (sizeof(List), 1);
@@ -43,6 +45,8 @@ List* ListConstruct (size_t capacity) {
 
     LENGTH   = 0;
     CAPACITY = capacity;
+
+    LINEAR = true;
 
     DATA(0) = POISON;
 
@@ -97,11 +101,17 @@ index_t GetIndexFromOrder (List* thisList, index_t number) {
 
     ASSERT_OK(thisList)
 
-	index_t indexToFind = HEAD;
 	if (number > LENGTH) {
         return -1;
 
     }
+
+    if (LINEAR) {
+        return number;
+
+    }
+
+    index_t indexToFind = HEAD;
 
 	for (index_t point = 1; point < number; point++) {
 
@@ -121,6 +131,50 @@ index_t GetIndexFromOrder (List* thisList, index_t number) {
     #endif
 
 	return indexToFind;
+};
+
+bool ListMakeLinear (List** thisList) {
+
+    ASSERT_OK(*thisList)
+
+    if ((*thisList)->linear) {
+        return false;
+
+    }
+
+    List* LinearList = ListConstruct ((*thisList)->capacity);
+
+    index_t link = (*thisList)->head;
+
+    for(index_t point = 1; point <= (*thisList)->length; point++) {
+
+        LinearList->data[point] = (*thisList)->data[link];
+        LinearList->next[point] = point + 1;
+        LinearList->prev[point] = point - 1;
+        LinearList->length++;
+        link = (*thisList)->next[link];
+
+    }
+
+    ListDestroy (*thisList);
+
+    *thisList = LinearList;
+
+    (*thisList)->head = 1;
+    (*thisList)->tail = (*thisList)->length;
+    (*thisList)->free = (*thisList)->length + 1;
+    (*thisList)->linear = true;
+
+    ConsoleDump (*thisList);
+
+    #ifdef WARNINGS
+        printf ("WARNING!                                                          \n"
+                "You have just brought physical addresses to logical addresses.    \n"
+                "It was a long operation with O(N) asymptotic.                     \n"
+        );
+    #endif
+
+    return true;
 };
 
 bool TryToRealloc (List* thisList) {
@@ -185,6 +239,8 @@ index_t ListInsertAtIndex (List* thisList, elem_t newElem, index_t index) {
 
     ASSERT_OK(thisList)
 
+    LINEAR = false;
+
 	if (index == 0) {
 		return ListInsertBegin (thisList, newElem);
 
@@ -212,6 +268,8 @@ index_t ListInsertBeforeIndex (List* thisList, elem_t newElem, index_t index) {
 index_t ListInsertBegin (List* thisList, elem_t newElem) {
 
     ASSERT_OK(thisList)
+
+    LINEAR = false;
 
 	LENGTH++;
 
@@ -267,17 +325,13 @@ index_t ListInsertEnd (List* thisList, elem_t newElem) {
 
 index_t ListInsertAtPlace (List* thisList, elem_t newElem, index_t place) {
 
-    LENGTH++;
-
-	TryToRealloc (thisList);
-
     if (place == TAIL) {
 		return ListInsertEnd(thisList, newElem);
 
 	}
 
     //??
-	if (place == 0) {
+	if (place == 1) {
         return ListInsertBegin(thisList, newElem);
 
 	}
@@ -286,6 +340,12 @@ index_t ListInsertAtPlace (List* thisList, elem_t newElem, index_t place) {
         return -1;
 
 	}
+
+	LENGTH++;
+
+	TryToRealloc (thisList);
+
+	LINEAR = false;
 
 	index_t insertedIndex = FREE;
     FREE = NEXT(FREE);
@@ -304,6 +364,9 @@ index_t ListInsertAtPlace (List* thisList, elem_t newElem, index_t place) {
         ConsoleData   (thisList);
 	#endif
 
+	    printf("END OF FUNCTION thisList->length=%d\n", thisList->length);
+
+
 	return place;
 };
 
@@ -315,6 +378,8 @@ index_t ListEraseAtIndex (List* thisList, index_t index) {
         return -1;
 
     }
+
+    LINEAR = false;
 
     index = GetIndexFromOrder (thisList, index);
 
@@ -345,6 +410,8 @@ index_t ListEraseAtPlace (List* thisList, index_t place) {
 
     LENGTH--;
 
+    LINEAR = false;
+
     PREV(NEXT(place)) = PREV(place);
     NEXT(PREV(place)) = NEXT(place);
 
@@ -370,6 +437,11 @@ elem_t ListGetByOrder (List* thisList, index_t order) {
 
     if (order > LENGTH) {
         return POISON;
+
+    }
+
+    if (LINEAR) {
+        return DATA(order);
 
     }
 
@@ -600,19 +672,21 @@ bool HTMLList (List* thisList) {
         <br>DATA - the value which the node keeps                                                     \
         <br>NEXT - the pointer on physical position of next node                                      \
         <br>PREV - the pointer on physical position of previous node                                  \
-        <br><br>Free nodes have value which is equal to POISON (%d)                                   \
+        <br>Free nodes have value which is equal to POISON (%d)                                       \
         <br><br>HEAD = %d                                                                             \
         <br>TAIL = %d                                                                                 \
         <br>FREE = %d                                                                                 \
         <br>LENGTH = %d                                                                               \
         <br>CAPACITY = %d                                                                             \
+        <br>LINEAR = %d                                                                               \
         </p>"),
     POISON,
     HEAD,
     TAIL,
     FREE,
     LENGTH,
-    CAPACITY
+    CAPACITY,
+    LINEAR
     );
 
     //Adding the end of JS command
@@ -664,8 +738,8 @@ void ConsoleDump(List* thisList) {
 
     printf("    thisList->data [%ld] {\n", thisList->data);
     for (index_t point = 0; point < CAPACITY; point++) {
-        printf("        [%d] %d ", point, thisList->data[point]);
-        if (thisList->data[point] == POISON) {
+        printf("        [%d] %d ", point, DATA(point));
+        if (DATA(point) == POISON) {
             printf("(POISON!)");
         }
         printf("\n");
@@ -674,13 +748,13 @@ void ConsoleDump(List* thisList) {
 
     printf("    thisList->prev [%ld] {\n", thisList->prev);
     for (index_t point = 0; point < CAPACITY; point++) {
-        printf("        [%d] %d\n", point, thisList->prev[point]);
+        printf("        [%d] %d\n", point, PREV(point));
     };
     printf("    }\n\n");
 
     printf("    thisList->next [%ld] {\n", thisList->next);
     for (index_t point = 0; point < CAPACITY; point++) {
-        printf("        [%d] %d\n", point, thisList->next[point]);
+        printf("        [%d] %d\n", point, NEXT(point));
     };
     printf("    }\n\n");
 
@@ -694,8 +768,8 @@ void ConsoleData(List* thisList) {
     index_t link = HEAD;
 
     for(index_t point = 1; point <= LENGTH; point++) {
-        printf("[%d] %d\n", point, thisList->data[link]);
-        link = thisList->next[link];
+        printf("[%d] %d\n", point, DATA(link));
+        link = NEXT(link);
     }
 
     printf("* * * END OF DATA * * *\n\n");

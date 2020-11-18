@@ -1,4 +1,4 @@
-//Version 1.5.3
+//Version 1.5.4
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -9,9 +9,6 @@
 #include "test.c"
 
 int main() {
-
-    //TODO
-    //янпрхпнбйю х свхршбюмхе ее опх бгърхх щкелемрю
 
     #ifndef TESTING
 
