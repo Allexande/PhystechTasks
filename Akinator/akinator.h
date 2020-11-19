@@ -1,4 +1,4 @@
-//Version 0.2
+//Version 0.3
 
 #include "filemaster.c"
 
@@ -28,8 +28,10 @@ struct Tree {
     //The first node in the tree
     Node* root;
 
+    /*
     //Array of pointers on sheet nodes
     Node** subjects;
+    */
 
     //Mode
     //= 1 means this tree got new nodes
@@ -44,6 +46,8 @@ Node* CreateEmptyNode ();
 
 //Work with data base files
 Tree* GetTreeFromFile (const char *fileName);
+bool  PutTreeToFile   (const char *fileName, Tree* thisTree);
+void  WriteNodeToFile (Node* thisNode, FILE *file);
 
 //Work with strings
 char* CutBothSides (char* str);

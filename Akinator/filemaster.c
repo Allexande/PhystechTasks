@@ -1,4 +1,4 @@
-//Version 0.2
+//Version 0.3
 
 #include "filemaster.h"
 
@@ -125,3 +125,20 @@ size_t GetNumberOfSymbol (const char *text, char symbol) {
 
     return symbols;
 }
+
+bool FilesContainSameText (const char *first, const char *second) {
+
+    char* firstText  = ReadTextFromFile (first);
+    char* secondText = ReadTextFromFile (second);
+
+    if ((first == NULL) || (second == NULL)) {
+        return false;
+    }
+
+    if (strcmp (firstText, secondText) == 0) {
+        return true;
+    }
+
+    return false;
+}
+

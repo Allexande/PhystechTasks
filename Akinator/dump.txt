@@ -1,119 +1,119 @@
 digraph Tree {
-"10775912" [shape="record", fillcolor="#AFEEEE", label="OOP"]
-"10775944" [shape="record", fillcolor="#AFEEEE", label="loves algosi"]
-"10775976" [shape="record", fillcolor="#AFEEEE", label="has tail"]
-"10776008" [shape="record", fillcolor="#AFEEEE", label="fast"]
-"10776040" [shape="pentagon", fillcolor="#AFEEEE", label="Ilya Stepanov"]
-"10776072" [shape="pentagon", fillcolor="#AFEEEE", label="python"]
-"10776008":se->"10776040"[color="#011504", label="yes"];
-"10776008":sw->"10776072"[color="#011504", label="no"];
-"10776144" [shape="record", fillcolor="#AFEEEE", label="your life"]
-"10776656" [shape="pentagon", fillcolor="#AFEEEE", label="maincraft"]
-"10776848" [shape="pentagon", fillcolor="#AFEEEE", label="nelena"]
-"10776144":se->"10776656"[color="#011504", label="yes"];
-"10776144":sw->"10776848"[color="#011504", label="no"];
-"10775976":se->"10776008"[color="#011504", label="yes"];
-"10775976":sw->"10776144"[color="#011504", label="no"];
-"10776336" [shape="record", fillcolor="#AFEEEE", label="old"]
-"10776272" [shape="record", fillcolor="#AFEEEE", label="tries to hide everything"]
-"10776592" [shape="pentagon", fillcolor="#AFEEEE", label="encapsulation"]
-"10776304" [shape="record", fillcolor="#AFEEEE", label="can dead"]
-"10776432" [shape="pentagon", fillcolor="#AFEEEE", label="IVT"]
-"10776624" [shape="record", fillcolor="#AFEEEE", label="not alive"]
-"10777104" [shape="pentagon", fillcolor="#AFEEEE", label="java"]
-"10776400" [shape="pentagon", fillcolor="#AFEEEE", label="ded"]
-"10776624":se->"10777104"[color="#011504", label="yes"];
-"10776624":sw->"10776400"[color="#011504", label="no"];
-"10776304":se->"10776432"[color="#011504", label="yes"];
-"10776304":sw->"10776624"[color="#011504", label="no"];
-"10776272":se->"10776592"[color="#011504", label="yes"];
-"10776272":sw->"10776304"[color="#011504", label="no"];
-"10776464" [shape="pentagon", fillcolor="#AFEEEE", label="mesherin"]
-"10776336":se->"10776272"[color="#011504", label="yes"];
-"10776336":sw->"10776464"[color="#011504", label="no"];
-"10775944":se->"10775976"[color="#011504", label="yes"];
-"10775944":sw->"10776336"[color="#011504", label="no"];
-"10777072" [shape="record", fillcolor="#AFEEEE", label="halyava"]
-"10776368" [shape="record", fillcolor="#AFEEEE", label="2D"]
-"10776496" [shape="pentagon", fillcolor="#AFEEEE", label="oneme"]
-"10776688" [shape="record", fillcolor="#AFEEEE", label="adequate"]
-"10776528" [shape="pentagon", fillcolor="#AFEEEE", label="algosy"]
-"10776720" [shape="record", fillcolor="#AFEEEE", label="made from cardboard"]
-"10776176" [shape="record", fillcolor="#AFEEEE", label="has windows"]
-"10776912" [shape="pentagon", fillcolor="#AFEEEE", label="hostel"]
-"10776880" [shape="pentagon", fillcolor="#AFEEEE", label="box"]
-"10776176":se->"10776912"[color="#011504", label="yes"];
-"10776176":sw->"10776880"[color="#011504", label="no"];
-"10776240" [shape="pentagon", fillcolor="#AFEEEE", label="arkasha"]
-"10776720":se->"10776176"[color="#011504", label="yes"];
-"10776720":sw->"10776240"[color="#011504", label="no"];
-"10776688":se->"10776528"[color="#011504", label="yes"];
-"10776688":sw->"10776720"[color="#011504", label="no"];
-"10776368":se->"10776496"[color="#011504", label="yes"];
-"10776368":sw->"10776688"[color="#011504", label="no"];
-"10776784" [shape="record", fillcolor="#AFEEEE", label="jopa"]
-"10776816" [shape="record", fillcolor="#AFEEEE", label="hospitality"]
-"10776208" [shape="record", fillcolor="#AFEEEE", label="in moscow"]
-"10776560" [shape="pentagon", fillcolor="#AFEEEE", label="hach palatka"]
-"10776944" [shape="record", fillcolor="#AFEEEE", label="animal"]
-"10776976" [shape="pentagon", fillcolor="#AFEEEE", label="chupocabra"]
-"10777008" [shape="pentagon", fillcolor="#AFEEEE", label="kirov"]
-"10776944":se->"10776976"[color="#011504", label="yes"];
-"10776944":sw->"10777008"[color="#011504", label="no"];
-"10776208":se->"10776560"[color="#011504", label="yes"];
-"10776208":sw->"10776944"[color="#011504", label="no"];
-"10777040" [shape="record", fillcolor="#AFEEEE", label="human resembling"]
-"10778184" [shape="pentagon", fillcolor="#AFEEEE", label="B05-032"]
-"10777224" [shape="record", fillcolor="#AFEEEE", label="delicious food"]
-"10777672" [shape="pentagon", fillcolor="#AFEEEE", label="shaverma"]
-"10777416" [shape="record", fillcolor="#AFEEEE", label="lives with you"]
-"10777896" [shape="pentagon", fillcolor="#AFEEEE", label="tarakan"]
-"10777800" [shape="pentagon", fillcolor="#AFEEEE", label="ivanova"]
-"10777416":se->"10777896"[color="#011504", label="yes"];
-"10777416":sw->"10777800"[color="#011504", label="no"];
-"10777224":se->"10777672"[color="#011504", label="yes"];
-"10777224":sw->"10777416"[color="#011504", label="no"];
-"10777040":se->"10778184"[color="#011504", label="yes"];
-"10777040":sw->"10777224"[color="#011504", label="no"];
-"10776816":se->"10776208"[color="#011504", label="yes"];
-"10776816":sw->"10777040"[color="#011504", label="no"];
-"10777960" [shape="record", fillcolor="#AFEEEE", label="wooden"]
-"10777288" [shape="pentagon", fillcolor="#AFEEEE", label="door"]
-"10777736" [shape="record", fillcolor="#AFEEEE", label="cute"]
-"10777320" [shape="record", fillcolor="#AFEEEE", label="drinkable"]
-"10777352" [shape="pentagon", fillcolor="#AFEEEE", label="coffee"]
-"10777544" [shape="record", fillcolor="#AFEEEE", label="made of cloth"]
-"10777832" [shape="pentagon", fillcolor="#AFEEEE", label="tapestry"]
-"10777928" [shape="record", fillcolor="#AFEEEE", label="lizard-alike"]
-"10778056" [shape="pentagon", fillcolor="#AFEEEE", label="skyrim"]
-"10777864" [shape="record", fillcolor="#AFEEEE", label="elf"]
-"10777480" [shape="pentagon", fillcolor="#AFEEEE", label="legolas"]
-"10777256" [shape="record", fillcolor="#AFEEEE", label="this"]
-"10778216" [shape="pentagon", fillcolor="#AFEEEE", label="Akinator"]
-"10777384" [shape="pentagon", fillcolor="#AFEEEE", label="poltorashka"]
-"10777256":se->"10778216"[color="#011504", label="yes"];
-"10777256":sw->"10777384"[color="#011504", label="no"];
-"10777864":se->"10777480"[color="#011504", label="yes"];
-"10777864":sw->"10777256"[color="#011504", label="no"];
-"10777928":se->"10778056"[color="#011504", label="yes"];
-"10777928":sw->"10777864"[color="#011504", label="no"];
-"10777544":se->"10777832"[color="#011504", label="yes"];
-"10777544":sw->"10777928"[color="#011504", label="no"];
-"10777320":se->"10777352"[color="#011504", label="yes"];
-"10777320":sw->"10777544"[color="#011504", label="no"];
-"10777512" [shape="record", fillcolor="#AFEEEE", label="lack of brains"]
-"10777992" [shape="pentagon", fillcolor="#AFEEEE", label="dolbojob"]
-"10777576" [shape="pentagon", fillcolor="#AFEEEE", label="musatych"]
-"10777512":se->"10777992"[color="#011504", label="yes"];
-"10777512":sw->"10777576"[color="#011504", label="no"];
-"10777736":se->"10777320"[color="#011504", label="yes"];
-"10777736":sw->"10777512"[color="#011504", label="no"];
-"10777960":se->"10777288"[color="#011504", label="yes"];
-"10777960":sw->"10777736"[color="#011504", label="no"];
-"10776784":se->"10776816"[color="#011504", label="yes"];
-"10776784":sw->"10777960"[color="#011504", label="no"];
-"10777072":se->"10776368"[color="#011504", label="yes"];
-"10777072":sw->"10776784"[color="#011504", label="no"];
-"10775912":se->"10775944"[color="#011504", label="yes"];
-"10775912":sw->"10777072"[color="#011504", label="no"];
+"11758952" [shape="record", fillcolor="#AFEEEE", label="ООП"]
+"11758984" [shape="record", fillcolor="#AFEEEE", label="Любит алгосы"]
+"11759016" [shape="record", fillcolor="#AFEEEE", label="имеет хвост"]
+"11759048" [shape="record", fillcolor="#AFEEEE", label="быстрый"]
+"11759080" [shape="pentagon", fillcolor="#AFEEEE", label="Ilya Stepanov"]
+"11759112" [shape="pentagon", fillcolor="#AFEEEE", label="python"]
+"11759048":se->"11759080"[color="#011504", label="yes"];
+"11759048":sw->"11759112"[color="#011504", label="no"];
+"11759536" [shape="record", fillcolor="#AFEEEE", label="your life"]
+"11759824" [shape="pentagon", fillcolor="#AFEEEE", label="maincraft"]
+"11759792" [shape="pentagon", fillcolor="#AFEEEE", label="nelena"]
+"11759536":se->"11759824"[color="#011504", label="yes"];
+"11759536":sw->"11759792"[color="#011504", label="no"];
+"11759016":se->"11759048"[color="#011504", label="yes"];
+"11759016":sw->"11759536"[color="#011504", label="no"];
+"11759472" [shape="record", fillcolor="#AFEEEE", label="old"]
+"11759280" [shape="record", fillcolor="#AFEEEE", label="tries to hide everything"]
+"11759856" [shape="pentagon", fillcolor="#AFEEEE", label="encapsulation"]
+"11759664" [shape="record", fillcolor="#AFEEEE", label="can dead"]
+"11759984" [shape="pentagon", fillcolor="#AFEEEE", label="IVT"]
+"11759216" [shape="record", fillcolor="#AFEEEE", label="not alive"]
+"11760080" [shape="pentagon", fillcolor="#AFEEEE", label="java"]
+"11759696" [shape="pentagon", fillcolor="#AFEEEE", label="ded"]
+"11759216":se->"11760080"[color="#011504", label="yes"];
+"11759216":sw->"11759696"[color="#011504", label="no"];
+"11759664":se->"11759984"[color="#011504", label="yes"];
+"11759664":sw->"11759216"[color="#011504", label="no"];
+"11759280":se->"11759856"[color="#011504", label="yes"];
+"11759280":sw->"11759664"[color="#011504", label="no"];
+"11759504" [shape="pentagon", fillcolor="#AFEEEE", label="mesherin"]
+"11759472":se->"11759280"[color="#011504", label="yes"];
+"11759472":sw->"11759504"[color="#011504", label="no"];
+"11758984":se->"11759016"[color="#011504", label="yes"];
+"11758984":sw->"11759472"[color="#011504", label="no"];
+"11759248" [shape="record", fillcolor="#AFEEEE", label="halyava"]
+"11759408" [shape="record", fillcolor="#AFEEEE", label="2D"]
+"11759184" [shape="pentagon", fillcolor="#AFEEEE", label="oneme"]
+"11759728" [shape="record", fillcolor="#AFEEEE", label="adequate"]
+"11759440" [shape="pentagon", fillcolor="#AFEEEE", label="algosy"]
+"11759376" [shape="record", fillcolor="#AFEEEE", label="made from cardboard"]
+"11759920" [shape="record", fillcolor="#AFEEEE", label="has windows"]
+"11759632" [shape="pentagon", fillcolor="#AFEEEE", label="hostel"]
+"11759344" [shape="pentagon", fillcolor="#AFEEEE", label="box"]
+"11759920":se->"11759632"[color="#011504", label="yes"];
+"11759920":sw->"11759344"[color="#011504", label="no"];
+"11759952" [shape="pentagon", fillcolor="#AFEEEE", label="arkasha"]
+"11759376":se->"11759920"[color="#011504", label="yes"];
+"11759376":sw->"11759952"[color="#011504", label="no"];
+"11759728":se->"11759440"[color="#011504", label="yes"];
+"11759728":sw->"11759376"[color="#011504", label="no"];
+"11759408":se->"11759184"[color="#011504", label="yes"];
+"11759408":sw->"11759728"[color="#011504", label="no"];
+"11759312" [shape="record", fillcolor="#AFEEEE", label="jopa"]
+"11759568" [shape="record", fillcolor="#AFEEEE", label="hospitality"]
+"11760016" [shape="record", fillcolor="#AFEEEE", label="in moscow"]
+"11759600" [shape="pentagon", fillcolor="#AFEEEE", label="hach palatka"]
+"11759760" [shape="record", fillcolor="#AFEEEE", label="animal"]
+"11760048" [shape="pentagon", fillcolor="#AFEEEE", label="chupocabra"]
+"11760112" [shape="pentagon", fillcolor="#AFEEEE", label="kirov"]
+"11759760":se->"11760048"[color="#011504", label="yes"];
+"11759760":sw->"11760112"[color="#011504", label="no"];
+"11760016":se->"11759600"[color="#011504", label="yes"];
+"11760016":sw->"11759760"[color="#011504", label="no"];
+"11760144" [shape="record", fillcolor="#AFEEEE", label="human resembling"]
+"11760264" [shape="pentagon", fillcolor="#AFEEEE", label="B05-032"]
+"11760392" [shape="record", fillcolor="#AFEEEE", label="delicious food"]
+"11761256" [shape="pentagon", fillcolor="#AFEEEE", label="shaverma"]
+"11760648" [shape="record", fillcolor="#AFEEEE", label="lives with you"]
+"11760552" [shape="pentagon", fillcolor="#AFEEEE", label="tarakan"]
+"11760840" [shape="pentagon", fillcolor="#AFEEEE", label="ivanova"]
+"11760648":se->"11760552"[color="#011504", label="yes"];
+"11760648":sw->"11760840"[color="#011504", label="no"];
+"11760392":se->"11761256"[color="#011504", label="yes"];
+"11760392":sw->"11760648"[color="#011504", label="no"];
+"11760144":se->"11760264"[color="#011504", label="yes"];
+"11760144":sw->"11760392"[color="#011504", label="no"];
+"11759568":se->"11760016"[color="#011504", label="yes"];
+"11759568":sw->"11760144"[color="#011504", label="no"];
+"11760872" [shape="record", fillcolor="#AFEEEE", label="wooden"]
+"11760424" [shape="pentagon", fillcolor="#AFEEEE", label="door"]
+"11761064" [shape="record", fillcolor="#AFEEEE", label="cute"]
+"11761192" [shape="record", fillcolor="#AFEEEE", label="drinkable"]
+"11760328" [shape="pentagon", fillcolor="#AFEEEE", label="coffee"]
+"11760456" [shape="record", fillcolor="#AFEEEE", label="made of cloth"]
+"11760520" [shape="pentagon", fillcolor="#AFEEEE", label="tapestry"]
+"11760968" [shape="record", fillcolor="#AFEEEE", label="lizard-alike"]
+"11760584" [shape="pentagon", fillcolor="#AFEEEE", label="skyrim"]
+"11760488" [shape="record", fillcolor="#AFEEEE", label="elf"]
+"11760680" [shape="pentagon", fillcolor="#AFEEEE", label="legolas"]
+"11760616" [shape="record", fillcolor="#AFEEEE", label="this"]
+"11760712" [shape="pentagon", fillcolor="#AFEEEE", label="Akinator"]
+"11760936" [shape="pentagon", fillcolor="#AFEEEE", label="poltorashka"]
+"11760616":se->"11760712"[color="#011504", label="yes"];
+"11760616":sw->"11760936"[color="#011504", label="no"];
+"11760488":se->"11760680"[color="#011504", label="yes"];
+"11760488":sw->"11760616"[color="#011504", label="no"];
+"11760968":se->"11760584"[color="#011504", label="yes"];
+"11760968":sw->"11760488"[color="#011504", label="no"];
+"11760456":se->"11760520"[color="#011504", label="yes"];
+"11760456":sw->"11760968"[color="#011504", label="no"];
+"11761192":se->"11760328"[color="#011504", label="yes"];
+"11761192":sw->"11760456"[color="#011504", label="no"];
+"11760744" [shape="record", fillcolor="#AFEEEE", label="lack of brains"]
+"11761000" [shape="pentagon", fillcolor="#AFEEEE", label="dolbojob"]
+"11760360" [shape="pentagon", fillcolor="#AFEEEE", label="musatych"]
+"11760744":se->"11761000"[color="#011504", label="yes"];
+"11760744":sw->"11760360"[color="#011504", label="no"];
+"11761064":se->"11761192"[color="#011504", label="yes"];
+"11761064":sw->"11760744"[color="#011504", label="no"];
+"11760872":se->"11760424"[color="#011504", label="yes"];
+"11760872":sw->"11761064"[color="#011504", label="no"];
+"11759312":se->"11759568"[color="#011504", label="yes"];
+"11759312":sw->"11760872"[color="#011504", label="no"];
+"11759248":se->"11759408"[color="#011504", label="yes"];
+"11759248":sw->"11759312"[color="#011504", label="no"];
+"11758952":se->"11758984"[color="#011504", label="yes"];
+"11758952":sw->"11759248"[color="#011504", label="no"];
 }

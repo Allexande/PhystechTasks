@@ -1,4 +1,4 @@
-//Version 0.2
+//Version 0.3
 
 #include "akinator.h"
 
@@ -8,7 +8,9 @@ Tree* CreateEmptyTree () {
     assert (newTree);
 
     newTree->root       = NULL;
+    /*
     newTree->subjects   = NULL;
+    */
     newTree->wasChanged = false;
 
     return newTree;
@@ -38,8 +40,6 @@ Tree* GetTreeFromFile (const char *fileName) {
     if (textFromFile == NULL) {
         return NULL;
     }
-
-
 
     Tree* newTree = CreateEmptyTree ();
     assert (newTree);
@@ -87,6 +87,38 @@ Tree* GetTreeFromFile (const char *fileName) {
     }
 
     return newTree;
+}
+
+bool PutTreeToFile (const char *fileName, Tree* thisTree) {
+
+    FILE *file = fopen (fileName, "wt");
+
+    if ((thisTree == NULL) || (file == NULL)) {
+        return false;
+    }
+
+    WriteNodeToFile (thisTree->root, file);
+
+    fclose (file);
+
+    return true;
+};
+
+void WriteNodeToFile (Node* thisNode, FILE *file) {
+
+    fprintf (file, "\"%s\"\n", thisNode->text);
+
+    if (thisNode->question) {
+        fprintf (file, "{\n");
+        WriteNodeToFile (thisNode->right, file);
+        fprintf (file, "}\n");
+    }
+
+    if (thisNode->question) {
+        fprintf (file, "{\n");
+        WriteNodeToFile (thisNode->left, file);
+        fprintf (file, "}\n");
+    }
 }
 
 char* CutBothSides (char* str) {

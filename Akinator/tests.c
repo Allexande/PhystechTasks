@@ -1,4 +1,4 @@
-//Version 0.1
+//Version 0.3
 
 void TestGetLinesFromText () {
     char text[] = {"Hey\n{\n}\nueu\nsdfd\n\ndfdfw444\n"};
@@ -26,6 +26,14 @@ void TestMakingTreeAndDump () {
     printf("Test ended.");
 }
 
+void TestWritingTreeInFile () {
+    Tree* myTree = GetTreeFromFile ("base.txt");
+    PutTreeToFile ("newBase.txt", myTree);
+    printf("FilesContainSameText(base.txt, newBase.txt)=%d\n", FilesContainSameText("newBase.txt", "base.txt"));
+}
+
+#include <windows.h>
+#include <tchar.h>
 
 void Tets () {
 
@@ -37,5 +45,9 @@ void Tets () {
 
     //OK
     //TestMakingTreeAndDump ();
+
+    //OK
+    //TestWritingTreeInFile ();
+
 
 }
