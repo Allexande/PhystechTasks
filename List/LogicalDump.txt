@@ -1,0 +1,23 @@
+digraph MyGraph {
+node [shape="record", style="filled", color="#008000", fillcolor="#C0FFC0"];
+"-2" [color="#000080", fillcolor="#FFA500", label="{HEAD}"];
+"-1" [color="#000080", fillcolor="#FFA500", label="{TAIL}"];
+"1" [fillcolor="#AFEEEE", label="{55|{0|5|4}}"]
+"2" [fillcolor="#AFEEEE", label="{35|{5|4|3}}"]
+"3" [fillcolor="#AFEEEE", label="{14|{4|3|1}}"]
+"4" [fillcolor="#AFEEEE", label="{45|{3|1|2}}"]
+"5" [fillcolor="#AFEEEE", label="{20|{1|2|6}}"]
+"6" [fillcolor="#AFEEEE", label="{78|{2|6|0}}"]
+"-2"->"1";
+"2"->"1";
+"1"->"2";
+"3"->"2";
+"2"->"3";
+"4"->"3";
+"3"->"4";
+"5"->"4";
+"4"->"5";
+"6"->"5";
+"5"->"6";
+"6"->"-1";
+}

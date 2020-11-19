@@ -1,4 +1,4 @@
-//Version 1.5.4
+//Version 1.6.0
 
 void GeneralProcess (List* MyList) {
 
@@ -14,6 +14,9 @@ void GeneralProcess (List* MyList) {
 
     ListInsertBegin (MyList, 55);
     ListInsertEnd   (MyList, 78);
+
+    ListGraphLogical(MyList);
+    ListGraphPhysical(MyList);
 
 }
 

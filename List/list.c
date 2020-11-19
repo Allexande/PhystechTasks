@@ -1,4 +1,4 @@
-//Version 1.5.4
+//Version 1.6.0
 
 #include "list.h"
 
@@ -53,12 +53,12 @@ List* ListConstruct (size_t capacity) {
     for (size_t point = 1; point <= capacity; point++) {
 
         DATA(point) = POISON;
-		PREV(point) = -1;
+		PREV(point) = 0;
 		NEXT(point) = point + 1;
 
     }
 
-    NEXT(capacity) = -1;
+    NEXT(capacity) = 0;
 
     ASSERT_OK(thisList)
 
@@ -102,7 +102,7 @@ index_t GetIndexFromOrder (List* thisList, index_t number) {
     ASSERT_OK(thisList)
 
 	if (number > LENGTH) {
-        return -1;
+        return 0;
 
     }
 
@@ -116,7 +116,7 @@ index_t GetIndexFromOrder (List* thisList, index_t number) {
 	for (index_t point = 1; point < number; point++) {
 
         if (point > LENGTH) {
-            return -1;
+            return 0;
 
         }
 
@@ -193,12 +193,12 @@ bool TryToRealloc (List* thisList) {
 		for (index_t point = CAPACITY; point <= CAPACITY * REALLOC_UP; point++) {
             thisList->data[point] = POISON;
 			thisList->next[point] = point + 1;
-			thisList->prev[point] = -1;
+			thisList->prev[point] = 0;
 		}
 
 		CAPACITY *= REALLOC_UP;
 
-        NEXT(CAPACITY) = -1;
+        NEXT(CAPACITY) = 0;
 
         #ifdef WARNINGS
             printf("WARNING!                          \n"
@@ -282,7 +282,7 @@ index_t ListInsertBegin (List* thisList, elem_t newElem) {
 
 	DATA(insertedIndex) = newElem;
 	NEXT(insertedIndex) = HEAD;
-	PREV(insertedIndex) = -1;
+	PREV(insertedIndex) = 0;
 
 	HEAD = insertedIndex;
 
@@ -309,7 +309,7 @@ index_t ListInsertEnd (List* thisList, elem_t newElem) {
 	NEXT(TAIL) = insertedIndex;
 
 	DATA(insertedIndex) = newElem;
-	NEXT(insertedIndex) = -1;
+	NEXT(insertedIndex) = 0;
 	PREV(insertedIndex) = TAIL;
 
 	TAIL = insertedIndex;
@@ -337,7 +337,7 @@ index_t ListInsertAtPlace (List* thisList, elem_t newElem, index_t place) {
 	}
 
 	if (place > CAPACITY || DATA(place) == POISON) {
-        return -1;
+        return 0;
 
 	}
 
@@ -375,7 +375,7 @@ index_t ListEraseAtIndex (List* thisList, index_t index) {
     ASSERT_OK(thisList)
 
     if (index > LENGTH) {
-        return -1;
+        return 0;
 
     }
 
@@ -417,7 +417,7 @@ index_t ListEraseAtPlace (List* thisList, index_t place) {
 
     DATA(place) = POISON;
     NEXT(place) = FREE;
-    PREV(place) = -1;
+    PREV(place) = 0;
 
     FREE = place;
 
@@ -696,6 +696,114 @@ bool HTMLList (List* thisList) {
 
     return true;
 };
+
+bool ListGraphPhysical (List* thisList) {
+
+    FILE* file = fopen ("PhysicalDump.txt", "wt");
+
+    if (file == NULL) {
+        return false;
+    }
+
+    fprintf (file, "digraph MyGraph {\n");
+	fprintf (file, "node [shape=\"record\", style=\"filled\", color=\"#008000\", fillcolor=\"#C0FFC0\"];\n");
+
+    fprintf (file, "\"%d\" [color=\"#000080\", fillcolor=\"#FFA500\", label=\"{HEAD}\"];\n", -2);
+    fprintf (file, "\"%d\" [color=\"#000080\", fillcolor=\"#FFA500\", label=\"{TAIL}\"];\n", -3);
+
+    for (index_t point = 1; point <= CAPACITY; point++) {
+        if (DATA(point) != POISON) {
+            fprintf(file, "\"%d\" [fillcolor=\"#AFEEEE\", label=\"{%d|{%d|%u|%d}}\"]\n",
+                    point, DATA(point), PREV(point), point, NEXT(point));
+        } else {
+            fprintf(file, "\"%d\" [fillcolor=\"#FFFF00\", label=\"{%d[FREE]|{%d|%u|%d}}\"]\n",
+                    point, DATA(point), PREV(point), point, NEXT(point));
+        }
+    }
+
+    //fprintf (file, "\"-1\" [ style = invis ];\n");
+
+    index_t link = HEAD;
+
+    for (index_t point = 1; point <= LENGTH; point++) {
+
+        if (NEXT(link) > 0) {
+            fprintf(file, "\"%d\"->\"%d\";\n", link, NEXT(link));
+        }
+
+        if (PREV(link) > 0) {
+            fprintf(file, "\"%d\"->\"%d\";\n", link, PREV(link));
+        }
+
+        link = NEXT(link);
+    }
+
+
+    for (index_t point = 1; point <= CAPACITY; point++) {
+        if (DATA(point) != POISON) {
+
+            if (NEXT(point) == 0) {
+                fprintf(file, "\"%d\"->\"%d\";\n", point, -3);
+
+            }
+
+            if (PREV(point) == 0) {
+                fprintf(file, "\"%d\"->\"%d\";\n", -2, point);
+            }
+
+        }
+    }
+
+	fprintf(file, "}");
+
+	fclose(file);
+
+    system("dot -Tjpg PhysicalDump.txt > PhysicalDump.jpg");
+
+    return true;
+};
+
+bool ListGraphLogical  (List* thisList) {
+
+    FILE* file = fopen ("LogicalDump.txt", "wt");
+
+    if (file == NULL) {
+        return false;
+    }
+
+    fprintf (file, "digraph MyGraph {\n");
+	fprintf (file, "node [shape=\"record\", style=\"filled\", color=\"#008000\", fillcolor=\"#C0FFC0\"];\n");
+
+    fprintf (file, "\"%d\" [color=\"#000080\", fillcolor=\"#FFA500\", label=\"{HEAD}\"];\n", -2);
+    fprintf (file, "\"%d\" [color=\"#000080\", fillcolor=\"#FFA500\", label=\"{TAIL}\"];\n", -1);
+
+    index_t link = HEAD;
+
+    for (index_t point = 1; point <= LENGTH; point++) {
+        fprintf(file, "\"%d\" [fillcolor=\"#AFEEEE\", label=\"{%d|{%d|%u|%d}}\"]\n",
+				    point, DATA(link), PREV(link), link, NEXT(link));
+        link = NEXT(link);
+    }
+
+    fprintf (file, "\"%d\"->\"%d\";\n", -2, 1);
+
+    for (index_t point = 1; point < LENGTH; point++) {
+            fprintf(file, "\"%d\"->\"%d\";\n", point, point++);
+            fprintf(file, "\"%d\"->\"%d\";\n", point, point--);
+    }
+
+    fprintf (file, "\"%d\"->\"%d\";\n", LENGTH, -1);
+
+	fprintf (file, "}");
+
+	fclose (file);
+
+    system ("dot -Tjpg LogicalDump.txt > LogicalDump.jpg");
+
+    return true;
+
+};
+
 
 bool ListOK (List* thisList) {
 

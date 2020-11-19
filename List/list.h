@@ -1,4 +1,4 @@
-//Version 1.5.4
+//Version 1.6.0
 
 #include <assert.h>
 #include <stdbool.h>
@@ -87,8 +87,10 @@ bool   ListContains   (List* thisList, elem_t element);
 char* DeleteRepetitiveSymbols (char* str, char symbol, size_t limit);
 char* DeleteExcessSpaces (char* str);
 
-//Make HTML dump
-bool HTMLList (List* thisList);
+//Make dumps
+bool HTMLList          (List* thisList);
+bool ListGraphPhysical (List* thisList);
+bool ListGraphLogical  (List* thisList);
 
 //Debug functions
 bool ListOK      (List* thisList);
