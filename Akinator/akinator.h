@@ -1,4 +1,4 @@
-//Version 0.1
+//Version 0.2
 
 #include "filemaster.c"
 
@@ -50,3 +50,6 @@ char* CutBothSides (char* str);
 
 //Dump
 bool GraphTree (Tree* thisTree);
+void GraphNode (Node* thisNode, FILE* file);
+void ConsoleTreeDump (Tree* thisTree);
+void ConsoleNodeDump (Node* thisNode);

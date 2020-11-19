@@ -16,6 +16,17 @@ void TestCutBothSides () {
     printf("CutBothSides(%s)=%s\n", str, CutBothSides(str));
 }
 
+void TestMakingTreeAndDump () {
+
+    Tree* myTree = GetTreeFromFile ("base.txt");
+
+    ConsoleTreeDump (myTree);
+    GraphTree (myTree);
+
+    printf("Test ended.");
+}
+
+
 void Tets () {
 
     //OK
@@ -23,5 +34,8 @@ void Tets () {
 
     //OK
     //TestCutBothSides ();
+
+    //OK
+    //TestMakingTreeAndDump ();
 
 }

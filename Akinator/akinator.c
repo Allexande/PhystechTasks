@@ -1,4 +1,4 @@
-//Version 0.1
+//Version 0.2
 
 #include "akinator.h"
 
@@ -39,13 +39,13 @@ Tree* GetTreeFromFile (const char *fileName) {
         return NULL;
     }
 
+
+
     Tree* newTree = CreateEmptyTree ();
     assert (newTree);
 
     Lines* linesOfText = GetLinesFromText (textFromFile);
     assert (linesOfText);
-
-    printf("linesOfText->numberOfLines=%d\n",linesOfText->numberOfLines);
 
     //Link to processing node
     Node* link;
@@ -116,7 +116,7 @@ bool GraphTree (Tree* thisTree) {
 
     fprintf (file, "digraph Tree {\n");
 
-
+    GraphNode (thisTree->root, file);
 
     fprintf(file, "}");
 
@@ -124,7 +124,42 @@ bool GraphTree (Tree* thisTree) {
 
     system("dot -Tjpg dump.txt > dump.jpg");
 
-
     return true;
 }
 
+void GraphNode (Node* thisNode, FILE* file) {
+
+    if (thisNode->question) {
+        fprintf(file, "\"%ld\" [shape=\"record\", fillcolor=\"#AFEEEE\", label=\"%s\"]\n", thisNode, thisNode->text);
+        GraphNode (thisNode->right, file);
+        GraphNode (thisNode->left, file);
+        fprintf(file, "\"%ld\":se->\"%ld\"[color=\"#011504\", label=\"yes\"];\n", thisNode, thisNode->right);
+        fprintf(file, "\"%ld\":sw->\"%ld\"[color=\"#011504\", label=\"no\"];\n", thisNode, thisNode->left);
+    } else {
+        fprintf(file, "\"%ld\" [shape=\"pentagon\", fillcolor=\"#AFEEEE\", label=\"%s\"]\n", thisNode, thisNode->text);
+    }
+};
+
+void ConsoleTreeDump (Tree* thisTree) {
+
+    printf("\n\n< < < THIS IS DUMP OF TREE (%ld) > > >\n", thisTree);
+
+    printf("thisTree->wasChanged=%d\n", thisTree);
+
+    ConsoleNodeDump (thisTree->root);
+
+    printf("> > > THIS IS END OF DUMP OF TREE < < <\n");
+}
+
+void ConsoleNodeDump (Node* thisNode) {
+
+    printf("THE NODE (%ld) IS QUESTION = %d\n", thisNode, thisNode->question);
+
+    printf("thisNode->text=%s thisNode->parent=%ld thisNode->right=%d thisNode->left=%d\n\n",
+            thisNode->text, thisNode->parent, thisNode->right, thisNode->left);
+
+    if (thisNode->question) {
+        ConsoleNodeDump (thisNode->right);
+        ConsoleNodeDump (thisNode->left);
+    }
+}

@@ -1,4 +1,4 @@
-//Version 0.1
+//Version 0.2
 
 #include "filemaster.h"
 
@@ -90,16 +90,18 @@ Lines* GetLinesFromText (char* text) {
 
     size_t pointerOnText = 0;
     for (size_t lineNum = 0; lineNum < numberOfLines; lineNum++) {
+
         size_t length = 0;
-        while (text[length] != '\n') {
+        while (text[length + pointerOnText] != '\n') {
             length++;
         }
-        newLines->line[lineNum] = (char*) calloc (sizeof(char), length);
+        newLines->line[lineNum] = (char*) calloc (sizeof(char), length + 2);
 
         size_t pointerOnLine = 0;
         while (text[pointerOnText] != '\n') {
             newLines->line[lineNum][pointerOnLine++] = text[pointerOnText++];
         }
+        newLines->line[lineNum][++pointerOnLine] = '\0';
         pointerOnText++;
     }
 
