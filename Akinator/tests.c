@@ -1,4 +1,4 @@
-//Version 0.3
+//Version 0.4 (Dont work)
 
 void TestGetLinesFromText () {
     char text[] = {"Hey\n{\n}\nueu\nsdfd\n\ndfdfw444\n"};

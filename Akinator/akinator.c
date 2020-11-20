@@ -1,4 +1,4 @@
-//Version 0.3
+//Version 0.4 (Dont work)
 
 #include "akinator.h"
 
@@ -136,6 +136,23 @@ char* CutBothSides (char* str) {
     newStr[lengthOfStr - 1] = '\0';
 
     return newStr;
+}
+
+bool AddNewSub (Node* thisNode, char* newSub, char* newQuestion) {
+
+    thisNode->right = CreateEmptyNode ();
+    thisNode->left  = CreateEmptyNode ();
+
+    thisNode->left->text  = thisNode->text;
+    thisNode->right->text = newSub;
+    thisNode->text        = newQuestion;
+
+    thisNode->left->parent  = thisNode;
+    thisNode->right->parent = thisNode;
+
+    thisNode->question = true;
+
+    return true;
 }
 
 bool GraphTree (Tree* thisTree) {

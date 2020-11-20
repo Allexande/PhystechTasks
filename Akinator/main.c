@@ -1,4 +1,4 @@
-//Version 0.3
+//Version 0.4 (Dont work)
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -6,17 +6,23 @@
 #include <string.h>
 #include <assert.h>
 
-#define TESTING
+#define DEFAULT_READING_BASE "base.txt"
+#define DEFAULT_WRITING_BASE "newBase.txt"
 
-#include "akinator.c"
+//#define TESTING
 
-#include "tests.c"
+#include "game.c"
 
+#ifdef TESTING
+    #include "tests.c"
+#endif
+
+//TODO обработка аргументов
 int main()
 {
     #ifndef TESTING
         //Functions to call in working mode
-
+        StartGame (DEFAULT_READING_BASE, DEFAULT_WRITING_BASE);
     #else
         //Functions to call in testing mode
         Tets ();

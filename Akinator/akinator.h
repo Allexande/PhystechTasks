@@ -1,4 +1,4 @@
-//Version 0.3
+//Version 0.4 (Dont work)
 
 #include "filemaster.c"
 
@@ -23,6 +23,8 @@ struct Node {
 
 };
 
+#include "stack.c"
+
 struct Tree {
 
     //The first node in the tree
@@ -40,6 +42,10 @@ struct Tree {
 
 };
 
+enum AllocationConsts {
+    DEFAULT_POSSIBLESUB_SIZE = 10
+};
+
 //Create new structures
 Tree* CreateEmptyTree ();
 Node* CreateEmptyNode ();
@@ -51,6 +57,9 @@ void  WriteNodeToFile (Node* thisNode, FILE *file);
 
 //Work with strings
 char* CutBothSides (char* str);
+
+//Add new nodes
+bool AddNewSub (Node* thisNode, char* newSub, char* newQuestion);
 
 //Dump
 bool GraphTree (Tree* thisTree);
