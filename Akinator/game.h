@@ -1,4 +1,4 @@
-//Version 0.5
+//Version 0.6
 
 #include "akinator.c"
 
@@ -36,3 +36,13 @@ bool IsEnvisionedSub (char* text);
 bool TryToAddNode ();
 
 bool AddNewNode (Node* thisNode);
+
+//Other options
+bool Compare          (Tree* thisTree);
+bool TryToCompare     (Tree* thisTree, char* first, char* second);
+void WriteComparation (Tree* thisTree, Node* first, Node* second);
+
+bool Define           (Tree* thisTree);
+bool TryToDefine      (Tree* thisTree, char* subject);
+void WriteDefinition  (Tree* thisTree, Node* subject);
+

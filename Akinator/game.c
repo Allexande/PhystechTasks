@@ -1,4 +1,4 @@
-//Version 0.5
+//Version 0.6
 
 #include "game.h"
 
@@ -69,11 +69,11 @@ void Menu (Tree* base) {
         } break;
 
         case DEFINITION: {
-            printf ("Oops.... This command does not exist yet.\n");
+            Define (base);
         } break;
 
         case COMPARISON: {
-            printf ("Oops.... This command does not exist yet.\n");
+            Compare (base);
         } break;
 
         case GRAPH_DUMP: {
@@ -297,4 +297,126 @@ bool AddNewNode (Node* thisNode) {
 
 }
 
+bool Compare (Tree* thisTree) {
 
+    char* first = (char*) calloc (sizeof(char), MAXIMUM_TEXT_SIZE);
+    assert (first);
+
+    char* second = (char*) calloc (sizeof(char), MAXIMUM_TEXT_SIZE);
+    assert (second);
+
+    printf ("> What is the first subject you want to compare?\n");
+
+    scanf ("\n%[^\n]s", first);
+
+    printf ("> What is the second subject you want to compare?\n");
+
+    scanf ("\n%[^\n]s", second);
+
+    if ((first != NULL) && (second != NULL) && (thisTree != NULL)) {
+        if (!TryToCompare (thisTree, first, second)) {
+            printf("Oops... you entered words which don't exist in the database.\n");
+            return false;
+        }
+        return true;
+    }
+
+    return false;
+}
+
+bool TryToCompare (Tree* thisTree, char* first, char* second) {
+
+    Node* firstNode  = NULL;
+    Node* secondNode = NULL;
+
+    size_t pointer = 0;
+    while (thisTree->subjects[pointer] != NULL) {
+
+        if (strcmp (thisTree->subjects[pointer]->text, first) == 0) {
+            firstNode = thisTree->subjects[pointer];
+        }
+
+        if (strcmp (thisTree->subjects[pointer]->text, second) == 0) {
+            secondNode = thisTree->subjects[pointer];
+        }
+
+        pointer++;
+    }
+
+    if ((firstNode != NULL) && (secondNode != NULL)) {
+        WriteComparation (thisTree, firstNode, secondNode);
+        return true;
+    }
+
+    return false;
+}
+
+void WriteComparation (Tree* thisTree, Node* first, Node* second) {
+
+    //TODO COMPARATION
+
+}
+
+bool Define (Tree* thisTree) {
+
+    char* subject = (char*) calloc (sizeof(char), MAXIMUM_TEXT_SIZE);
+    assert (subject);
+
+    printf ("> What is the subject you want to get definition of?\n");
+
+    scanf ("\n%[^\n]s", subject);
+
+    if ((subject != NULL) && (thisTree != NULL)) {
+        if (!TryToDefine (thisTree, subject)) {
+            printf("Oops... you entered word which don't exist in the database.\n");
+            return false;
+        }
+        return true;
+    }
+
+    return false;
+}
+
+bool TryToDefine (Tree* thisTree, char* subject) {
+
+    Node* subjectNode = NULL;
+
+    size_t pointer = 0;
+    while (thisTree->subjects[pointer] != NULL) {
+
+        //printf("pointer=%d\n", pointer);
+        //printf("thisTree->subjects[pointer]->text=%s\n", thisTree->subjects[pointer]->text);
+        //printf("strcmp (thisTree->subjects[pointer]->text, subject)=%d\n", strcmp (thisTree->subjects[pointer]->text, subject));
+
+        if (strcmp (thisTree->subjects[pointer]->text, subject) == 0) {
+            subjectNode = thisTree->subjects[pointer];
+        }
+
+        pointer++;
+    }
+
+    if (subjectNode != NULL) {
+        printf ("\nThe defenition of %s:", subject);
+        WriteDefinition (thisTree, subjectNode);
+        printf (" and that is all.\n");
+        return true;
+    }
+
+    return false;
+
+}
+
+void WriteDefinition (Tree* thisTree, Node* subject) {
+
+    if (subject->parent->right == subject) {
+        printf (" it ");
+    } else {
+        printf (" it is false that it ");
+    }
+
+    printf ("%s,", subject->parent->text);
+
+    if (subject->parent != thisTree->root) {
+        WriteDefinition (thisTree, subject->parent);
+    }
+}

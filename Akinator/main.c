@@ -1,4 +1,4 @@
-//Version 0.5
+//Version 0.6
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -17,14 +17,31 @@
     #include "tests.c"
 #endif
 
-//TODO обработка аргументов
-
 //TODO проверка валидности файла перед считыванием
-int main()
-{
+int main (const int argc, const char* argv[]) {
+
+    const char* inputFile  = DEFAULT_READING_BASE;
+    const char* outputFile = DEFAULT_WRITING_BASE;
+
+    if (argc > 1) {
+
+        for (int i = 1; i < argc; i++) {
+
+            if (strcmp(argv[i], "-i") == 0  || strcmp(argv[i], "--input")   == 0) {
+                inputFile = argv[i];
+            }
+
+            if (strcmp(argv[i], "-o") == 0  || strcmp(argv[i], "--output")   == 0) {
+                outputFile = argv[i];
+            }
+
+        }
+
+    }
+
     #ifndef TESTING
         //Functions to call in working mode
-        StartGame (DEFAULT_READING_BASE, DEFAULT_WRITING_BASE);
+        StartGame (inputFile, outputFile);
     #else
         //Functions to call in testing mode
         Tets ();

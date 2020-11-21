@@ -1,4 +1,4 @@
-//Version 0.5
+//Version 0.6
 
 #include "akinator.h"
 
@@ -8,9 +8,7 @@ Tree* CreateEmptyTree () {
     assert (newTree);
 
     newTree->root       = NULL;
-    /*
     newTree->subjects   = NULL;
-    */
     newTree->wasChanged = false;
 
     return newTree;
@@ -86,6 +84,9 @@ Tree* GetTreeFromFile (const char *fileName) {
 
     }
 
+    newTree->subjects = (Node**) calloc (sizeof(Node*), linesOfText->numberOfLines);
+    FillArrayOfSubs (newTree);
+
     return newTree;
 }
 
@@ -137,6 +138,45 @@ char* CutBothSides (char* str) {
 
     return newStr;
 }
+
+size_t FillArrayOfSubs (Tree* thisTree) {
+
+    size_t subsLength = 0;
+    TryToAddNodeInArrayOfSubs (thisTree, thisTree->root, &subsLength);
+
+    return subsLength;
+}
+
+void TryToAddNodeInArrayOfSubs (Tree* thisTree, Node* currentNode, size_t* subsLength) {
+
+    if (currentNode->question) {
+        TryToAddNodeInArrayOfSubs (thisTree, currentNode->left,  subsLength);
+        TryToAddNodeInArrayOfSubs (thisTree, currentNode->right, subsLength);
+    } else {
+        thisTree->subjects[*subsLength] = currentNode;
+        *subsLength += 1;
+    }
+}
+
+/*
+bool AddNodeInArrayOfSubs (Tree* thisTree, Node* nodeToAdd) {
+
+    size_t pointer = 0;
+
+    //Checking if there is already this node in array
+    while (thisTree->subjects[pointer] != nodeToAdd) {
+
+        if (thisTree->subjects[pointer] == NULL) {
+            thisTree->subjects[pointer] = nodeToAdd;
+            return true;
+        }
+
+        pointer++;
+    }
+
+    return false;
+}
+*/
 
 bool AddNewSub (Node* thisNode, char* newSub, char* newQuestion) {
 
