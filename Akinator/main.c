@@ -1,4 +1,4 @@
-//Version 0.4 (Dont work)
+//Version 0.5
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -7,7 +7,7 @@
 #include <assert.h>
 
 #define DEFAULT_READING_BASE "base.txt"
-#define DEFAULT_WRITING_BASE "newBase.txt"
+#define DEFAULT_WRITING_BASE "base.txt"
 
 //#define TESTING
 
@@ -18,6 +18,8 @@
 #endif
 
 //TODO обработка аргументов
+
+//TODO проверка валидности файла перед считыванием
 int main()
 {
     #ifndef TESTING

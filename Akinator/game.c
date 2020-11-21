@@ -1,10 +1,11 @@
-//Version 0.4 (Dont work)
+//Version 0.5
 
 #include "game.h"
 
 void StartGame (const char *inputBase, const char *outputBase) {
 
     printf ("\n\n~ ~ ~ ~ ~ AKINATOR ~ ~ ~ ~ ~\n");
+    printf ("Pre-pre-alpha 0.0.0.1\n");
     printf ("inputBase = %s | outputBase = %s\n", inputBase, outputBase);
 
     Tree* gameTree = GetTreeFromFile (inputBase);
@@ -56,7 +57,7 @@ void Menu (Tree* base) {
     switch (input) {
 
         case STOP: {
-            printf ("Akinator stopped.");
+            printf ("Akinator stopped.\n");
         } break;
 
         case USER_AKINATOR: {
@@ -76,7 +77,7 @@ void Menu (Tree* base) {
         } break;
 
         case GRAPH_DUMP: {
-            printf ("Oops.... This command does not exist yet.\n");
+            GraphTree (base);
         } break;
 
         default: {
@@ -173,11 +174,11 @@ int AskQuestion (char* text) {
     do {
 
         printf ("You can answer:\n"
-        "[%s] Absolutely true   \n"
-        "[%s] Probably true     \n"
-        "[%s] I have no idea... \n"
-        "[%s] Probably false    \n"
-        "[%s] Absolutely false  \n",
+        "[%d] Absolutely true   \n"
+        "[%d] Probably true     \n"
+        "[%d] I have no idea... \n"
+        "[%d] Probably false    \n"
+        "[%d] Absolutely false  \n",
         YES,
         UNSURE_YES,
         UNSURE,
@@ -185,7 +186,7 @@ int AskQuestion (char* text) {
         NO
         );
 
-        scanf ("%d", answer);
+        scanf ("%d", &answer);
 
         if ((answer >= NO) && (answer <= YES)) {
             return answer;
@@ -205,13 +206,13 @@ bool IsEnvisionedSub (char* text) {
     do {
 
         printf ("You can answer:\n"
-        "[%s] YES               \n"
-        "[%s] NO                \n",
+        "[%d] YES               \n"
+        "[%d] NO                \n",
         1,
         0
         );
 
-        scanf ("%d", answer);
+        scanf ("%d", &answer);
 
         switch (answer) {
 
@@ -240,13 +241,13 @@ bool TryToAddNode () {
     do {
 
         printf ("You can answer:\n"
-        "[%s] YES               \n"
-        "[%s] NO                \n",
+        "[%d] YES               \n"
+        "[%d] NO                \n",
         1,
         0
         );
 
-        scanf ("%d", answer);
+        scanf ("%d", &answer);
 
         switch (answer) {
 
@@ -269,13 +270,15 @@ bool TryToAddNode () {
 
 bool AddNewNode (Node* thisNode) {
 
-    char* newSub;
+    char* newSub = (char*) calloc (sizeof(char), MAXIMUM_TEXT_SIZE);
+    assert (newSub);
 
     printf ("> What you were thinking about?\n");
 
-    scanf ("%s", newSub);
+    scanf ("\n%[^\n]s", newSub);
 
-    char* newQuestion;
+    char* newQuestion = (char*) calloc (sizeof(char), MAXIMUM_TEXT_SIZE);
+    assert (newQuestion);
 
     printf ("> What special characteristic %s have but %s does not?\n"
     "Continue the phrase: %s ...                                   \n",
@@ -284,10 +287,10 @@ bool AddNewNode (Node* thisNode) {
     newSub
     );
 
-    scanf ("%s", newQuestion);
+    scanf ("\n%[^\n]s", newQuestion);
 
    if ((thisNode == NULL) || (newQuestion == NULL) || (newQuestion == NULL)) {
-    return false;
+        return false;
    }
 
    return AddNewSub (thisNode, newSub, newQuestion);

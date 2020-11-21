@@ -1,159 +1,73 @@
-"OOP"
+"is young"
 {
-"LOVE ALG"
+"composes poetry"
 {
-"tail"
-{
-"FAST"
-{
-"Ilya Stepanov"
+"Barash"
 }
 {
-"python"
-}
+"has thorns"
+{
+"collects things."
+{
+"Hedgehog"
 }
 {
-"your life"
-{
-"maincraft"
-}
-{
-"nelena"
-}
+"Lili"
 }
 }
 {
-"old"
+"lives in a pink house"
 {
-"tries to hide everything"
-{
-"encapsulation"
+"Nyusha"
 }
 {
-"can dead"
+"uses skateboard"
 {
-"IVT"
+"Stepanida"
 }
 {
-"not alive"
+"composed of inorganic material"
 {
-"java"
+"was created to work as a maid"
+{
+"Iron nanny"
 }
 {
-"ded"
-}
-}
-}
-}
+"died in the rain"
 {
-"mesherin"
-}
-}
+"clay monster"
 }
 {
-"halyava"
+"is a toy"
 {
-"2D"
-{
-"oneme"
+"Tuzya"
 }
 {
-"adequate"
+"is a hallucination"
 {
-"algosy"
+"Sandwich"
 }
 {
-"made from cardboard"
-{
-"has windows"
-{
-"hostel"
-}
-{
-"box"
-}
-}
-{
-"arkasha"
-}
-}
-}
-}
-{
-"jopa"
-{
-"hospitality"
-{
-"in moscow"
-{
-"hach palatka"
-}
-{
-"animal"
-{
-"chupocabra"
-}
-{
-"kirov"
-}
-}
-}
-{
-"human resembling"
-{
-"B05-032"
-}
-{
-"delicious food"
-{
-"shaverma"
-}
-{
-"lives with you"
-{
-"tarakan"
-}
-{
-"ivanova"
+"Bi-Bi"
 }
 }
 }
 }
 }
 {
-"wooden"
+"likes cheese"
 {
-"door"
+"Mouserik"
 }
 {
-"cute"
+"is an actress"
 {
-"drinkable"
-{
-"coffee"
+"Tigricia"
 }
 {
-"made of cloth"
-{
-"tapestry"
+"Krosh"
 }
-{
-"lizard-alike"
-{
-"skyrim"
 }
-{
-"elf"
-{
-"legolas"
-}
-{
-"this"
-{
-"Akinator"
-}
-{
-"poltorashka"
 }
 }
 }
@@ -161,12 +75,50 @@
 }
 }
 {
-"lack of brains"
+"plays musical instruments"
 {
-"dolbojob"
+"never showed his face"
+{
+"Black Lovelace"
 }
 {
-"musatych"
+"Kar-Karych"
+}
+}
+{
+"works in the garden"
+{
+"Kopatych"
+}
+{
+"is an astronomer"
+{
+"leads an asocial lifestyle"
+{
+"Losyash clone"
+}
+{
+"Losyash"
+}
+}
+{
+"has a German accent"
+{
+"Pin"
+}
+{
+"lived 200 years ago"
+{
+"lived in the open air or in a cave"
+{
+"ancient Smeshariki"
+}
+{
+"Mulentius and Munevra"
+}
+}
+{
+"Sovunya"
 }
 }
 }

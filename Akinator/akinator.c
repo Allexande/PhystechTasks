@@ -1,4 +1,4 @@
-//Version 0.4 (Dont work)
+//Version 0.5
 
 #include "akinator.h"
 
@@ -172,6 +172,7 @@ bool GraphTree (Tree* thisTree) {
 	fclose(file);
 
     system("dot -Tjpg dump.txt > dump.jpg");
+    system("start dump.jpg");
 
     return true;
 }
@@ -179,13 +180,31 @@ bool GraphTree (Tree* thisTree) {
 void GraphNode (Node* thisNode, FILE* file) {
 
     if (thisNode->question) {
-        fprintf(file, "\"%ld\" [shape=\"record\", fillcolor=\"#AFEEEE\", label=\"%s\"]\n", thisNode, thisNode->text);
+
+        fprintf(file, "\"%ld\" [shape=\"record\", color=\"#000000\", style=\"filled\", fillcolor=\"#def7fa\", label=\"%s\"]\n",
+         thisNode,
+         thisNode->text
+         );
+
         GraphNode (thisNode->right, file);
         GraphNode (thisNode->left, file);
-        fprintf(file, "\"%ld\":se->\"%ld\"[color=\"#011504\", label=\"yes\"];\n", thisNode, thisNode->right);
-        fprintf(file, "\"%ld\":sw->\"%ld\"[color=\"#011504\", label=\"no\"];\n", thisNode, thisNode->left);
+
+        fprintf(file, "\"%ld\":se->\"%ld\"[color=\"green\"];\n",
+        thisNode,
+        thisNode->right
+        );
+
+        fprintf(file, "\"%ld\":sw->\"%ld\"[color=\"red\"];\n",
+        thisNode,
+        thisNode->left
+        );
+
     } else {
-        fprintf(file, "\"%ld\" [shape=\"pentagon\", fillcolor=\"#AFEEEE\", label=\"%s\"]\n", thisNode, thisNode->text);
+
+        fprintf(file, "\"%ld\" [shape=\"pentagon\",  color=\"#000000\", style=\"filled\", fillcolor=\"#f5e2d3\", label=\"%s\"]\n",
+         thisNode,
+         thisNode->text
+         );
     }
 };
 

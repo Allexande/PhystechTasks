@@ -1,119 +1,79 @@
 digraph Tree {
-"11758952" [shape="record", fillcolor="#AFEEEE", label="ООП"]
-"11758984" [shape="record", fillcolor="#AFEEEE", label="Любит алгосы"]
-"11759016" [shape="record", fillcolor="#AFEEEE", label="имеет хвост"]
-"11759048" [shape="record", fillcolor="#AFEEEE", label="быстрый"]
-"11759080" [shape="pentagon", fillcolor="#AFEEEE", label="Ilya Stepanov"]
-"11759112" [shape="pentagon", fillcolor="#AFEEEE", label="python"]
-"11759048":se->"11759080"[color="#011504", label="yes"];
-"11759048":sw->"11759112"[color="#011504", label="no"];
-"11759536" [shape="record", fillcolor="#AFEEEE", label="your life"]
-"11759824" [shape="pentagon", fillcolor="#AFEEEE", label="maincraft"]
-"11759792" [shape="pentagon", fillcolor="#AFEEEE", label="nelena"]
-"11759536":se->"11759824"[color="#011504", label="yes"];
-"11759536":sw->"11759792"[color="#011504", label="no"];
-"11759016":se->"11759048"[color="#011504", label="yes"];
-"11759016":sw->"11759536"[color="#011504", label="no"];
-"11759472" [shape="record", fillcolor="#AFEEEE", label="old"]
-"11759280" [shape="record", fillcolor="#AFEEEE", label="tries to hide everything"]
-"11759856" [shape="pentagon", fillcolor="#AFEEEE", label="encapsulation"]
-"11759664" [shape="record", fillcolor="#AFEEEE", label="can dead"]
-"11759984" [shape="pentagon", fillcolor="#AFEEEE", label="IVT"]
-"11759216" [shape="record", fillcolor="#AFEEEE", label="not alive"]
-"11760080" [shape="pentagon", fillcolor="#AFEEEE", label="java"]
-"11759696" [shape="pentagon", fillcolor="#AFEEEE", label="ded"]
-"11759216":se->"11760080"[color="#011504", label="yes"];
-"11759216":sw->"11759696"[color="#011504", label="no"];
-"11759664":se->"11759984"[color="#011504", label="yes"];
-"11759664":sw->"11759216"[color="#011504", label="no"];
-"11759280":se->"11759856"[color="#011504", label="yes"];
-"11759280":sw->"11759664"[color="#011504", label="no"];
-"11759504" [shape="pentagon", fillcolor="#AFEEEE", label="mesherin"]
-"11759472":se->"11759280"[color="#011504", label="yes"];
-"11759472":sw->"11759504"[color="#011504", label="no"];
-"11758984":se->"11759016"[color="#011504", label="yes"];
-"11758984":sw->"11759472"[color="#011504", label="no"];
-"11759248" [shape="record", fillcolor="#AFEEEE", label="halyava"]
-"11759408" [shape="record", fillcolor="#AFEEEE", label="2D"]
-"11759184" [shape="pentagon", fillcolor="#AFEEEE", label="oneme"]
-"11759728" [shape="record", fillcolor="#AFEEEE", label="adequate"]
-"11759440" [shape="pentagon", fillcolor="#AFEEEE", label="algosy"]
-"11759376" [shape="record", fillcolor="#AFEEEE", label="made from cardboard"]
-"11759920" [shape="record", fillcolor="#AFEEEE", label="has windows"]
-"11759632" [shape="pentagon", fillcolor="#AFEEEE", label="hostel"]
-"11759344" [shape="pentagon", fillcolor="#AFEEEE", label="box"]
-"11759920":se->"11759632"[color="#011504", label="yes"];
-"11759920":sw->"11759344"[color="#011504", label="no"];
-"11759952" [shape="pentagon", fillcolor="#AFEEEE", label="arkasha"]
-"11759376":se->"11759920"[color="#011504", label="yes"];
-"11759376":sw->"11759952"[color="#011504", label="no"];
-"11759728":se->"11759440"[color="#011504", label="yes"];
-"11759728":sw->"11759376"[color="#011504", label="no"];
-"11759408":se->"11759184"[color="#011504", label="yes"];
-"11759408":sw->"11759728"[color="#011504", label="no"];
-"11759312" [shape="record", fillcolor="#AFEEEE", label="jopa"]
-"11759568" [shape="record", fillcolor="#AFEEEE", label="hospitality"]
-"11760016" [shape="record", fillcolor="#AFEEEE", label="in moscow"]
-"11759600" [shape="pentagon", fillcolor="#AFEEEE", label="hach palatka"]
-"11759760" [shape="record", fillcolor="#AFEEEE", label="animal"]
-"11760048" [shape="pentagon", fillcolor="#AFEEEE", label="chupocabra"]
-"11760112" [shape="pentagon", fillcolor="#AFEEEE", label="kirov"]
-"11759760":se->"11760048"[color="#011504", label="yes"];
-"11759760":sw->"11760112"[color="#011504", label="no"];
-"11760016":se->"11759600"[color="#011504", label="yes"];
-"11760016":sw->"11759760"[color="#011504", label="no"];
-"11760144" [shape="record", fillcolor="#AFEEEE", label="human resembling"]
-"11760264" [shape="pentagon", fillcolor="#AFEEEE", label="B05-032"]
-"11760392" [shape="record", fillcolor="#AFEEEE", label="delicious food"]
-"11761256" [shape="pentagon", fillcolor="#AFEEEE", label="shaverma"]
-"11760648" [shape="record", fillcolor="#AFEEEE", label="lives with you"]
-"11760552" [shape="pentagon", fillcolor="#AFEEEE", label="tarakan"]
-"11760840" [shape="pentagon", fillcolor="#AFEEEE", label="ivanova"]
-"11760648":se->"11760552"[color="#011504", label="yes"];
-"11760648":sw->"11760840"[color="#011504", label="no"];
-"11760392":se->"11761256"[color="#011504", label="yes"];
-"11760392":sw->"11760648"[color="#011504", label="no"];
-"11760144":se->"11760264"[color="#011504", label="yes"];
-"11760144":sw->"11760392"[color="#011504", label="no"];
-"11759568":se->"11760016"[color="#011504", label="yes"];
-"11759568":sw->"11760144"[color="#011504", label="no"];
-"11760872" [shape="record", fillcolor="#AFEEEE", label="wooden"]
-"11760424" [shape="pentagon", fillcolor="#AFEEEE", label="door"]
-"11761064" [shape="record", fillcolor="#AFEEEE", label="cute"]
-"11761192" [shape="record", fillcolor="#AFEEEE", label="drinkable"]
-"11760328" [shape="pentagon", fillcolor="#AFEEEE", label="coffee"]
-"11760456" [shape="record", fillcolor="#AFEEEE", label="made of cloth"]
-"11760520" [shape="pentagon", fillcolor="#AFEEEE", label="tapestry"]
-"11760968" [shape="record", fillcolor="#AFEEEE", label="lizard-alike"]
-"11760584" [shape="pentagon", fillcolor="#AFEEEE", label="skyrim"]
-"11760488" [shape="record", fillcolor="#AFEEEE", label="elf"]
-"11760680" [shape="pentagon", fillcolor="#AFEEEE", label="legolas"]
-"11760616" [shape="record", fillcolor="#AFEEEE", label="this"]
-"11760712" [shape="pentagon", fillcolor="#AFEEEE", label="Akinator"]
-"11760936" [shape="pentagon", fillcolor="#AFEEEE", label="poltorashka"]
-"11760616":se->"11760712"[color="#011504", label="yes"];
-"11760616":sw->"11760936"[color="#011504", label="no"];
-"11760488":se->"11760680"[color="#011504", label="yes"];
-"11760488":sw->"11760616"[color="#011504", label="no"];
-"11760968":se->"11760584"[color="#011504", label="yes"];
-"11760968":sw->"11760488"[color="#011504", label="no"];
-"11760456":se->"11760520"[color="#011504", label="yes"];
-"11760456":sw->"11760968"[color="#011504", label="no"];
-"11761192":se->"11760328"[color="#011504", label="yes"];
-"11761192":sw->"11760456"[color="#011504", label="no"];
-"11760744" [shape="record", fillcolor="#AFEEEE", label="lack of brains"]
-"11761000" [shape="pentagon", fillcolor="#AFEEEE", label="dolbojob"]
-"11760360" [shape="pentagon", fillcolor="#AFEEEE", label="musatych"]
-"11760744":se->"11761000"[color="#011504", label="yes"];
-"11760744":sw->"11760360"[color="#011504", label="no"];
-"11761064":se->"11761192"[color="#011504", label="yes"];
-"11761064":sw->"11760744"[color="#011504", label="no"];
-"11760872":se->"11760424"[color="#011504", label="yes"];
-"11760872":sw->"11761064"[color="#011504", label="no"];
-"11759312":se->"11759568"[color="#011504", label="yes"];
-"11759312":sw->"11760872"[color="#011504", label="no"];
-"11759248":se->"11759408"[color="#011504", label="yes"];
-"11759248":sw->"11759312"[color="#011504", label="no"];
-"11758952":se->"11758984"[color="#011504", label="yes"];
-"11758952":sw->"11759248"[color="#011504", label="no"];
+"7370144" [shape="record", color="#000000", style="filled", fillcolor="#def7fa", label="is young"]
+"7370176" [shape="record", color="#000000", style="filled", fillcolor="#def7fa", label="composes poetry"]
+"7371112" [shape="pentagon",  color="#000000", style="filled", fillcolor="#f5e2d3", label="Barash"]
+"7370440" [shape="record", color="#000000", style="filled", fillcolor="#def7fa", label="has thorns"]
+"7370888" [shape="record", color="#000000", style="filled", fillcolor="#def7fa", label="collects things."]
+"7370632" [shape="pentagon",  color="#000000", style="filled", fillcolor="#f5e2d3", label="Hedgehog"]
+"7370824" [shape="pentagon",  color="#000000", style="filled", fillcolor="#f5e2d3", label="Lili"]
+"7370888":se->"7370632"[color="green"];
+"7370888":sw->"7370824"[color="red"];
+"7371048" [shape="record", color="#000000", style="filled", fillcolor="#def7fa", label="lives in a pink house"]
+"7370664" [shape="pentagon",  color="#000000", style="filled", fillcolor="#f5e2d3", label="Nyusha"]
+"7370856" [shape="record", color="#000000", style="filled", fillcolor="#def7fa", label="uses skateboard"]
+"7370728" [shape="pentagon",  color="#000000", style="filled", fillcolor="#f5e2d3", label="Stepanida"]
+"7370952" [shape="record", color="#000000", style="filled", fillcolor="#def7fa", label="composed of inorganic material"]
+"7370568" [shape="record", color="#000000", style="filled", fillcolor="#def7fa", label="was created to work as a maid"]
+"7371144" [shape="pentagon",  color="#000000", style="filled", fillcolor="#f5e2d3", label="Iron nanny"]
+"7371080" [shape="record", color="#000000", style="filled", fillcolor="#def7fa", label="died in the rain"]
+"7370696" [shape="pentagon",  color="#000000", style="filled", fillcolor="#f5e2d3", label="clay monster"]
+"7370600" [shape="pentagon",  color="#000000", style="filled", fillcolor="#f5e2d3", label="Bi-Bi"]
+"7371080":se->"7370696"[color="green"];
+"7371080":sw->"7370600"[color="red"];
+"7370568":se->"7371144"[color="green"];
+"7370568":sw->"7371080"[color="red"];
+"7370376" [shape="record", color="#000000", style="filled", fillcolor="#def7fa", label="likes cheese"]
+"7370280" [shape="pentagon",  color="#000000", style="filled", fillcolor="#f5e2d3", label="Mouserik"]
+"7370312" [shape="record", color="#000000", style="filled", fillcolor="#def7fa", label="is an actress"]
+"7370760" [shape="pentagon",  color="#000000", style="filled", fillcolor="#f5e2d3", label="Tigricia"]
+"7370920" [shape="pentagon",  color="#000000", style="filled", fillcolor="#f5e2d3", label="Krosh"]
+"7370312":se->"7370760"[color="green"];
+"7370312":sw->"7370920"[color="red"];
+"7370376":se->"7370280"[color="green"];
+"7370376":sw->"7370312"[color="red"];
+"7370952":se->"7370568"[color="green"];
+"7370952":sw->"7370376"[color="red"];
+"7370856":se->"7370728"[color="green"];
+"7370856":sw->"7370952"[color="red"];
+"7371048":se->"7370664"[color="green"];
+"7371048":sw->"7370856"[color="red"];
+"7370440":se->"7370888"[color="green"];
+"7370440":sw->"7371048"[color="red"];
+"7370176":se->"7371112"[color="green"];
+"7370176":sw->"7370440"[color="red"];
+"7370792" [shape="record", color="#000000", style="filled", fillcolor="#def7fa", label="plays musical instruments"]
+"7370408" [shape="record", color="#000000", style="filled", fillcolor="#def7fa", label="never showed his face"]
+"7371176" [shape="pentagon",  color="#000000", style="filled", fillcolor="#f5e2d3", label="Black Lovelace"]
+"7371208" [shape="pentagon",  color="#000000", style="filled", fillcolor="#f5e2d3", label="Kar-Karych"]
+"7370408":se->"7371176"[color="green"];
+"7370408":sw->"7371208"[color="red"];
+"7370248" [shape="record", color="#000000", style="filled", fillcolor="#def7fa", label="works in the garden"]
+"7372656" [shape="pentagon",  color="#000000", style="filled", fillcolor="#f5e2d3", label="Kopatych"]
+"7373136" [shape="record", color="#000000", style="filled", fillcolor="#def7fa", label="is an astronomer"]
+"7373104" [shape="record", color="#000000", style="filled", fillcolor="#def7fa", label="leads an asocial lifestyle"]
+"7373328" [shape="pentagon",  color="#000000", style="filled", fillcolor="#f5e2d3", label="Losyash clone"]
+"7373360" [shape="pentagon",  color="#000000", style="filled", fillcolor="#f5e2d3", label="Losyash"]
+"7373104":se->"7373328"[color="green"];
+"7373104":sw->"7373360"[color="red"];
+"7372432" [shape="record", color="#000000", style="filled", fillcolor="#def7fa", label="has a German accent"]
+"7372688" [shape="pentagon",  color="#000000", style="filled", fillcolor="#f5e2d3", label="Pin"]
+"7373072" [shape="record", color="#000000", style="filled", fillcolor="#def7fa", label="lived 200 years ago"]
+"7372912" [shape="record", color="#000000", style="filled", fillcolor="#def7fa", label="lived in the open air or in a cave"]
+"7373040" [shape="pentagon",  color="#000000", style="filled", fillcolor="#f5e2d3", label="ancient Smeshariki"]
+"7372784" [shape="pentagon",  color="#000000", style="filled", fillcolor="#f5e2d3", label="Mulentius and Munevra"]
+"7372912":se->"7373040"[color="green"];
+"7372912":sw->"7372784"[color="red"];
+"7372848" [shape="pentagon",  color="#000000", style="filled", fillcolor="#f5e2d3", label="Sovunya"]
+"7373072":se->"7372912"[color="green"];
+"7373072":sw->"7372848"[color="red"];
+"7372432":se->"7372688"[color="green"];
+"7372432":sw->"7373072"[color="red"];
+"7373136":se->"7373104"[color="green"];
+"7373136":sw->"7372432"[color="red"];
+"7370248":se->"7372656"[color="green"];
+"7370248":sw->"7373136"[color="red"];
+"7370792":se->"7370408"[color="green"];
+"7370792":sw->"7370248"[color="red"];
+"7370144":se->"7370176"[color="green"];
+"7370144":sw->"7370792"[color="red"];
 }

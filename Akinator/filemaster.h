@@ -1,4 +1,4 @@
-//Version 0.4 (Dont work)
+//Version 0.5
 
 struct Lines {
     //The text of lines
