@@ -1,4 +1,4 @@
-//Version 0.4 (Dont work)
+//Version 0.5
 
 #include "filemaster.c"
 
@@ -43,7 +43,8 @@ struct Tree {
 };
 
 enum AllocationConsts {
-    DEFAULT_POSSIBLESUB_SIZE = 10
+    DEFAULT_POSSIBLESUB_SIZE = 10,
+    MAXIMUM_TEXT_SIZE        = 256
 };
 
 //Create new structures
