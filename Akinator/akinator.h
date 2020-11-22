@@ -1,6 +1,4 @@
-//Version 0.7
-
-#include "filemaster.c"
+//Version 0.8
 
 struct Node {
 
@@ -23,8 +21,6 @@ struct Node {
 
 };
 
-#include "stack.c"
-
 struct Tree {
 
     //The first node in the tree
@@ -45,6 +41,9 @@ enum AllocationConsts {
     MAXIMUM_TEXT_SIZE        = 256,
     MAXIMUM_TREE_DEEP        = 1000
 };
+
+#include "stack.c"
+#include "filemaster.c"
 
 //Create new structures
 Tree* CreateEmptyTree ();

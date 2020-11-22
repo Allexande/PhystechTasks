@@ -1,4 +1,4 @@
-//Version 0.5
+//Version 0.8
 
 #include "filemaster.h"
 
@@ -142,3 +142,73 @@ bool FilesContainSameText (const char *first, const char *second) {
     return false;
 }
 
+int CheckIfTextIsDatabase (char* text) {
+
+    if (text == NULL) {
+        return EMPTY;
+    }
+
+    Lines* textLines = GetLinesFromText (text);
+
+    char*   brackets = (char*) calloc (sizeof(char), textLines->numberOfLines);
+    assert (brackets);
+    size_t bracketsNumber = 0;
+
+    for (size_t pointer = 0; pointer < textLines->numberOfLines; pointer++) {
+
+        if ((textLines->line[pointer][0] == '}') && (bracketsNumber == 0)) {
+            return OPEN_BLOCK;
+        }
+
+        if ((textLines->line[pointer][0] == '}') && (brackets[bracketsNumber] == '{')) {
+            bracketsNumber--;
+        }
+
+        if (textLines->line[pointer][0] == '{') {
+            brackets[++bracketsNumber] = '{';
+        }
+
+        if ((textLines->line[pointer][0] == '{') || (textLines->line[pointer][0] == '}')) {
+            if (textLines->line[pointer][1] != '\0') {
+                return WRONG_DIVIDER;
+            }
+        } else {
+            if (CheckLine (textLines->line[pointer])) {
+                return CheckLine (textLines->line[pointer]);
+            }
+        }
+
+        if (bracketsNumber > MAXIMUM_TREE_DEEP) {
+            return TOO_DEEP;
+        }
+    }
+
+    if (bracketsNumber > 0) {
+        return WRONG_BLOCKS;
+    }
+
+    return IS_OK;
+}
+
+DatabaseError CheckLine (char* line) {
+
+    size_t pointer = 0;
+
+    if (line[pointer] != '"') {
+        return WRONG_BEGIN;
+    }
+
+    while (line[++pointer] != NULL) {
+
+        if (line[pointer] == '"') {
+            if (line[pointer + 1] == '\0') {
+                return IS_OK;
+            } else {
+                return WRONG_LINE;
+            }
+        }
+
+    }
+
+    return WRONG_END;
+}

@@ -1,17 +1,16 @@
-//Version 0.7
+//Version 0.8
 
 #include "game.h"
 
 void StartGame (const char *inputBase, const char *outputBase) {
 
     printf ("\n\n~ ~ ~ ~ ~ AKINATOR ~ ~ ~ ~ ~\n");
-    printf ("Pre-pre-alpha 0.0.0.1\n");
     printf ("inputBase = %s | outputBase = %s\n", inputBase, outputBase);
 
     Tree* gameTree = GetTreeFromFile (inputBase);
 
     if (gameTree == NULL) {
-        printf ("ERROR: Failed to open file %s\n", inputBase);
+        printf ("ERROR: Failed to read from file %s\n", inputBase);
         return;
     }
 
@@ -21,7 +20,7 @@ void StartGame (const char *inputBase, const char *outputBase) {
         if (PutTreeToFile (outputBase, gameTree)) {
             printf ("Changed database was saved in %s\n", outputBase);
         } else {
-            printf ("ERROR: Failed to open file %s\n", outputBase);
+            printf ("ERROR: Failed to write in file %s\n", outputBase);
         }
     }
 
@@ -408,7 +407,7 @@ void WriteComparation (Tree* thisTree, Node* first, Node* second) {
         printf ("%s %s, but it is false for %s. ", second->text, firstSame->text, first->text);
     }
 
-    printf ("As for similarities, they ");
+    printf ("As for similarities,");
 
     while (firstSame->parent != NULL) {
         if (firstSame->parent->right == firstSame) {

@@ -1,4 +1,4 @@
-//Version 0.7
+//Version 0.8
 
 #include "akinator.h"
 
@@ -36,6 +36,10 @@ Tree* GetTreeFromFile (const char *fileName) {
 
     char* textFromFile = ReadTextFromFile (fileName);
     if (textFromFile == NULL) {
+        return NULL;
+    }
+
+    if (CheckIfTextIsDatabase (textFromFile)) {
         return NULL;
     }
 
@@ -275,7 +279,7 @@ void GraphNode (Node* thisNode, FILE* file) {
 
     } else {
 
-        fprintf(file, "\"%ld\" [shape=\"pentagon\",  color=\"#000000\", style=\"filled\", fillcolor=\"#f5e2d3\", label=\"%s\"]\n",
+        fprintf(file, "\"%ld\" [shape=\"ellipse\",  color=\"#000000\", style=\"filled\", fillcolor=\"#f5e2d3\", label=\"%s\"]\n",
          thisNode,
          thisNode->text
          );

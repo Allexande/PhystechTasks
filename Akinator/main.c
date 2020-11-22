@@ -1,4 +1,4 @@
-//Version 0.7
+//Version 0.8
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -17,20 +17,6 @@
     #include "tests.c"
 #endif
 
-//TODO
-/*
-if (firstWay[pointer]->parent->right == firstWay[pointer]) {
-                printf (" it ");
-            } else {
-                printf (" it is false that it ");
-            }
-
-        printf ("%s,", firstWay[pointer]->parent->text);
-
-*/
-//Можно вынести в функцию в game.c
-
-//TODO проверка валидности файла перед считыванием
 int main (const int argc, const char* argv[]) {
 
     const char* inputFile  = DEFAULT_READING_BASE;
