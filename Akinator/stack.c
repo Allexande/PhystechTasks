@@ -1,11 +1,11 @@
-//Version 0.5
+//Version 1.0
 
 #include "stack.h"
 
 bool stackConstructor (stack_t* thov, size_t capacity) {
 
     thov->data = (Elem_t*) calloc (capacity, sizeof(Elem_t));
-    //assert (thov->data);
+
     if (thov->data == NULL) {
         return  false;
     }
@@ -24,16 +24,14 @@ bool stackConstructor (stack_t* thov, size_t capacity) {
 stack_t* newStack (size_t capacity) {
 
     stack_t* thov = (stack_t*) calloc (capacity, sizeof(stack_t));
-    //assert (thov);
 
     if (thov != NULL && stackConstructor (thov, capacity)) {;
         ASSERT_OK(thov)
-        //absoluteAdress = thov;
         return thov;
     } else {
         return NULL;
     }
-};
+}
 
 void stackDesructor (stack_t* thov) {
 
@@ -43,7 +41,7 @@ void stackDesructor (stack_t* thov) {
     thov->capacity = 0;
     free (thov);
 
-};
+}
 
 void stackPush (stack_t* thov, Elem_t element) {
 
@@ -60,7 +58,7 @@ void stackPush (stack_t* thov, Elem_t element) {
 
     ASSERT_OK(thov)
 
-};
+}
 
 Elem_t stackPop (stack_t* thov) {
 
@@ -79,7 +77,7 @@ Elem_t stackPop (stack_t* thov) {
 
     return thov->data[thov->length];
 
-};
+}
 
 Elem_t stackTop (stack_t* thov) {
 
@@ -95,7 +93,6 @@ error_t stackNotOK (stack_t* thov) {
         return POINTER_ON_STACK_IS_NULL;
     }
 
-    //if (thov != absoluteAdress || thov->adress != thov) {
     if (thov->adress != thov) {
         return WRONG_ADRESS;
     }
@@ -126,7 +123,7 @@ error_t stackNotOK (stack_t* thov) {
 
     return NO_ERROR;
 
-};
+}
 
 bool changeMemory (stack_t* thov, int dir) {
 
@@ -149,14 +146,14 @@ bool changeMemory (stack_t* thov, int dir) {
         return false;
     }
 
-};
+}
 
 bool addMemory (stack_t* thov) {
 
     ASSERT_OK(thov)
 
     return changeMemory (thov, 1);
-};
+}
 
 bool lessMemory (stack_t* thov) {
 
@@ -167,11 +164,11 @@ bool lessMemory (stack_t* thov) {
     } else {
         return false;
     }
-};
+}
 
 hash_t getHash (stack_t* thov) {
 
-    assert (thov); //Can't use ASSERT_OK
+    assert (thov);
 
     hash_t newHash = thov->length + thov->capacity + (int)thov->data;
     for (int i = 0; i < thov->length; i++) {
@@ -179,7 +176,7 @@ hash_t getHash (stack_t* thov) {
     }
 
     return newHash;
-};
+}
 
 void stackDump (stack_t* thov) {
 
@@ -207,10 +204,10 @@ void stackDump (stack_t* thov) {
 
     printf("    }\n}\n\n");
 
-};
+}
 
 void poisonFrom (stack_t* thov, int point) {
     for (int i = point; i < thov->capacity; i++) {
         thov->data[i] = POISON;
     }
-};
+}

@@ -1,4 +1,4 @@
-//Version 0.5
+//Version 1.0
 
 #define COEF_OF_REALLOC 2
 
@@ -44,30 +44,28 @@ enum error_t {
     WRONG_ADRESS                 //8
 };
 
-stack_t* newStack (size_t capacity);
+stack_t* newStack     (size_t capacity);
 
 bool stackConstructor (stack_t* thov, size_t capacity);
 
-void stackDesructor (stack_t* thov);
+void stackDesructor   (stack_t* thov);
 
-void stackPush (stack_t* thov, Elem_t element);
+void stackPush        (stack_t* thov, Elem_t element);
 
-Elem_t stackPop (stack_t* thov);
+Elem_t stackPop       (stack_t* thov);
 
-Elem_t stackTop (stack_t* thov);
+Elem_t stackTop       (stack_t* thov);
 
-void stackDump (stack_t* thov);
+void stackDump        (stack_t* thov);
 
-bool changeMemory (stack_t* thov, int dir);
+bool changeMemory     (stack_t* thov, int dir);
 
-bool addMemory  (stack_t* thov);
+bool addMemory        (stack_t* thov);
 
-bool lessMemory (stack_t* thov);
+bool lessMemory       (stack_t* thov);
 
-error_t stackNotOK (stack_t* thov);
+error_t stackNotOK    (stack_t* thov);
 
-hash_t getHash (stack_t* thov);
+hash_t getHash        (stack_t* thov);
 
-void poisonFrom (stack_t* thov, int point);
-
-//#include "stack.c"
+void poisonFrom       (stack_t* thov, int point);

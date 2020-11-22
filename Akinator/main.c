@@ -1,10 +1,17 @@
-//Version 0.8
+//Version 1.0
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <ctype.h>
 #include <string.h>
 #include <assert.h>
+
+//TODO
+//For future versions with GUI
+/*
+#include "windows.h"
+#include "TXLib.h"
+*/
 
 #define DEFAULT_READING_BASE "base.txt"
 #define DEFAULT_WRITING_BASE "base.txt"
@@ -30,7 +37,7 @@ int main (const int argc, const char* argv[]) {
                 inputFile = argv[i];
             }
 
-            if (strcmp(argv[i], "-o") == 0  || strcmp(argv[i], "--output")   == 0) {
+            if (strcmp(argv[i], "-o") == 0  || strcmp(argv[i], "--output")  == 0) {
                 outputFile = argv[i];
             }
 

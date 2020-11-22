@@ -1,10 +1,13 @@
-//Version 0.8
+//Version 1.0
 
 struct Lines {
+
     //The text of lines
     char** line;
+
     //Number of lines
     size_t numberOfLines;
+
 };
 
 enum DatabaseError {
@@ -19,18 +22,18 @@ enum DatabaseError {
     WRONG_LINE    = 8  //Database contains line which have rubbish after bracket
 };
 
-size_t GetNumberOfBytesOfFile (const char *fileName);
+//Work with info from file
+size_t GetNumberOfBytesOfFile (const char* fileName);
+char*  ReadTextFromFile       (const char* fileName);
+bool   FilesContainSameText   (const char* first, const char* second);
 
-char* ReadTextFromFile (const char *fileName);
+//Write to file
+bool WriteTextInFile (const char* fileName, char* text);
 
-bool WriteTextInFile (const char *fileName, char* text);
+//Work with strings
+Lines* GetLinesFromText  (char* text);
+size_t GetNumberOfSymbol (const char* text, char symbol);
 
-Lines* GetLinesFromText (char* text);
-
-size_t GetNumberOfSymbol (const char *text, char symbol);
-
-bool FilesContainSameText (const char *first, const char *second);
-
+//Check
 int CheckIfTextIsDatabase (char* text);
-
-DatabaseError CheckLine (char* line);
+DatabaseError CheckLine   (char* line);

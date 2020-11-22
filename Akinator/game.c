@@ -1,8 +1,8 @@
-//Version 0.8
+//Version 1.0
 
 #include "game.h"
 
-void StartGame (const char *inputBase, const char *outputBase) {
+void StartGame (const char* inputBase, const char* outputBase) {
 
     printf ("\n\n~ ~ ~ ~ ~ AKINATOR ~ ~ ~ ~ ~\n");
     printf ("inputBase = %s | outputBase = %s\n", inputBase, outputBase);
@@ -23,9 +23,7 @@ void StartGame (const char *inputBase, const char *outputBase) {
             printf ("ERROR: Failed to write in file %s\n", outputBase);
         }
     }
-
-};
-
+}
 
 void Menu (Tree* base) {
 
@@ -33,60 +31,59 @@ void Menu (Tree* base) {
 
     do {
 
-    printf ("\n~ ~ MENU ~ ~\n");
+        printf ("\n~ ~ MENU ~ ~\n");
 
-    printf ("You can call one of these commands:\n"
-    "[%d] Stop the program                      \n"
-    "[%d] Start user version of akinator        \n"
-    "[%d] Start developer version of akinator   \n"
-    "[%d] Get definition of word                \n"
-    "[%d] Compare two words                     \n"
-    "[%d] Draw a graph of current database      \n",
+        printf ("You can call one of these commands:\n"
+        "[%d] Stop the program                      \n"
+        "[%d] Start user version of akinator        \n"
+        "[%d] Start developer version of akinator   \n"
+        "[%d] Get definition of word                \n"
+        "[%d] Compare two words                     \n"
+        "[%d] Draw a graph of current database      \n",
 
-    STOP,
-    USER_AKINATOR,
-    DEV_AKINATOR,
-    DEFINITION,
-    COMPARISON,
-    GRAPH_DUMP
-    );
+        STOP,
+        USER_AKINATOR,
+        DEV_AKINATOR,
+        DEFINITION,
+        COMPARISON,
+        GRAPH_DUMP
+        );
 
-    scanf ("%d", &input);
+        scanf ("%d", &input);
 
-    switch (input) {
+        switch (input) {
 
-        case STOP: {
-            printf ("Akinator stopped.\n");
-        } break;
+            case STOP: {
+                printf ("Akinator stopped.\n");
+            } break;
 
-        case USER_AKINATOR: {
-            StartAkinator (base, true);
-        } break;
+            case USER_AKINATOR: {
+                StartAkinator (base, true);
+            } break;
 
-        case DEV_AKINATOR: {
-            StartAkinator (base, false);
-        } break;
+            case DEV_AKINATOR: {
+                StartAkinator (base, false);
+            } break;
 
-        case DEFINITION: {
-            Define (base);
-        } break;
+            case DEFINITION: {
+                Define (base);
+            } break;
 
-        case COMPARISON: {
-            Compare (base);
-        } break;
+            case COMPARISON: {
+                Compare (base);
+            } break;
 
-        case GRAPH_DUMP: {
-            GraphTree (base);
-        } break;
+            case GRAPH_DUMP: {
+                GraphTree (base);
+            } break;
 
-        default: {
-            printf ("Unknown command \"%d\"\n", input);
-        } break;
+            default: {
+                printf ("Unknown command \"%d\"\n", input);
+            } break;
 
-    }
+        }
 
     } while (input != STOP);
-
 }
 
 bool StartAkinator (Tree* thisTree, bool userMode) {
@@ -105,6 +102,7 @@ bool StartAkinator (Tree* thisTree, bool userMode) {
 void AkinatorProcess (Tree* thisTree, Node* thisNode, stack_t* possibleSubs, bool userMode) {
 
     if (thisNode->question) {
+
         int answer = AskQuestion (thisNode->text);
 
         switch (answer) {
@@ -145,21 +143,29 @@ void AkinatorProcess (Tree* thisTree, Node* thisNode, stack_t* possibleSubs, boo
 
         if (IsEnvisionedSub (thisNode->text)) {
             printf ("I guessed it!\n");
+
         } else {
+
             if (possibleSubs->length < 1) {
                 if (userMode) {
                     printf ("It was too hard for me to guess what you were thinking about...\n");
                 } else {
+
                     if (TryToAddNode ()) {
+
                         thisTree->wasChanged = true;
-                        if (AddNewNode (thisNode)) {
+                        if (AddNewNode (thisTree, thisNode)) {
                             printf ("New node was added!\n");
                         }
+
                     }
+
                 }
+
             } else {
                 AkinatorProcess (thisTree, stackPop (possibleSubs), possibleSubs, userMode);
             }
+
         }
     }
 }
@@ -264,19 +270,18 @@ bool TryToAddNode () {
         }
 
     } while (true);
-
 }
 
-bool AddNewNode (Node* thisNode) {
+bool AddNewNode (Tree* thisTree, Node* thisNode) {
 
-    char* newSub = (char*) calloc (sizeof(char), MAXIMUM_TEXT_SIZE);
+      char* newSub = (char*) calloc (sizeof(char), MAXIMUM_TEXT_SIZE);
     assert (newSub);
 
     printf ("> What you were thinking about?\n");
 
     scanf ("\n%[^\n]s", newSub);
 
-    char* newQuestion = (char*) calloc (sizeof(char), MAXIMUM_TEXT_SIZE);
+      char* newQuestion = (char*) calloc (sizeof(char), MAXIMUM_TEXT_SIZE);
     assert (newQuestion);
 
     printf ("> What special characteristic %s have but %s does not?\n"
@@ -292,16 +297,15 @@ bool AddNewNode (Node* thisNode) {
         return false;
    }
 
-   return AddNewSub (thisNode, newSub, newQuestion);
-
+   return AddNewSub (thisTree, thisNode, newSub, newQuestion);
 }
 
 bool Compare (Tree* thisTree) {
 
-    char* first = (char*) calloc (sizeof(char), MAXIMUM_TEXT_SIZE);
+      char* first = (char*) calloc (sizeof(char), MAXIMUM_TEXT_SIZE);
     assert (first);
 
-    char* second = (char*) calloc (sizeof(char), MAXIMUM_TEXT_SIZE);
+      char* second = (char*) calloc (sizeof(char), MAXIMUM_TEXT_SIZE);
     assert (second);
 
     printf ("> What is the first subject you want to compare?\n");
@@ -313,10 +317,12 @@ bool Compare (Tree* thisTree) {
     scanf ("\n%[^\n]s", second);
 
     if ((first != NULL) && (second != NULL) && (thisTree != NULL)) {
+
         if (!TryToCompare (thisTree, first, second)) {
             printf("Oops... you entered words which don't exist in the database.\n");
             return false;
         }
+
         return true;
     }
 
@@ -352,13 +358,10 @@ bool TryToCompare (Tree* thisTree, char* first, char* second) {
 
 void WriteComparation (Tree* thisTree, Node* first, Node* second) {
 
-    //Вынести в функцию получение firstSame
-    Node** firstWay  = GetWayFromNodeToRoot (first);
-    Node** secondWay = GetWayFromNodeToRoot (second);
+    Node* firstSame = FindFirstSame (first, second);
 
-    Node* firstSame = GetTheFirstSameElement (firstWay, secondWay);
-
-    Node* link = (Node*) calloc (sizeof(Node), 1);
+     Node* link = (Node*) calloc (sizeof(Node), 1);
+    assert(link);
 
     link = first;
 
@@ -410,6 +413,7 @@ void WriteComparation (Tree* thisTree, Node* first, Node* second) {
     printf ("As for similarities,");
 
     while (firstSame->parent != NULL) {
+
         if (firstSame->parent->right == firstSame) {
             printf (" they ");
         } else {
@@ -427,7 +431,7 @@ void WriteComparation (Tree* thisTree, Node* first, Node* second) {
 
 bool Define (Tree* thisTree) {
 
-    char* subject = (char*) calloc (sizeof(char), MAXIMUM_TEXT_SIZE);
+      char* subject = (char*) calloc (sizeof(char), MAXIMUM_TEXT_SIZE);
     assert (subject);
 
     printf ("> What is the subject you want to get definition of?\n");
@@ -435,10 +439,12 @@ bool Define (Tree* thisTree) {
     scanf ("\n%[^\n]s", subject);
 
     if ((subject != NULL) && (thisTree != NULL)) {
+
         if (!TryToDefine (thisTree, subject)) {
             printf("Oops... you entered word which don't exist in the database.\n");
             return false;
         }
+
         return true;
     }
 
@@ -460,9 +466,11 @@ bool TryToDefine (Tree* thisTree, char* subject) {
     }
 
     if (subjectNode != NULL) {
+
         printf ("\nThe defenition of %s:", subject);
         WriteDefinition (thisTree, subjectNode);
         printf (" and that is all.\n");
+
         return true;
     }
 

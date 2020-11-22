@@ -1,6 +1,7 @@
-//Version 0.5
+//Version 1.0
 
 void TestGetLinesFromText () {
+
     char text[] = {"Hey\n{\n}\nueu\nsdfd\n\ndfdfw444\n"};
     Lines* linesOfText = GetLinesFromText (text);
 
@@ -12,8 +13,10 @@ void TestGetLinesFromText () {
 }
 
 void TestCutBothSides () {
+
     char str[] = {"_HELLO_"};
     printf("CutBothSides(%s)=%s\n", str, CutBothSides(str));
+
 }
 
 void TestMakingTreeAndDump () {
@@ -27,15 +30,16 @@ void TestMakingTreeAndDump () {
 }
 
 void TestWritingTreeInFile () {
+
     Tree* myTree = GetTreeFromFile ("base.txt");
     PutTreeToFile ("newBase.txt", myTree);
     printf("FilesContainSameText(base.txt, newBase.txt)=%d\n", FilesContainSameText("newBase.txt", "base.txt"));
+
 }
 
-#include <windows.h>
-#include <tchar.h>
-
 void Tets () {
+
+    //EVERYTHING IS OK
 
     //OK
     //TestGetLinesFromText ();
@@ -48,6 +52,4 @@ void Tets () {
 
     //OK
     //TestWritingTreeInFile ();
-
-
 }

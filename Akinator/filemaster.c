@@ -1,13 +1,12 @@
-//Version 0.8
+//Version 1.0
 
 #include "filemaster.h"
 
-size_t GetNumberOfBytesOfFile (const char *fileName) {
+size_t GetNumberOfBytesOfFile (const char* fileName) {
 
     assert (fileName);
 
-    FILE *file = fopen (fileName, "r");
-
+     FILE *file = fopen (fileName, "r");
     assert(file);
 
     if (file == NULL) {
@@ -24,7 +23,7 @@ size_t GetNumberOfBytesOfFile (const char *fileName) {
     }
 }
 
-char* ReadTextFromFile (const char *fileName) {
+char* ReadTextFromFile (const char* fileName) {
 
     assert (fileName);
 
@@ -34,12 +33,10 @@ char* ReadTextFromFile (const char *fileName) {
         return NULL;
     }
 
-    char* text = (char *) calloc (length + 2, sizeof(char));
-
+      char* text = (char*) calloc (sizeof(char), length + 2);
     assert (text);
 
-    FILE *file = fopen (fileName, "r");
-
+      FILE* file = fopen (fileName, "r");
     assert (file);
 
     if (file == NULL) {
@@ -53,24 +50,22 @@ char* ReadTextFromFile (const char *fileName) {
 
     fclose (file);
     *(text+lengthWasRead) = '\0';
-    return text;
 
+    return text;
 }
 
-bool WriteTextInFile (const char *fileName, char* text) {
+bool WriteTextInFile (const char* fileName, char* text) {
 
     assert (fileName);
 
-    FILE *file = fopen (fileName, "w");
+    FILE* file = fopen (fileName, "w");
 
     if (file == NULL) {
         return false;
 
     } else {
-
         fputs(text, file);
         fclose(file);
-
     }
 
     return true;
@@ -78,12 +73,12 @@ bool WriteTextInFile (const char *fileName, char* text) {
 
 Lines* GetLinesFromText (char* text) {
 
-    Lines* newLines = (Lines*) calloc (sizeof(Lines), 1);
+     Lines* newLines = (Lines*) calloc (sizeof(Lines), 1);
     assert (newLines);
 
     size_t numberOfLines = GetNumberOfSymbol (text, '\n');
 
-    newLines->line = (char**) calloc (sizeof(char*), numberOfLines);
+            newLines->line = (char**) calloc (sizeof(char*), numberOfLines);
     assert (newLines->line);
 
     newLines->numberOfLines = numberOfLines;
@@ -109,7 +104,7 @@ Lines* GetLinesFromText (char* text) {
 }
 
 
-size_t GetNumberOfSymbol (const char *text, char symbol) {
+size_t GetNumberOfSymbol (const char* text, char symbol) {
 
     assert (text);
 
@@ -126,7 +121,7 @@ size_t GetNumberOfSymbol (const char *text, char symbol) {
     return symbols;
 }
 
-bool FilesContainSameText (const char *first, const char *second) {
+bool FilesContainSameText (const char* first, const char* second) {
 
     char* firstText  = ReadTextFromFile (first);
     char* secondText = ReadTextFromFile (second);
@@ -150,7 +145,7 @@ int CheckIfTextIsDatabase (char* text) {
 
     Lines* textLines = GetLinesFromText (text);
 
-    char*   brackets = (char*) calloc (sizeof(char), textLines->numberOfLines);
+      char* brackets = (char*) calloc (sizeof(char), textLines->numberOfLines);
     assert (brackets);
     size_t bracketsNumber = 0;
 
@@ -169,13 +164,17 @@ int CheckIfTextIsDatabase (char* text) {
         }
 
         if ((textLines->line[pointer][0] == '{') || (textLines->line[pointer][0] == '}')) {
+
             if (textLines->line[pointer][1] != '\0') {
                 return WRONG_DIVIDER;
             }
+
         } else {
+
             if (CheckLine (textLines->line[pointer])) {
                 return CheckLine (textLines->line[pointer]);
             }
+
         }
 
         if (bracketsNumber > MAXIMUM_TREE_DEEP) {

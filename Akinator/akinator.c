@@ -1,4 +1,4 @@
-//Version 0.8
+//Version 1.0
 
 #include "akinator.h"
 
@@ -16,7 +16,7 @@ Tree* CreateEmptyTree () {
 
 Node* CreateEmptyNode () {
 
-    Node* newNode = (Node*) calloc (sizeof(Node), 1);
+    Node*  newNode = (Node*) calloc (sizeof(Node), 1);
     assert (newNode);
 
     newNode->question = false;
@@ -28,7 +28,7 @@ Node* CreateEmptyNode () {
     return newNode;
 }
 
-Tree* GetTreeFromFile (const char *fileName) {
+Tree* GetTreeFromFile (const char* fileName) {
 
     if (fileName == NULL) {
         return NULL;
@@ -94,7 +94,7 @@ Tree* GetTreeFromFile (const char *fileName) {
     return newTree;
 }
 
-bool PutTreeToFile (const char *fileName, Tree* thisTree) {
+bool PutTreeToFile (const char* fileName, Tree* thisTree) {
 
     FILE *file = fopen (fileName, "wt");
 
@@ -156,13 +156,13 @@ void TryToAddNodeInArrayOfSubs (Tree* thisTree, Node* currentNode, size_t* subsL
     if (currentNode->question) {
         TryToAddNodeInArrayOfSubs (thisTree, currentNode->left,  subsLength);
         TryToAddNodeInArrayOfSubs (thisTree, currentNode->right, subsLength);
+
     } else {
         thisTree->subjects[*subsLength] = currentNode;
         *subsLength += 1;
     }
 }
 
-/*
 bool AddNodeInArrayOfSubs (Tree* thisTree, Node* nodeToAdd) {
 
     size_t pointer = 0;
@@ -180,11 +180,32 @@ bool AddNodeInArrayOfSubs (Tree* thisTree, Node* nodeToAdd) {
 
     return false;
 }
-*/
+
+bool DeleteNodeFromArrayOfSubs (Tree* thisTree, Node* nodeToDelete) {
+
+    size_t pointer = 0;
+
+    while (thisTree->subjects[pointer] != NULL) {
+
+        if (thisTree->subjects[pointer] == nodeToDelete) {
+
+            while (thisTree->subjects[pointer] != NULL) {
+                thisTree->subjects[pointer] = thisTree->subjects[pointer + 1];
+                pointer++;
+            }
+
+            return true;
+        }
+
+        pointer++;
+    }
+
+    return false;
+}
 
 Node** GetWayFromNodeToRoot (Node* thisNode) {
 
-    Node** way  = (Node**) calloc (sizeof(Node*), MAXIMUM_TREE_DEEP);
+    Node** way = (Node**) calloc (sizeof(Node*), MAXIMUM_TREE_DEEP);
 
     Node* link = thisNode;
     size_t pointer = 0;
@@ -216,7 +237,15 @@ Node* GetTheFirstSameElement (Node** first, Node** second) {
     return NULL;
 }
 
-bool AddNewSub (Node* thisNode, char* newSub, char* newQuestion) {
+Node* FindFirstSame (Node* first, Node* second) {
+
+    return GetTheFirstSameElement (
+    GetWayFromNodeToRoot (first),
+    GetWayFromNodeToRoot (second)
+    );
+}
+
+bool AddNewSub (Tree* thisTree, Node* thisNode, char* newSub, char* newQuestion) {
 
     thisNode->right = CreateEmptyNode ();
     thisNode->left  = CreateEmptyNode ();
@@ -230,6 +259,11 @@ bool AddNewSub (Node* thisNode, char* newSub, char* newQuestion) {
 
     thisNode->question = true;
 
+    DeleteNodeFromArrayOfSubs (thisTree, thisNode);
+
+    AddNodeInArrayOfSubs (thisTree, thisNode->left);
+    AddNodeInArrayOfSubs (thisTree, thisNode->right);
+
     return true;
 }
 
@@ -242,9 +276,7 @@ bool GraphTree (Tree* thisTree) {
     }
 
     fprintf (file, "digraph Tree {\n");
-
     GraphNode (thisTree->root, file);
-
     fprintf(file, "}");
 
 	fclose(file);
@@ -265,7 +297,7 @@ void GraphNode (Node* thisNode, FILE* file) {
          );
 
         GraphNode (thisNode->right, file);
-        GraphNode (thisNode->left, file);
+        GraphNode (thisNode->left,  file);
 
         fprintf(file, "\"%ld\":se->\"%ld\"[color=\"green\"];\n",
         thisNode,
@@ -289,7 +321,6 @@ void GraphNode (Node* thisNode, FILE* file) {
 void ConsoleTreeDump (Tree* thisTree) {
 
     printf("\n\n< < < THIS IS DUMP OF TREE (%ld) > > >\n", thisTree);
-
     printf("thisTree->wasChanged=%d\n", thisTree);
 
     ConsoleNodeDump (thisTree->root);
@@ -306,6 +337,6 @@ void ConsoleNodeDump (Node* thisNode) {
 
     if (thisNode->question) {
         ConsoleNodeDump (thisNode->right);
-        ConsoleNodeDump (thisNode->left);
+        ConsoleNodeDump (thisNode->left );
     }
 }

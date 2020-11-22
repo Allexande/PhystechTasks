@@ -1,4 +1,4 @@
-//Version 0.8
+//Version 1.0
 
 struct Node {
 
@@ -50,8 +50,8 @@ Tree* CreateEmptyTree ();
 Node* CreateEmptyNode ();
 
 //Work with data base files
-Tree* GetTreeFromFile (const char *fileName);
-bool  PutTreeToFile   (const char *fileName, Tree* thisTree);
+Tree* GetTreeFromFile (const char* fileName);
+bool  PutTreeToFile   (const char* fileName, Tree* thisTree);
 void  WriteNodeToFile (Node* thisNode, FILE *file);
 
 //Work with strings
@@ -60,19 +60,20 @@ char* CutBothSides (char* str);
 //Work with list of subjects
 size_t FillArrayOfSubs           (Tree* thisTree);
 void   TryToAddNodeInArrayOfSubs (Tree* thisTree, Node* currentNode, size_t* subsLength);
-/*
-/bool   AddNodeInArrayOfSubs      (Tree* thisTree, Node* nodeToAdd);
-*/
+bool   AddNodeInArrayOfSubs      (Tree* thisTree, Node* nodeToAdd);
+bool   DeleteNodeFromArrayOfSubs (Tree* thisTree, Node* nodeToDelete);
 
 //Get and work with way from node to root
-Node** GetWayFromNodeToRoot (Node* thisNode);
+Node** GetWayFromNodeToRoot   (Node* thisNode);
 Node*  GetTheFirstSameElement (Node** first, Node** second);
+Node*  FindFirstSame          (Node*  first, Node*  second);
 
 //Add new nodes
-bool AddNewSub (Node* thisNode, char* newSub, char* newQuestion);
+bool AddNewSub (Tree* thisTree, Node* thisNode, char* newSub, char* newQuestion);
 
 //Dump
 bool GraphTree (Tree* thisTree);
 void GraphNode (Node* thisNode, FILE* file);
+
 void ConsoleTreeDump (Tree* thisTree);
 void ConsoleNodeDump (Node* thisNode);
