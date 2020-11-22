@@ -1,4 +1,4 @@
-//Version 0.6
+//Version 0.7
 
 #include "filemaster.c"
 
@@ -42,7 +42,8 @@ struct Tree {
 
 enum AllocationConsts {
     DEFAULT_POSSIBLESUB_SIZE = 10,
-    MAXIMUM_TEXT_SIZE        = 256
+    MAXIMUM_TEXT_SIZE        = 256,
+    MAXIMUM_TREE_DEEP        = 1000
 };
 
 //Create new structures
@@ -63,6 +64,10 @@ void   TryToAddNodeInArrayOfSubs (Tree* thisTree, Node* currentNode, size_t* sub
 /*
 /bool   AddNodeInArrayOfSubs      (Tree* thisTree, Node* nodeToAdd);
 */
+
+//Get and work with way from node to root
+Node** GetWayFromNodeToRoot (Node* thisNode);
+Node*  GetTheFirstSameElement (Node** first, Node** second);
 
 //Add new nodes
 bool AddNewSub (Node* thisNode, char* newSub, char* newQuestion);

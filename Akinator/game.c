@@ -1,4 +1,4 @@
-//Version 0.6
+//Version 0.7
 
 #include "game.h"
 
@@ -353,8 +353,77 @@ bool TryToCompare (Tree* thisTree, char* first, char* second) {
 
 void WriteComparation (Tree* thisTree, Node* first, Node* second) {
 
-    //TODO COMPARATION
+    //Вынести в функцию получение firstSame
+    Node** firstWay  = GetWayFromNodeToRoot (first);
+    Node** secondWay = GetWayFromNodeToRoot (second);
 
+    Node* firstSame = GetTheFirstSameElement (firstWay, secondWay);
+
+    Node* link = (Node*) calloc (sizeof(Node), 1);
+
+    link = first;
+
+    if (link != firstSame) {
+        printf ("We know something about %s. For example,", first->text);
+    }
+
+    while (link->parent != firstSame) {
+
+        if (link->parent->right == link) {
+                printf (" it ");
+            } else {
+                printf (" it is false that it ");
+            }
+
+        printf ("%s,", link->parent->text);
+
+        link = link->parent;
+    }
+
+    link = second;
+    Node* previousSecond = second;
+
+    if (link->parent != firstSame) {
+        printf ("We know something about %s. For example,", second->text);
+    }
+
+    while (link->parent != firstSame) {
+
+        if (link->parent->right == link) {
+                printf (" it ");
+            } else {
+                printf (" it is false that it ");
+            }
+
+        printf ("%s,", link->parent->text);
+
+        previousSecond = link;
+        link = link->parent;
+    }
+
+    printf ("There is a difference between %s and %s. ", first->text, second->text);
+    if (previousSecond == firstSame->right) {
+        printf ("%s %s, but it is false for %s. ", first->text, firstSame->text, second->text);
+    } else {
+        printf ("%s %s, but it is false for %s. ", second->text, firstSame->text, first->text);
+    }
+
+    printf ("As for similarities, they ");
+
+    while (firstSame->parent != NULL) {
+        if (firstSame->parent->right == firstSame) {
+            printf (" they ");
+        } else {
+            printf (" it is false that they ");
+        }
+
+        printf ("%s,", firstSame->text);
+
+        firstSame = firstSame->parent;
+
+    }
+
+    printf (" and that is all.\n");
 }
 
 bool Define (Tree* thisTree) {
@@ -383,10 +452,6 @@ bool TryToDefine (Tree* thisTree, char* subject) {
 
     size_t pointer = 0;
     while (thisTree->subjects[pointer] != NULL) {
-
-        //printf("pointer=%d\n", pointer);
-        //printf("thisTree->subjects[pointer]->text=%s\n", thisTree->subjects[pointer]->text);
-        //printf("strcmp (thisTree->subjects[pointer]->text, subject)=%d\n", strcmp (thisTree->subjects[pointer]->text, subject));
 
         if (strcmp (thisTree->subjects[pointer]->text, subject) == 0) {
             subjectNode = thisTree->subjects[pointer];

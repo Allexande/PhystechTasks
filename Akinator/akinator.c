@@ -1,4 +1,4 @@
-//Version 0.6
+//Version 0.7
 
 #include "akinator.h"
 
@@ -177,6 +177,40 @@ bool AddNodeInArrayOfSubs (Tree* thisTree, Node* nodeToAdd) {
     return false;
 }
 */
+
+Node** GetWayFromNodeToRoot (Node* thisNode) {
+
+    Node** way  = (Node**) calloc (sizeof(Node*), MAXIMUM_TREE_DEEP);
+
+    Node* link = thisNode;
+    size_t pointer = 0;
+
+    while (link != NULL) {
+        way[pointer++] = link;
+        link = link->parent;
+    }
+
+    return way;
+}
+
+Node* GetTheFirstSameElement (Node** first, Node** second) {
+
+    size_t pointerFirst  = 0;
+    size_t pointerSecond = 0;
+
+    while (first[pointerFirst] != NULL) {
+        pointerSecond = 0;
+        while (second[pointerSecond] != NULL) {
+            if (first[pointerFirst] == second[pointerSecond]) {
+                return first[pointerFirst];
+            }
+            pointerSecond++;
+        }
+        pointerFirst++;
+    }
+
+    return NULL;
+}
 
 bool AddNewSub (Node* thisNode, char* newSub, char* newQuestion) {
 
