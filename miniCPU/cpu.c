@@ -1,4 +1,4 @@
-//version 1.0.0
+//version 1.0.1
 
 #include "enum.h"
 #include "filemaster.c"
@@ -8,7 +8,7 @@
 
 //#define DEBUG_CPU
 
-#define DEFAILT_READING_FILE_NAME "prog_demo.asm"
+#define DEFAILT_READING_FILE_NAME "prog_helloWorld.asm"
 
 int main (const int argc, const char* argv[]) {
 

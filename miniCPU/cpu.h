@@ -1,4 +1,4 @@
-//version 1.0.0
+//version 1.0.1
 
 struct CPU {
 
@@ -24,7 +24,8 @@ enum CPUfeatures {
     startCallingStackSize = 100,
     limitSizeOfCode       = 1000,
     numberOfRegisters     = 26,
-    sizeOfRAM             = 10000,
+    beginingOfVideoRAM    = 100,
+    sizeOfRAM             = 10000
 };
 
 bool CheckVersion (CPU* cpu);

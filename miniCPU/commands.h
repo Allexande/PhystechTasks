@@ -1,4 +1,4 @@
-//version 1.0.0
+//version 1.0.1
 
 //#define DEBUG_COMMANDS
 
@@ -439,6 +439,22 @@ DEF_CMD (jt, 27, 2, {
     } else {
         cpu->ofs++;
     }
+} )
+
+// ---
+
+DEF_CMD (draw, 50, 2, {
+
+    size_t lengthToShow = cpu->code[++cpu->ofs];
+
+    #ifdef DEBUG_COMMANDS
+        printf("draw: Will be painted %d symbols\n", lengthToShow);
+    #endif
+
+    for (size_t i = beginingOfVideoRAM; i < beginingOfVideoRAM + lengthToShow; i++) {
+        printf("%c", (char)cpu->RAM[i]);
+    }
+
 } )
 
 // ---
