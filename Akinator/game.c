@@ -1,4 +1,4 @@
-//Version 1.0
+//Version 1.1
 
 #include "game.h"
 
@@ -23,6 +23,8 @@ void StartGame (const char* inputBase, const char* outputBase) {
             printf ("ERROR: Failed to write in file %s\n", outputBase);
         }
     }
+
+    DestroyTree (gameTree);
 }
 
 void Menu (Tree* base) {
@@ -102,71 +104,70 @@ bool StartAkinator (Tree* thisTree, bool userMode) {
 void AkinatorProcess (Tree* thisTree, Node* thisNode, stack_t* possibleSubs, bool userMode) {
 
     if (thisNode->question) {
+        ProcessQuestion (thisTree, thisNode, possibleSubs, userMode);
+        return;
+    }
 
-        int answer = AskQuestion (thisNode->text);
+    if (IsEnvisionedSub (thisNode->text)) {
+        printf ("I guessed it!\n");
+        return;
+    }
 
-        switch (answer) {
-
-            case YES: {
-                AkinatorProcess (thisTree, thisNode->right, possibleSubs, userMode);
-            } break;
-
-            case UNSURE_YES: {
-                stackPush (possibleSubs, thisNode->left);
-                AkinatorProcess (thisTree, thisNode->right, possibleSubs, userMode);
-            } break;
-
-            case UNSURE: {
-                //WARNING
-                //Behavior in case of UNSURE can be different
-                //There it is the same like in UNSURE_YES
-                stackPush (possibleSubs, thisNode->left);
-                AkinatorProcess (thisTree, thisNode->right, possibleSubs, userMode);
-            } break;
-
-            case UNSURE_NO: {
-                stackPush (possibleSubs, thisNode->right);
-                AkinatorProcess (thisTree, thisNode->left, possibleSubs, userMode);
-            } break;
-
-            case NO: {
-                AkinatorProcess (thisTree, thisNode->left, possibleSubs, userMode);
-            } break;
-
-            default: {
-                printf ("Unknown answer \"%d\"\n", answer);
-            } break;
-
+    if (possibleSubs->length < 1) {
+        if (userMode) {
+            printf ("It was too hard for me to guess what you were thinking about...\n");
+            return;
         }
 
-    } else {
-
-        if (IsEnvisionedSub (thisNode->text)) {
-            printf ("I guessed it!\n");
-
-        } else {
-
-            if (possibleSubs->length < 1) {
-                if (userMode) {
-                    printf ("It was too hard for me to guess what you were thinking about...\n");
-                } else {
-
-                    if (TryToAddNode ()) {
-
-                        thisTree->wasChanged = true;
-                        if (AddNewNode (thisTree, thisNode)) {
-                            printf ("New node was added!\n");
-                        }
-
-                    }
-
-                }
-
-            } else {
-                AkinatorProcess (thisTree, stackPop (possibleSubs), possibleSubs, userMode);
+        if (TryToAddNode ()) {
+            thisTree->wasChanged = true;
+            if (AddNewNode (thisTree, thisNode)) {
+                printf ("New node was added!\n");
             }
-
         }
+
+        return;
+    }
+
+    AkinatorProcess (thisTree, stackPop (possibleSubs), possibleSubs, userMode);
+}
+
+void ProcessQuestion (Tree* thisTree, Node* thisNode, stack_t* possibleSubs, bool userMode) {
+
+    int answer = AskQuestion (thisNode->text);
+
+    switch (answer) {
+
+        case YES: {
+            AkinatorProcess (thisTree, thisNode->right, possibleSubs, userMode);
+        } break;
+
+        case UNSURE_YES: {
+            stackPush (possibleSubs, thisNode->left);
+            AkinatorProcess (thisTree, thisNode->right, possibleSubs, userMode);
+        } break;
+
+        case UNSURE: {
+            //WARNING
+            //Behavior in case of UNSURE can be different
+            //There it is the same like in UNSURE_YES
+            stackPush (possibleSubs, thisNode->left);
+            AkinatorProcess (thisTree, thisNode->right, possibleSubs, userMode);
+        } break;
+
+        case UNSURE_NO: {
+            stackPush (possibleSubs, thisNode->right);
+            AkinatorProcess (thisTree, thisNode->left, possibleSubs, userMode);
+        } break;
+
+        case NO: {
+            AkinatorProcess (thisTree, thisNode->left, possibleSubs, userMode);
+        } break;
+
+        default: {
+            printf ("Unknown answer \"%d\"\n", answer);
+        } break;
+
     }
 }
 

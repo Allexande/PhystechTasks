@@ -1,4 +1,4 @@
-//Version 1.0
+//Version 1.1
 
 struct Node {
 
@@ -77,3 +77,7 @@ void GraphNode (Node* thisNode, FILE* file);
 
 void ConsoleTreeDump (Tree* thisTree);
 void ConsoleNodeDump (Node* thisNode);
+
+//Detele structure
+bool DestroyTree (Tree* thisTree);
+void DestroyNode (Node* thisNode);

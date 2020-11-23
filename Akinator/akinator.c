@@ -1,4 +1,4 @@
-//Version 1.0
+//Version 1.1
 
 #include "akinator.h"
 
@@ -339,4 +339,37 @@ void ConsoleNodeDump (Node* thisNode) {
         ConsoleNodeDump (thisNode->right);
         ConsoleNodeDump (thisNode->left );
     }
+}
+
+bool DestroyTree (Tree* thisTree) {
+
+    if (thisTree == NULL) {
+        return false;
+    }
+
+    DestroyNode (thisTree->root);
+    free (thisTree->subjects);
+          thisTree->subjects = nullptr;
+
+    return true;
+}
+
+void DestroyNode (Node* thisNode) {
+
+    if (thisNode->left != NULL) {
+        DestroyNode (thisNode->left);
+    }
+
+    if (thisNode->right != NULL) {
+        DestroyNode (thisNode->right);
+    }
+
+    free (thisNode->left);
+          thisNode->left = nullptr;
+
+    free (thisNode->right);
+          thisNode->right = nullptr;
+
+    free (thisNode->parent);
+          thisNode->parent = nullptr;
 }

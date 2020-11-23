@@ -1,4 +1,4 @@
-//Version 1.0
+//Version 1.1
 
 #include "akinator.c"
 
@@ -28,7 +28,8 @@ void Menu (Tree* gameTree);
 //Akinator process
 bool StartAkinator   (Tree* thisTree, bool userMode);
 void AkinatorProcess (Tree* thisTree, Node* thisNode, stack_t* possibleSubs, bool userMode);
-int AskQuestion      (char* text);
+void ProcessQuestion (Tree* thisTree, Node* thisNode, stack_t* possibleSubs, bool userMode);
+int  AskQuestion     (char* text);
 
 //Adding new nodes
 bool IsEnvisionedSub (char* text);

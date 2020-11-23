@@ -1,4 +1,4 @@
-//Version 1.0
+//Version 1.1
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -6,7 +6,6 @@
 #include <string.h>
 #include <assert.h>
 
-//TODO
 //For future versions with GUI
 /*
 #include "windows.h"
