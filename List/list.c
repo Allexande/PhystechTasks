@@ -1,4 +1,4 @@
-//Version 1.6.0
+//Version 1.6.1
 
 #include "list.h"
 
@@ -569,8 +569,8 @@ bool HTMLList (List* thisList) {
                                     </div>                                                                \
                                 </div>"),
             point,
-            point,
             DATA(point),
+            point,
             NEXT(point),
             NEXT(point),
             PREV(point),
@@ -589,8 +589,8 @@ bool HTMLList (List* thisList) {
                                         </div>                                                        \
                                     </div>                                                            \
                                 </div>"),
-            point,
             DATA(point),
+            point,
             NEXT(point),
             PREV(point));
 
@@ -631,8 +631,8 @@ bool HTMLList (List* thisList) {
                                                                                   \
                             <i class=\"down\"></i>                                \
                         </center>"),
-        link,
         DATA(link),
+        link,
         NEXT(link),
         PREV(link));
 
@@ -651,12 +651,12 @@ bool HTMLList (List* thisList) {
                     </p>                                                                              \
                     <div class=\"node\">                                                              \
                         <center class=\"adress\">                                                     \
-                            POSITION                                                                  \
+                            DATA                                                                      \
                         </center>                                                                     \
                         <div class=\"container\">                                                     \
                             <div class=\"info\">                                                      \
                                 <div class=\"data field\">                                            \
-                                    DATA                                                              \
+                                    POSITION                                                          \
                                 </div>                                                                \
                                 <div class=\"next field\">                                            \
                                     NEXT                                                              \
