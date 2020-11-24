@@ -1,0 +1,63 @@
+in
+push rax
+in
+push rbx
+in
+push rcx
+pop rax
+push 0
+je linear:
+jmp square:
+linear:
+pop rbx
+push 0
+jne one:
+hlt
+hlt
+hlt	
+square:	
+pop rbx
+pop rbx
+mul
+push -4
+pop rax
+pop rcx
+mul
+mul
+sub
+push rdx
+pop rdx
+push 0
+jae two:
+hlt
+hlt
+hlt
+one:
+pop rbx
+pop rcx
+div
+out
+hlt
+hlt
+hlt
+two:
+pop rdx
+sqrt
+push rdx  
+push 2 
+push 0
+pop rbx
+sub
+pop rdx
+add
+div
+out
+push 2
+push 0
+pop rbx
+sub
+pop rdx
+sub
+div
+out
+hlt

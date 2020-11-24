@@ -8,7 +8,7 @@
 
 //#define DEBUG_CPU
 
-#define DEFAILT_READING_FILE_NAME "prog_helloWorld.asm"
+#define DEFAILT_READING_FILE_NAME "prog_sqr.asm"
 
 int main (const int argc, const char* argv[]) {
 
@@ -135,7 +135,7 @@ void execute (CPU* cpu) {
 
 void process (CPU* cpu) {
 
-    while (cpu->ofs < cpu->totalSize) {
+    while (cpu->ofs < cpu->totalSize && cpu->code[cpu->ofs] != 127) {
         execute(cpu);
     }
 

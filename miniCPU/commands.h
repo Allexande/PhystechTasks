@@ -14,6 +14,9 @@
 #define WRITE_argument_TO_ofs                     \
     cpu->ofs = (int)(cpu->code[++cpu->ofs]) - 1;
 
+#define WRITE_FOR_JUMP                            \
+    cpu->ofs = (int)(cpu->code[cpu->ofs++]) - 1;
+
 #define M_CONST    type & 1
 
 #define M_REGISTER type & 2
@@ -260,7 +263,7 @@ DEF_CMD (jmp, 20, 2, {
 
     cpu->ofs += sizeof(char);
 
-    WRITE_argument_TO_ofs
+    WRITE_FOR_JUMP
 
     MOVE_ADRESS_BECAUSE_OF_HEADER
 
@@ -277,15 +280,15 @@ DEF_CMD (ja, 21, 2, {
     #ifdef DEBUG_COMMANDS
         printf("ja: first = %lf second = %lf", first, second);
         if (second > first) {
-            printf("second > first = %d and because of this was jump to %d\n", second > first, (int)(cpu->code[++cpu->ofs]));
+            printf("second > first = %d and because of this was jump to %d\n", second > first, (int)(cpu->code[1+cpu->ofs]));
         } else {
-            printf("second > first = %d and because of this there WAS NOT jump to %d\n", second > first, (int)(cpu->code[++cpu->ofs]));
+            printf("second > first = %d and because of this there WAS NOT jump to %d\n", second > first, (int)(cpu->code[1+cpu->ofs]));
         }
     #endif
 
     if (second > first) {
 
-        WRITE_argument_TO_ofs
+        WRITE_FOR_JUMP
 
         MOVE_ADRESS_BECAUSE_OF_HEADER
     } else {
@@ -298,17 +301,21 @@ DEF_CMD (jae, 22, 2, {
     GET_first_second
 
     #ifdef DEBUG_COMMANDS
-        printf("jae: first = %lf second = %lf", first, second);
+        printf("jae: first = %lf second = %lf ", first, second);
         if (second >= first) {
-            printf("second >= first = %d and because of this was jump to %d\n", second >= first, (int)(cpu->code[++cpu->ofs]));
+            printf("second >= first = %d and because of this was jump to %d\n", second >= first, (int)(cpu->code[1+cpu->ofs]));
         } else {
-            printf("second >= first = %d and because of this there WAS NOT jump to %d\n", second >= first, (int)(cpu->code[++cpu->ofs]));
+            printf("second >= first = %d and because of this there WAS NOT jump to %d\n", second >= first, (int)(cpu->code[1+cpu->ofs]));
         }
     #endif
 
     if (second >= first) {
 
-        WRITE_argument_TO_ofs
+        cpu->ofs++;
+
+        WRITE_FOR_JUMP
+
+        printf("SO NOW cpu->ofs=%d\n",cpu->ofs);
 
         MOVE_ADRESS_BECAUSE_OF_HEADER
     } else {
@@ -323,17 +330,17 @@ DEF_CMD (jb, 23, 2, {
     #ifdef DEBUG_COMMANDS
         printf("jb: first = %lf second = %lf", first, second);
         if (second < first) {
-            printf("second < first = %d and because of this was jump to %d\n", second < first, (int)(cpu->code[++cpu->ofs]));
+            printf("second < first = %d and because of this was jump to %d\n", second < first, (int)(cpu->code[1+cpu->ofs]));
             cpu->ofs--;
         } else {
-            printf("second < first = %d and because of this there WAS NOT jump to %d\n", second < first, (int)(cpu->code[++cpu->ofs]));
+            printf("second < first = %d and because of this there WAS NOT jump to %d\n", second < first, (int)(cpu->code[1+cpu->ofs]));
             cpu->ofs--;
         }
     #endif
 
     if (second < first) {
 
-        WRITE_argument_TO_ofs
+        WRITE_FOR_JUMP
 
         MOVE_ADRESS_BECAUSE_OF_HEADER
 
@@ -351,15 +358,15 @@ DEF_CMD (jbe, 24, 2, {
     #ifdef DEBUG_COMMANDS
         printf("jbe: first = %lf second = %lf", first, second);
         if (second <= first) {
-            printf("second <= first = %d and because of this was jump to %d\n", second <= first, (int)(cpu->code[++cpu->ofs]));
+            printf("second <= first = %d and because of this was jump to %d\n", second <= first, (int)(cpu->code[1+cpu->ofs]));
         } else {
-            printf("second <= first = %d and because of this there WAS NOT jump to %d\n", second <= first, (int)(cpu->code[++cpu->ofs]));
+            printf("second <= first = %d and because of this there WAS NOT jump to %d\n", second <= first, (int)(cpu->code[1+cpu->ofs]));
         }
     #endif
 
     if (second <= first) {
 
-        WRITE_argument_TO_ofs
+        WRITE_FOR_JUMP
 
         MOVE_ADRESS_BECAUSE_OF_HEADER
 
@@ -375,15 +382,17 @@ DEF_CMD (je, 25, 2, {
     #ifdef DEBUG_COMMANDS
         printf("je: first = %lf second = %lf", first, second);
         if (second == first) {
-            printf("second == first = %d and because of this was jump to %d\n", second == first, (int)(cpu->code[++cpu->ofs]));
+            printf("second == first = %d and because of this was jump to %d\n", second == first, (int)(cpu->code[1+cpu->ofs]));
         } else {
-            printf("second == first = %d and because of this there WAS NOT jump to %d\n", second == first, (int)(cpu->code[++cpu->ofs]));
+            printf("second == first = %d and because of this there WAS NOT jump to %d\n", second == first, (int)(cpu->code[1+cpu->ofs]));
         }
     #endif
 
     if (second == first) {
 
-        WRITE_argument_TO_ofs
+        cpu->ofs++;
+
+        WRITE_FOR_JUMP
 
         MOVE_ADRESS_BECAUSE_OF_HEADER
 
@@ -399,15 +408,17 @@ DEF_CMD (jne, 26, 2, {
     #ifdef DEBUG_COMMANDS
         printf("jne: first = %lf second = %lf", first, second);
         if (second != first) {
-            printf("second != first = %d and because of this was jump to %d\n", second != first, (int)(cpu->code[++cpu->ofs]));
+            printf("second != first = %d and because of this was jump to %d\n", second != first, (int)(cpu->code[1+cpu->ofs]));
         } else {
-            printf("second != first = %d and because of this there WAS NOT jump to %d\n", second != first, (int)(cpu->code[++cpu->ofs]));
+            printf("second != first = %d and because of this there WAS NOT jump to %d\n", second != first, (int)(cpu->code[1+cpu->ofs]));
         }
     #endif
 
     if (second != first) {
 
-        WRITE_argument_TO_ofs
+        cpu->ofs++;
+
+        WRITE_FOR_JUMP
 
         MOVE_ADRESS_BECAUSE_OF_HEADER
 
@@ -424,15 +435,15 @@ DEF_CMD (jt, 27, 2, {
     #ifdef DEBUG_COMMANDS
         printf("jt: timeInfo->tm_wday = %d", timeInfo->tm_wday);
         if (timeInfo->tm_wday == 2) {
-            printf("timeInfo->tm_wday == 2 = %d and because of this was jump to %d\n", timeInfo->tm_wday == 2, (int)(cpu->code[++cpu->ofs]));
+            printf("timeInfo->tm_wday == 2 = %d and because of this was jump to %d\n", timeInfo->tm_wday == 2, (int)(cpu->code[1+cpu->ofs]));
         } else {
-            printf("timeInfo->tm_wday == 2 = %d and because of this there WAS NOT jump to %d\n", timeInfo->tm_wday == 2, (int)(cpu->code[++cpu->ofs]));
+            printf("timeInfo->tm_wday == 2 = %d and because of this there WAS NOT jump to %d\n", timeInfo->tm_wday == 2, (int)(cpu->code[1+cpu->ofs]));
         }
     #endif
 
     if (timeInfo->tm_wday == 2) {
 
-        WRITE_argument_TO_ofs
+        WRITE_FOR_JUMP
 
         MOVE_ADRESS_BECAUSE_OF_HEADER
 
