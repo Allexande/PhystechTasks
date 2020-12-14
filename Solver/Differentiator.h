@@ -1,4 +1,4 @@
-//Version 0.1
+//Version 0.2
 
 #include <math.h>
 #include <string.h>
@@ -73,5 +73,32 @@ struct DiffTree {
 
 //Simplification
 void SimplifyTree  (DiffTree* tree);
-void SimplifyNode  (DiffNode* node);
-void TryToSimplify (DiffNode* node);
+void SimplifyNode  (DiffNode* node, DiffNode* parent);
+void TryToSimplify (DiffNode* node, DiffNode* parent);
+// (Simplification function)
+void ChangeNodeForBinaryOperation (DiffNode* node);
+
+void SimplifyADD (DiffNode* node);
+void SimplifySUB (DiffNode* node);
+void SimplifyMUL (DiffNode* node);
+void SimplifyDIV (DiffNode* node);
+void SimplifyPOW (DiffNode* node);
+
+void ChangeNodeForSingalOperation (DiffNode* node);
+
+void SimplifyABS (DiffNode* node);
+void SimplifyLGN (DiffNode* node);
+void SimplifyEXP (DiffNode* node);
+void SimplifySRT (DiffNode* node);
+void SimplifySIN (DiffNode* node);
+void SimplifyCOS (DiffNode* node);
+void SimplifyTAN (DiffNode* node);
+void SimplifyCTN (DiffNode* node);
+void SimplifyASN (DiffNode* node);
+void SimplifyACS (DiffNode* node);
+void SimplifyATN (DiffNode* node);
+void SimplifyACN (DiffNode* node);
+void SimplifySIH (DiffNode* node);
+void SimplifyCOH (DiffNode* node);
+void SimplifyTGH (DiffNode* node);
+void SimplifyCTH (DiffNode* node);

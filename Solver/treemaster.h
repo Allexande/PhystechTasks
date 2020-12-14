@@ -1,4 +1,4 @@
-//Version 0.1
+//Version 0.2
 
 #include <string.h>
 #include <ctype.h>
@@ -38,7 +38,8 @@ void ErrorAlert  (const char* str, const size_t* position, const char* message);
 
 //Deleting
 //void DeleteNode (DiffNode* node);
-void DeleteChild (DiffNode* node, bool left);
+void DeleteChild    (DiffNode* node, bool left);
+void DeleteChildren (DiffNode* node);
 
 //Tree dump
 bool TreeDump  (DiffTree* tree);

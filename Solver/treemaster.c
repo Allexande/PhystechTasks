@@ -1,4 +1,4 @@
-//Version 0.1
+//Version 0.2
 
 #define RECURRENT_DESCENT_DEBUG
 
@@ -424,6 +424,14 @@ void DeleteChild (DiffNode* node, bool left) {
         free (node->right);
             node->right = nullptr;
     }
+}
+
+void DeleteChildren (DiffNode* node) {
+
+    assert (node);
+
+    DeleteChild (node, 1);
+    DeleteChild (node, 0);
 }
 
 bool TreeDump (DiffTree* tree) {

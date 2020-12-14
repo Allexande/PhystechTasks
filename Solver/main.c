@@ -1,4 +1,4 @@
-//Version 0.1
+//Version 0.2
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -10,12 +10,14 @@
 
 //TODO PARENT of NODES is not used
 
+//TODO бяе онбрнпъчыееяъ гюлемхрэ мю DEFINE!!!
+
 int main() {
 
     //Probably there can be input in file
     char* str = (char*) calloc (sizeof(char), MAX_LENGTH_OF_EXPRESSION);
 
-    str = "2+4+(0+4)";
+    str = "3*(x+0)-0+SIN(COS(x-0))+0";
 
     DiffTree* myTree = BuildTreeFromText (str);
 

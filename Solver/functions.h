@@ -1,4 +1,4 @@
-//Version 0.1
+//Version 0.2
 
 //Nodes with this code have both children
 DEF_FUNCTION (ADD, 1) //Addition
@@ -6,9 +6,10 @@ DEF_FUNCTION (SUB, 2) //Subtraction
 DEF_FUNCTION (MUL, 3) //Multiplication
 DEF_FUNCTION (DIV, 4) //Division
 DEF_FUNCTION (POW, 5) //Power
-DEF_FUNCTION (LGN, 6) //Natural logarithm
 
 //Nodes with this code have only right child
+DEF_FUNCTION (ABS, 8) //absolute value
+DEF_FUNCTION (LGN, 9) //Natural logarithm
 DEF_FUNCTION (EXP, 10) //Exhibitor
 DEF_FUNCTION (SRT, 11) //Square root
 DEF_FUNCTION (SIN, 12) //Sinus
@@ -23,7 +24,7 @@ DEF_FUNCTION (SIH, 20) //Hyperbolic sine
 DEF_FUNCTION (COH, 21) //Hyperbolic cosine
 DEF_FUNCTION (TGH, 22) //Hyperbolic tangent
 DEF_FUNCTION (CTH, 23) //Hyperbolic cotangent
-DEF_FUNCTION (ASH, 24) //Hyperbolic arcsine
-DEF_FUNCTION (AOH, 25) //Hyperbolic arccosine
-DEF_FUNCTION (ATH, 26) //Hyperbolic arctangent
-DEF_FUNCTION (ACH, 27) //Hyperbolic arccatangent
+//DEF_FUNCTION (ASH, 24) //Hyperbolic arcsine
+//DEF_FUNCTION (AOH, 25) //Hyperbolic arccosine
+//DEF_FUNCTION (ATH, 26) //Hyperbolic arctangent
+//DEF_FUNCTION (ACH, 27) //Hyperbolic arccatangent
