@@ -1,4 +1,4 @@
-//Version 0.4
+//Version 0.5
 
 //Every rule have special structure:
 //SIMPLIFICATION_RULE(condition, action)

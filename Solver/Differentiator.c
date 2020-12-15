@@ -1,6 +1,8 @@
-//Version 0.4
+//Version 0.5
 
 #include "Differentiator.h"
+
+#define TEX_MODE
 
 //Define block
 // ---------------------------------------------------------------
@@ -43,12 +45,32 @@ void FindFewDerivatives (DiffTree* tree, size_t derivativeOrder) {
 
     assert (tree);
 
+    #ifdef TEX_MODE
+        WriteBeginning (TEX_FILE_NAME);
+    #endif
+
     SimplifyTree (tree);
 
     for (size_t i = 0; i < derivativeOrder; i++) {
+
+        #ifdef TEX_MODE
+            StartOfTakingDerivative (TEX_FILE_NAME, i + 1);
+        #endif
+
         FindTheDerivative (tree);
         SimplifyTree (tree);
+
+        #ifdef TEX_MODE
+            WriteSubtree (TEX_FILE_NAME, tree->root);
+        #endif
     }
+
+
+
+    #ifdef TEX_MODE
+        WriteEnd       (TEX_FILE_NAME);
+        //TranslateToPDF (TEX_FILE_NAME);
+    #endif
 }
 
 void FindTheDerivative (DiffTree* tree) {

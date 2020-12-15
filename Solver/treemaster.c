@@ -1,4 +1,4 @@
-//Version 0.4
+//Version 0.5
 
 //#define RECURRENT_DESCENT_DEBUG
 
@@ -382,22 +382,22 @@ DiffNode* Copy (DiffNode* node) {
 bool FindVar (DiffNode* node) {
 
     if (node == NULL) {
-        return 0;
+        return false;
     }
 
     if (node->type == VAR) {
-        return 1;
+        return true;
     }
 
     if (FindVar (node->left))  {
-        return 1;
+        return true;
     }
 
     if (FindVar (node->right)) {
-        return 1;
+        return true;
     }
 
-    return 0;
+    return false;
 }
 
 void SyntaxError (const char* str, const size_t* position, const char* message) {

@@ -1,4 +1,4 @@
-//Version 0.4
+//Version 0.5
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -17,7 +17,7 @@ int main() {
     //Probably there can be input in file
     char* str = (char*) calloc (sizeof(char), MAX_LENGTH_OF_EXPRESSION);
 
-    str = "1/x+x/1";
+    str = "x^2+1/x";
 
     DiffTree* myTree = BuildTreeFromText (str);
 
@@ -25,7 +25,7 @@ int main() {
 
     //SimplifyTree (myTree);
 
-    FindFewDerivatives (myTree, 0);
+    FindFewDerivatives (myTree, 1);
 
     TreeDump (myTree);
 
