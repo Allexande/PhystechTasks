@@ -1,4 +1,4 @@
-//Version 0.5
+//Version 0.6
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -7,8 +7,6 @@
 
 //SOME QUESTIONS
 //Is it OK to write node1 node2... on treemaster.c
-
-//TODO PARENT of NODES is not used
 
 //TODO бяе онбрнпъчыееяъ гюлемхрэ мю DEFINE!!!
 
@@ -25,9 +23,7 @@ int main() {
 
     //SimplifyTree (myTree);
 
-    FindFewDerivatives (myTree, 1);
-
-    TreeDump (myTree);
+    FindFewDerivatives (myTree, 2);
 
     return 0;
 }

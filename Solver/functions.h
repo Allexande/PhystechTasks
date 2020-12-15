@@ -1,4 +1,4 @@
-//Version 0.5
+//Version 0.6
 
 //Nodes with this code have both children
 DEF_FUNCTION (ADD, 1) //Addition
@@ -24,7 +24,3 @@ DEF_FUNCTION (SIH, 20) //Hyperbolic sine
 DEF_FUNCTION (COH, 21) //Hyperbolic cosine
 DEF_FUNCTION (TGH, 22) //Hyperbolic tangent
 DEF_FUNCTION (CTH, 23) //Hyperbolic cotangent
-//DEF_FUNCTION (ASH, 24) //Hyperbolic arcsine
-//DEF_FUNCTION (AOH, 25) //Hyperbolic arccosine
-//DEF_FUNCTION (ATH, 26) //Hyperbolic arctangent
-//DEF_FUNCTION (ACH, 27) //Hyperbolic arccatangent

@@ -1,19 +1,31 @@
 digraph Tree {
-"7300712" [shape="record", color="#000000", style="filled", fillcolor="brown", label="1"]
-"7275696" [shape="record", color="#000000", style="filled", fillcolor="brown", label="4"]
-"7278448" [shape="record", color="#000000", style="filled", fillcolor="brown", label="3"]
-"7278368" [shape="record", color="#000000", style="filled", fillcolor="yellow", label="x(120)"]
-"7278408" [shape="record", color="#000000", style="filled", fillcolor="yellow", label="x(120)"]
-"7278448":se->"7278368"[color="black"];
-"7278448":sw->"7278408"[color="black"];
-"7278728" [shape="record", color="#000000", style="filled", fillcolor="blue", label="-1.000000"]
-"7275696":se->"7278448"[color="black"];
-"7275696":sw->"7278728"[color="black"];
-"7300832" [shape="record", color="#000000", style="filled", fillcolor="brown", label="3"]
-"7300992" [shape="record", color="#000000", style="filled", fillcolor="blue", label="2.000000"]
-"7301352" [shape="record", color="#000000", style="filled", fillcolor="yellow", label="x(120)"]
-"7300832":se->"7300992"[color="black"];
-"7300832":sw->"7301352"[color="black"];
-"7300712":se->"7275696"[color="black"];
-"7300712":sw->"7300832"[color="black"];
+"12804488" [shape="record", color="#000000", style="filled", fillcolor="brown", label="1"]
+"12804360" [shape="record", color="#000000", style="filled", fillcolor="brown", label="4"]
+"12801464" [shape="record", color="#000000", style="filled", fillcolor="brown", label="3"]
+"12801432" [shape="record", color="#000000", style="filled", fillcolor="brown", label="3"]
+"12801848" [shape="record", color="#000000", style="filled", fillcolor="yellow", label="x(120)"]
+"12801624" [shape="record", color="#000000", style="filled", fillcolor="yellow", label="x(120)"]
+"12801432":se->"12801848"[color="black"];
+"12801432":sw->"12801624"[color="black"];
+"12801880" [shape="record", color="#000000", style="filled", fillcolor="brown", label="3"]
+"12802360" [shape="record", color="#000000", style="filled", fillcolor="yellow", label="x(120)"]
+"12801784" [shape="record", color="#000000", style="filled", fillcolor="yellow", label="x(120)"]
+"12801880":se->"12802360"[color="black"];
+"12801880":sw->"12801784"[color="black"];
+"12801464":se->"12801432"[color="black"];
+"12801464":sw->"12801880"[color="black"];
+"12801816" [shape="record", color="#000000", style="filled", fillcolor="brown", label="3"]
+"12802008" [shape="record", color="#000000", style="filled", fillcolor="brown", label="1"]
+"12801912" [shape="record", color="#000000", style="filled", fillcolor="yellow", label="x(120)"]
+"12801560" [shape="record", color="#000000", style="filled", fillcolor="yellow", label="x(120)"]
+"12802008":se->"12801912"[color="black"];
+"12802008":sw->"12801560"[color="black"];
+"12802040" [shape="record", color="#000000", style="filled", fillcolor="blue", label="-1.000000"]
+"12801816":se->"12802008"[color="black"];
+"12801816":sw->"12802040"[color="black"];
+"12804360":se->"12801464"[color="black"];
+"12804360":sw->"12801816"[color="black"];
+"12804424" [shape="record", color="#000000", style="filled", fillcolor="blue", label="2.000000"]
+"12804488":se->"12804360"[color="black"];
+"12804488":sw->"12804424"[color="black"];
 }

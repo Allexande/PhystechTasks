@@ -1,4 +1,4 @@
-//Version 0.5
+//Version 0.6
 
 #include "texmaster.h"
 
@@ -14,12 +14,20 @@ bool WriteBeginning (const char* filename) {
     }
 
     fprintf (file, "\\documentclass[14pt]{article}\n");
+    fprintf (file, "\\usepackage{graphicx}\n");
+    fprintf (file, "\\usepackage[percent]{overpic}\n");
+    fprintf (file, "\\usepackage{hyperref}\n");
     fprintf (file, "\\begin{document}\n");
-    fprintf (file, "\\title{This is taking derivative !!!}\n");
-    fprintf (file, "\\author{Tuzman Alexander}\n");
+
+    fprintf (file, "\\title{                                         \
+    This is the beginning of an exciting subtraction of derivatives. \
+    Relax and enjoy!}\n");
+
+    fprintf (file, "\\author{By Tuzman Alexander}\n");
     fprintf (file, "\\maketitle\n");
-    fprintf (file, "Taking derivative can be boring but not with this program!!!\n");
-    fprintf (file, "\\newline\\newline \n");
+
+    PicturePic ("pics/begin/head.jpg", file);
+    fprintf (file, "\\newline\n");
 
     fclose (file);
 
@@ -35,7 +43,7 @@ bool StartOfTakingDerivative (const char* filename, size_t number) {
         return false;
     }
 
-    fprintf (file, "\section{This is %d'st derivative}\n", number);
+    fprintf (file, "\\section{This is subtraction of %d'st derivative}\n", number);
 
     fclose (file);
 
@@ -78,9 +86,17 @@ void WriteNode (DiffNode* node, FILE* file) {
         case CONST: {
 
             if (node->value.number < 0) {
-                fprintf (file, "(%lf)", node->value.number);
+                if (node->value.number != (long long) node->value.number) {
+                    fprintf (file, "(%lf)", node->value.number);
+                } else {
+                    fprintf (file, "(%lld)", (long long) node->value.number);
+                }
             } else {
-                fprintf (file, "%lf", node->value.number);
+                if (node->value.number != (long long) node->value.number) {
+                    fprintf (file, "%lf", node->value.number);
+                } else {
+                    fprintf (file, "%lld", (long long) node->value.number);
+                }
             }
 
         } break;
@@ -235,6 +251,88 @@ void WriteInBraces (DiffNode* node, FILE* file) {
     fprintf (file, "}");
 }
 
+void PicturePic (const char* filename, FILE* file) {
+
+    assert (filename);
+    assert (file);
+
+    fprintf (file, "\\includegraphics [width=\\textwidth]{%s}\n", filename);
+
+}
+
+void PictureMeme (const char* filename, FILE* file,              \
+                size_t Xfirst, size_t Yfirst, DiffNode* first,   \
+                size_t Xsecond, size_t Ysecond, DiffNode* second) {
+
+    assert (filename);
+    assert (file);
+
+    assert (first);
+    assert (second);
+
+    fprintf (file, "\\begin{overpic}[width=\\textwidth]{%s}\n", filename);
+
+    fprintf (file, "\\put (%d,%d) {", Xfirst, Yfirst);
+    WriteNode (first, file);
+    fprintf (file, "}\n");
+
+    fprintf (file, "\\put (%d,%d) {", Xsecond, Ysecond);
+    WriteNode (second, file);
+    fprintf (file, "}\n");
+
+    fprintf (file, "\\end{overpic}\n");
+}
+
+bool WriteDiff (const char* filename, DiffNode* first, DiffNode* second) {
+
+    assert (filename);
+
+    FILE* file = fopen (filename, "a");
+    if (file == NULL) {
+        return false;
+    }
+
+    fprintf (file, "Let's differentiate \n");
+    fprintf (file, "$");
+    WriteNode (first, file);
+    fprintf (file, "$");
+    fprintf (file, "\n\\newline\n");
+    fprintf (file, "Now this expression turned into \n");
+    fprintf (file, "$");
+    WriteNode (second, file);
+    fprintf (file, "$");
+    fprintf (file, "\n\\newline\n");
+
+    fclose (file);
+
+    return true;
+}
+
+bool WriteSimp (const char* filename, DiffNode* first, DiffNode* second) {
+
+    assert (filename);
+
+    FILE* file = fopen (filename, "a");
+    if (file == NULL) {
+        return false;
+    }
+
+    fprintf (file, "Let's make simpler \n");
+    fprintf (file, "$");
+    WriteNode (first, file);
+    fprintf (file, "$");
+    fprintf (file, "\n\\newline\n");
+    fprintf (file, "Now this expression simpled to \n");
+    fprintf (file, "$");
+    WriteNode (second, file);
+    fprintf (file, "$");
+    fprintf (file, "\n\\newline\n");
+
+    fclose (file);
+
+    return true;
+}
+
 bool WriteEnd (const char* filename) {
 
     assert (filename);
@@ -245,8 +343,12 @@ bool WriteEnd (const char* filename) {
     }
 
     fprintf (file, "\n\nThat is all!\n");
-    fprintf (file, "\section{Author's GitHub:}\n");
-    fprintf (file, "\href{https://github.com/Allexande}{Allexande}\n");
+    fprintf (file, "\\newline\n");
+
+    fprintf (file, "\\begin{overpic}[width=\\textwidth]{pics/end/basement.jpg}\n");
+    fprintf (file, "\\put (31,20) {\\href{run:https://github.com/Allexande}{\\Large github.com/Allexande}}\n");
+    fprintf (file, "\\end{overpic}\n");
+
     fprintf (file, "\\end{document}\n");
 
     fclose (file);

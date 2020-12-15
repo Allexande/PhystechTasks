@@ -1,4 +1,4 @@
-//Version 0.5
+//Version 0.6
 
 #include <math.h>
 #include <string.h>
@@ -58,7 +58,6 @@ struct DiffNode {
     //Pointers to other nodes
     DiffNode* left;
     DiffNode* right;
-    DiffNode* parent;
 
 };
 

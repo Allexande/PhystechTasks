@@ -1,4 +1,4 @@
-//Version 0.5
+//Version 0.6
 
 //#define RECURRENT_DESCENT_DEBUG
 
@@ -39,7 +39,6 @@ DiffNode* CreateNewNode (OPnumber newValue, NodeType newType) {
 
     newDiffNode->left   = nullptr;
     newDiffNode->right  = nullptr;
-    newDiffNode->parent = nullptr;
 
     return newDiffNode;
 }

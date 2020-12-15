@@ -1,16 +1,24 @@
-//Version 0.5
+//Version 0.6
 
 #include "Differentiator.h"
 
 #define TEX_MODE
 
+#ifdef TEX_MODE
+    #define TEX_DIFF(first, second) \
+        WriteDiff(TEX_FILE_NAME, first, second)
+#endif
+
 //Define block
 // ---------------------------------------------------------------
 
-#define dL Derivative(node->left)
-#define dR Derivative(node->right)
-#define cL Copy(node->left)
-#define cR Copy(node->right)
+#define LEFT  node->left
+#define RIGHT node->right
+
+#define dL Derivative(LEFT)
+#define dR Derivative(RIGHT)
+#define cL Copy(LEFT)
+#define cR Copy(RIGHT)
 #define cN Copy(node)
 
 #define NEWNODE(number) CreateNewNode((OPnumber) number, CONST)
@@ -49,13 +57,13 @@ void FindFewDerivatives (DiffTree* tree, size_t derivativeOrder) {
         WriteBeginning (TEX_FILE_NAME);
     #endif
 
-    SimplifyTree (tree);
-
     for (size_t i = 0; i < derivativeOrder; i++) {
 
         #ifdef TEX_MODE
             StartOfTakingDerivative (TEX_FILE_NAME, i + 1);
         #endif
+
+        SimplifyTree (tree);
 
         FindTheDerivative (tree);
         SimplifyTree (tree);
@@ -88,12 +96,13 @@ DiffNode* Derivative (DiffNode* node) {
 
         case CONST: {
             DiffNode* newNode = CreateNewNode ((OPnumber) 0, CONST);
+            TEX_DIFF(node, newNode);
             return newNode;
         } break;
 
         case VAR: {
-            printf(">>>> node->value.var=%c node->left=%ld node->right=%ld\n", node->value.var, node->left, node->right);
             DiffNode* newNode = CreateNewNode ((OPnumber) 1, CONST);
+            TEX_DIFF(node, newNode);
             return newNode;
         } break;
 
@@ -102,47 +111,33 @@ DiffNode* Derivative (DiffNode* node) {
             switch (node->value.op) {
 
                 case OP_ADD: {
-                    printf("HEY\n");
                     DiffNode* newNode = ADD(dL, dR);
-                    //RETURN('+');
+                    TEX_DIFF(node, newNode);
                     return newNode;
                 } break;
 
                 case OP_SUB: {
                     DiffNode* newNode = SUB(dL, dR);
-                    //RETURN('-');
+                    TEX_DIFF(node, newNode);
                     return newNode;
                 } break;
 
                 case OP_DIV: {
                     DiffNode* newNode = DIV( SUB(MUL(dL, cR), MUL(cL, dR)), MUL(cR, cR) );
-                    //RETURN('/');
+                    TEX_DIFF(node, newNode);
                     return newNode;
                 } break;
 
                 case OP_MUL: {
                     DiffNode* newNode = ADD(MUL(dL, cR), MUL(cL, dR));
-                    //RETURN("*");
+                    TEX_DIFF(node, newNode);
                     return newNode;
                 } break;
 
                 case OP_POW: {
 
-                    //RETURN("pow");
-
-                    /*
-                    if (node->left->type == VAR && node->right->type == VAR) {
-                        DiffNode* newNode = Derivative(EXP(MUL(cR, LGN(cL))));
-                    } else {
-                        if (node->left->type == VAR) {
-                            DiffNode* newNode = MUL(MUL(cR, POW(cL, SUB(cR, VAR))), dL);
-                        } else {
-                            DiffNode* newNode = MUL(MUL(POW(cL, cR), LGN(cL)), dR);
-                        }
-                    } */
-
                         DiffNode* newNode = NULL;
-                        if (FindVar(node->left))
+                        if (FindVar(LEFT))
                           newNode = MUL(MUL(POW(cL, SUB(cR, NEWNODE(1)) ), cR), dL);
 
                         else {
@@ -152,7 +147,7 @@ DiffNode* Derivative (DiffNode* node) {
                           newNode = MUL( MUL(cN, ln_a), dR);
                         }
 
-                        //RETURN("pow");
+                        TEX_DIFF(node, newNode);
                         return newNode;
                 } break;
 
@@ -162,7 +157,7 @@ DiffNode* Derivative (DiffNode* node) {
                     DiffNode* newNode = MUL(cN, dR);
 
                     node->value.op = OP_SIN;
-                    //RETURN("sin");
+                    TEX_DIFF(node, newNode);
                     return newNode;
                 } break;
 
@@ -172,7 +167,7 @@ DiffNode* Derivative (DiffNode* node) {
                     DiffNode* newNode = MUL(SUB(NEWNODE(0), cN), dR);
 
                     node->value.op = OP_COS;
-                    //RETURN("cos");
+                    TEX_DIFF(node, newNode);
                     return newNode;
                 } break;
 
@@ -182,7 +177,7 @@ DiffNode* Derivative (DiffNode* node) {
                     DiffNode* newNode = MUL(DIV(NEWNODE(1), POW(cN, NEWNODE(2))), dR);
 
                     node->value.op = OP_TAN;
-                    //RETURN("tan");
+                    TEX_DIFF(node, newNode);
                     return newNode;
                 } break;
 
@@ -192,28 +187,25 @@ DiffNode* Derivative (DiffNode* node) {
                     DiffNode* newNode = MUL(SUB(NEWNODE(0), DIV(NEWNODE(1), POW(cN, NEWNODE(2)))), dR);
 
                     node->value.op = OP_CTN;
-                    //RETURN("cotan");
+                    TEX_DIFF(node, newNode);
                     return newNode;
                 } break;
 
                 case OP_ACS: {
                     DiffNode* newNode = MUL(SUB(NEWNODE(0), DIV(NEWNODE(1), POW(SUB(NEWNODE(1), POW(cR, NEWNODE(2))), NEWNODE(0.5)))), dR);
-
-                    //RETURN("acos");
+                    TEX_DIFF(node, newNode);
                     return newNode;
                 } break;
 
                 case OP_ASN: {
                     DiffNode* newNode = MUL(DIV(NEWNODE(1), POW(SUB(NEWNODE(1), POW(cR, NEWNODE(2))), NEWNODE(0.5))), dR);
-
-                    //RETURN("asin");
+                    TEX_DIFF(node, newNode);
                     return newNode;
                 } break;
 
                 case OP_ATN: {
                     DiffNode* newNode = MUL(DIV(NEWNODE(1), ADD(NEWNODE(1), POW(cR, NEWNODE(2)) )), dR);
-
-                    //RETURN("atan");
+                    TEX_DIFF(node, newNode);
                     return newNode;
                 } break;
 
@@ -223,7 +215,8 @@ DiffNode* Derivative (DiffNode* node) {
                     DiffNode* newNode = MUL(cN, dR);
 
                     node->value.op = OP_SIH;
-                    //RETURN("sinh");
+
+                    TEX_DIFF(node, newNode);
                     return newNode;
                 } break;
 
@@ -233,7 +226,8 @@ DiffNode* Derivative (DiffNode* node) {
                     DiffNode* newNode = MUL(cN, dR);
 
                     node->value.op = OP_COH;
-                    //RETURN("cosh");
+
+                    TEX_DIFF(node, newNode);
                     return newNode;
                 } break;
 
@@ -243,14 +237,15 @@ DiffNode* Derivative (DiffNode* node) {
                     DiffNode* newNode = MUL(DIV(NEWNODE(1), POW(cN, NEWNODE(2))), dR);
 
                     node->value.op = OP_TGH;
-                    //RETURN("tanh");
+
+                    TEX_DIFF(node, newNode);
                     return newNode;
                 } break;
 
                 case OP_LGN: {
                     DiffNode* newNode = MUL(DIV(NEWNODE(1), cR), dR);
 
-                    //RETURN("loge");
+                    TEX_DIFF(node, newNode);
                     return newNode;
                 } break;
 
@@ -276,8 +271,8 @@ void SimplifyNode (DiffNode* node, DiffNode* parent) {
 
     assert (node);
 
-    if (node->left != NULL) {
-        SimplifyNode (node->left, node);
+    if (LEFT != NULL) {
+        SimplifyNode (LEFT, node);
     }
 
     if (node->right != NULL) {
@@ -289,6 +284,8 @@ void SimplifyNode (DiffNode* node, DiffNode* parent) {
 
 void TryToSimplify (DiffNode* node, DiffNode* parent) {
 
+    DiffNode* nodeBeforeSimplification = Copy (node);
+
     #define SIMPLIFICATION_RULE(condition, action)  \
         if (condition) {                            \
             action;                                 \
@@ -298,6 +295,10 @@ void TryToSimplify (DiffNode* node, DiffNode* parent) {
     #include "simplifications.h"
 
     #undef SIMPLIFICATION_RULE
+
+    #ifdef TEX_MODE
+        WriteSimp (TEX_FILE_NAME, nodeBeforeSimplification, node);
+    #endif
 }
 
 void ChangeNodeForBinaryOperation (DiffNode* node) {
@@ -312,7 +313,7 @@ void SimplifyADD (DiffNode* node) {
 
     assert (node);
 
-    node->value.number = node->left->value.number + node->right->value.number;
+    node->value.number = LEFT->value.number + node->right->value.number;
     ChangeNodeForBinaryOperation (node);
 }
 
@@ -320,7 +321,7 @@ void SimplifySUB (DiffNode* node) {
 
     assert (node);
 
-    node->value.number = node->left->value.number - node->right->value.number;
+    node->value.number = LEFT->value.number - node->right->value.number;
     ChangeNodeForBinaryOperation (node);
 }
 
@@ -328,7 +329,7 @@ void SimplifyMUL (DiffNode* node) {
 
     assert (node);
 
-    node->value.number = node->left->value.number * node->right->value.number;
+    node->value.number = LEFT->value.number * node->right->value.number;
     ChangeNodeForBinaryOperation (node);
 }
 
@@ -342,7 +343,7 @@ void SimplifyDIV (DiffNode* node) {
         node->value.number = 99999; //Just a huge number
 
     } else {
-        node->value.number = node->left->value.number / node->right->value.number;
+        node->value.number = LEFT->value.number / node->right->value.number;
     }
 
     ChangeNodeForBinaryOperation (node);
@@ -352,7 +353,7 @@ void SimplifyPOW (DiffNode* node) {
 
     assert (node);
 
-    node->value.number = pow (node->left->value.number, node->right->value.number);
+    node->value.number = pow (LEFT->value.number, node->right->value.number);
     ChangeNodeForBinaryOperation (node);
 }
 
@@ -518,6 +519,9 @@ void SimplifyCTH (DiffNode* node) {
 
 //Undefine block
 // ---------------------------------------------------------------
+
+#undef LEFT
+#undef RIGHT
 
 #undef dL
 #undef dR
