@@ -1,6 +1,6 @@
-//Version 0.3
+//Version 0.4
 
-#define RECURRENT_DESCENT_DEBUG
+//#define RECURRENT_DESCENT_DEBUG
 
 #include "treemaster.h"
 
@@ -361,6 +361,45 @@ DiffNode* TreeSetNode (DiffNode* addingLeft,   \
     return nodeForAdding;
 }
 
+DiffNode* Copy (DiffNode* node) {
+
+    if (node == NULL) {
+        return NULL;
+    }
+
+    DiffNode* newNode = (DiffNode*) calloc (sizeof(DiffNode), 1);
+    assert   (newNode);
+
+    newNode->type = node->type;
+    newNode->value = node->value;
+
+    newNode->left  = Copy (node->left);
+    newNode->right = Copy (node->right);
+
+    return newNode;
+}
+
+bool FindVar (DiffNode* node) {
+
+    if (node == NULL) {
+        return 0;
+    }
+
+    if (node->type == VAR) {
+        return 1;
+    }
+
+    if (FindVar (node->left))  {
+        return 1;
+    }
+
+    if (FindVar (node->right)) {
+        return 1;
+    }
+
+    return 0;
+}
+
 void SyntaxError (const char* str, const size_t* position, const char* message) {
 
     printf ("\nAn syntax error on position %d\n", *position);
@@ -466,21 +505,22 @@ void GraphNode (DiffNode* thisNode, FILE* file) {
     assert (file);
 
     if (thisNode->type == CONST) {
-        fprintf(file, "\"%ld\" [shape=\"record\", color=\"#000000\", style=\"filled\", fillcolor=\"#def7fa\", label=\"%lf\"]\n",
+        fprintf(file, "\"%ld\" [shape=\"record\", color=\"#000000\", style=\"filled\", fillcolor=\"blue\", label=\"%lf\"]\n",
         thisNode,
         thisNode->value.number
         );
     }
 
     if (thisNode->type == VAR) {
-        fprintf(file, "\"%ld\" [shape=\"record\", color=\"#000000\", style=\"filled\", fillcolor=\"#def7fa\", label=\"%c\"]\n",
+        fprintf(file, "\"%ld\" [shape=\"record\", color=\"#000000\", style=\"filled\", fillcolor=\"yellow\", label=\"%c(%d)\"]\n",
         thisNode,
+        thisNode->value.var,
         thisNode->value.var
         );
     }
 
     if (thisNode->type == OPERATION) {
-        fprintf(file, "\"%ld\" [shape=\"record\", color=\"#000000\", style=\"filled\", fillcolor=\"#def7fa\", label=\"%d\"]\n",
+        fprintf(file, "\"%ld\" [shape=\"record\", color=\"#000000\", style=\"filled\", fillcolor=\"brown\", label=\"%d\"]\n",
         thisNode,
         thisNode->value.op
         );

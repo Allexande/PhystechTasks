@@ -1,4 +1,4 @@
-//Version 0.3
+//Version 0.4
 
 #include <math.h>
 #include <string.h>
@@ -74,6 +74,7 @@ struct DiffTree {
 //Differentiation
 void FindFewDerivatives (DiffTree* tree, size_t derivativeOrder);
 void FindTheDerivative  (DiffTree* tree);
+DiffNode* Derivative    (DiffNode* node);
 
 //Simplification
 void SimplifyTree  (DiffTree* tree);

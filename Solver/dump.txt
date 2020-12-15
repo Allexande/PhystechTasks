@@ -1,15 +1,11 @@
 digraph Tree {
-"13526712" [shape="record", color="#000000", style="filled", fillcolor="#def7fa", label="1"]
-"13527272" [shape="record", color="#000000", style="filled", fillcolor="#def7fa", label="0.000000"]
-"13527352" [shape="record", color="#000000", style="filled", fillcolor="#def7fa", label="1"]
-"13501616" [shape="record", color="#000000", style="filled", fillcolor="#def7fa", label="2"]
-"13504584" [shape="record", color="#000000", style="filled", fillcolor="#def7fa", label="x"]
-"13504544" [shape="record", color="#000000", style="filled", fillcolor="#def7fa", label="9.000000"]
-"13501616":se->"13504584"[color="black"];
-"13501616":sw->"13504544"[color="black"];
-"13504504" [shape="record", color="#000000", style="filled", fillcolor="#def7fa", label="8.000000"]
-"13527352":se->"13501616"[color="black"];
-"13527352":sw->"13504504"[color="black"];
-"13526712":se->"13527272"[color="black"];
-"13526712":sw->"13527352"[color="black"];
+"11013816" [shape="record", color="#000000", style="filled", fillcolor="brown", label="1"]
+"11013696" [shape="record", color="#000000", style="filled", fillcolor="yellow", label="x(120)"]
+"11013656" [shape="record", color="#000000", style="filled", fillcolor="brown", label="4"]
+"11013616" [shape="record", color="#000000", style="filled", fillcolor="yellow", label="x(120)"]
+"11013576" [shape="record", color="#000000", style="filled", fillcolor="blue", label="1.000000"]
+"11013656":se->"11013616"[color="black"];
+"11013656":sw->"11013576"[color="black"];
+"11013816":se->"11013696"[color="black"];
+"11013816":sw->"11013656"[color="black"];
 }

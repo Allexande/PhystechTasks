@@ -1,6 +1,43 @@
-//Version 0.3
+//Version 0.4
 
 #include "Differentiator.h"
+
+//Define block
+// ---------------------------------------------------------------
+
+#define dL Derivative(node->left)
+#define dR Derivative(node->right)
+#define cL Copy(node->left)
+#define cR Copy(node->right)
+#define cN Copy(node)
+
+#define NEWNODE(number) CreateNewNode((OPnumber) number, CONST)
+
+#define NUMBER(node)   (node->type == CONST)
+#define VARIABLE(node) (node->type == VAR)
+
+#define ADD(left, right) \
+  TreeSetNode(left, right, OP_ADD, OPERATION)
+
+#define SUB(left, right) \
+  TreeSetNode(left, right, OP_SUB, OPERATION)
+
+#define MUL(left, right) \
+  TreeSetNode(left, right, OP_MUL, OPERATION)
+
+#define DIV(left, right) \
+  TreeSetNode(left, right, OP_DIV, OPERATION)
+
+#define POW(left, right) \
+  TreeSetNode(left, right, OP_POW, OPERATION)
+
+#define EXP(right) \
+  TreeSetNode(NULL, right, OP_EXP, OPERATION)
+
+#define LGN(right) \
+  TreeSetNode(NULL, right, OP_LGN, OPERATION)
+
+// ---------------------------------------------------------------
 
 void FindFewDerivatives (DiffTree* tree, size_t derivativeOrder) {
 
@@ -15,7 +52,195 @@ void FindFewDerivatives (DiffTree* tree, size_t derivativeOrder) {
 }
 
 void FindTheDerivative (DiffTree* tree) {
-    //TODO write finding of derivative
+
+    assert (tree);
+
+    tree->root = Derivative (tree->root);
+}
+
+DiffNode* Derivative (DiffNode* node) {
+
+    assert(node);
+
+    switch (node->type) {
+
+        case CONST: {
+            DiffNode* newNode = CreateNewNode ((OPnumber) 0, CONST);
+            return newNode;
+        } break;
+
+        case VAR: {
+            printf(">>>> node->value.var=%c node->left=%ld node->right=%ld\n", node->value.var, node->left, node->right);
+            DiffNode* newNode = CreateNewNode ((OPnumber) 1, CONST);
+            return newNode;
+        } break;
+
+        case OPERATION: {
+
+            switch (node->value.op) {
+
+                case OP_ADD: {
+                    printf("HEY\n");
+                    DiffNode* newNode = ADD(dL, dR);
+                    //RETURN('+');
+                    return newNode;
+                } break;
+
+                case OP_SUB: {
+                    DiffNode* newNode = SUB(dL, dR);
+                    //RETURN('-');
+                    return newNode;
+                } break;
+
+                case OP_DIV: {
+                    DiffNode* newNode = DIV( SUB(MUL(dL, cR), MUL(cL, dR)), MUL(cR, cR) );
+                    //RETURN('/');
+                    return newNode;
+                } break;
+
+                case OP_MUL: {
+                    DiffNode* newNode = ADD(MUL(dL, cR), MUL(cL, dR));
+                    //RETURN("*");
+                    return newNode;
+                } break;
+
+                case OP_POW: {
+
+                    //RETURN("pow");
+
+                    /*
+                    if (node->left->type == VAR && node->right->type == VAR) {
+                        DiffNode* newNode = Derivative(EXP(MUL(cR, LGN(cL))));
+                    } else {
+                        if (node->left->type == VAR) {
+                            DiffNode* newNode = MUL(MUL(cR, POW(cL, SUB(cR, VAR))), dL);
+                        } else {
+                            DiffNode* newNode = MUL(MUL(POW(cL, cR), LGN(cL)), dR);
+                        }
+                    } */
+
+                        DiffNode* newNode = NULL;
+                        if (FindVar(node->left))
+                          newNode = MUL(MUL(POW(cL, SUB(cR, NEWNODE(1)) ), cR), dL);
+
+                        else {
+                          DiffNode* ln_a = CreateNewNode(OP_LGN, OPERATION);
+                          ln_a->right = cL;
+
+                          newNode = MUL( MUL(cN, ln_a), dR);
+                        }
+
+                        //RETURN("pow");
+                        return newNode;
+                } break;
+
+                case OP_SIN: {
+                    node->value.op = OP_COS;
+
+                    DiffNode* newNode = MUL(cN, dR);
+
+                    node->value.op = OP_SIN;
+                    //RETURN("sin");
+                    return newNode;
+                } break;
+
+                case OP_COS: {
+                    node->value.op = OP_SIN;
+
+                    DiffNode* newNode = MUL(SUB(NEWNODE(0), cN), dR);
+
+                    node->value.op = OP_COS;
+                    //RETURN("cos");
+                    return newNode;
+                } break;
+
+                case OP_TAN: {
+                    node->value.op = OP_COS;
+
+                    DiffNode* newNode = MUL(DIV(NEWNODE(1), POW(cN, NEWNODE(2))), dR);
+
+                    node->value.op = OP_TAN;
+                    //RETURN("tan");
+                    return newNode;
+                } break;
+
+                case OP_CTN: {
+                    node->value.op = OP_SIN;
+
+                    DiffNode* newNode = MUL(SUB(NEWNODE(0), DIV(NEWNODE(1), POW(cN, NEWNODE(2)))), dR);
+
+                    node->value.op = OP_CTN;
+                    //RETURN("cotan");
+                    return newNode;
+                } break;
+
+                case OP_ACS: {
+                    DiffNode* newNode = MUL(SUB(NEWNODE(0), DIV(NEWNODE(1), POW(SUB(NEWNODE(1), POW(cR, NEWNODE(2))), NEWNODE(0.5)))), dR);
+
+                    //RETURN("acos");
+                    return newNode;
+                } break;
+
+                case OP_ASN: {
+                    DiffNode* newNode = MUL(DIV(NEWNODE(1), POW(SUB(NEWNODE(1), POW(cR, NEWNODE(2))), NEWNODE(0.5))), dR);
+
+                    //RETURN("asin");
+                    return newNode;
+                } break;
+
+                case OP_ATN: {
+                    DiffNode* newNode = MUL(DIV(NEWNODE(1), ADD(NEWNODE(1), POW(cR, NEWNODE(2)) )), dR);
+
+                    //RETURN("atan");
+                    return newNode;
+                } break;
+
+                case OP_SIH: {
+                    node->value.op = OP_COH;
+
+                    DiffNode* newNode = MUL(cN, dR);
+
+                    node->value.op = OP_SIH;
+                    //RETURN("sinh");
+                    return newNode;
+                } break;
+
+                case OP_COH: {
+                    node->value.op = OP_SIH;
+
+                    DiffNode* newNode = MUL(cN, dR);
+
+                    node->value.op = OP_COH;
+                    //RETURN("cosh");
+                    return newNode;
+                } break;
+
+                case OP_TGH: {
+                    node->value.op = OP_COH;
+
+                    DiffNode* newNode = MUL(DIV(NEWNODE(1), POW(cN, NEWNODE(2))), dR);
+
+                    node->value.op = OP_TGH;
+                    //RETURN("tanh");
+                    return newNode;
+                } break;
+
+                case OP_LGN: {
+                    DiffNode* newNode = MUL(DIV(NEWNODE(1), cR), dR);
+
+                    //RETURN("loge");
+                    return newNode;
+                } break;
+
+
+                default: {
+                  printf("Unknown function\n");
+                } break;
+            }
+        }
+
+        return node;
+    }
 }
 
 void SimplifyTree (DiffTree* tree) {
@@ -268,4 +493,30 @@ void SimplifyCTH (DiffNode* node) {
     node->value.number = atanh (node->right->value.number);
     ChangeNodeForSingalOperation (node);
 }
+
+//Undefine block
+// ---------------------------------------------------------------
+
+#undef dL
+#undef dR
+#undef cL
+#undef cR
+#undef cN
+
+#undef NEWNODE(number)
+
+#undef NUMBER(node)
+#undef VARIABLE(node)
+
+#undef ADD(left, right)
+
+#undef SUB(left, right)
+
+#undef MUL(left, right)
+
+#undef DIV(left, right)
+
+#undef POW(left, right)
+
+// ---------------------------------------------------------------
 

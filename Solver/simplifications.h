@@ -1,4 +1,4 @@
-//Version 0.3
+//Version 0.4
 
 //Every rule have special structure:
 //SIMPLIFICATION_RULE(condition, action)
@@ -204,4 +204,54 @@ SIMPLIFICATION_RULE(                     \
     node->type = CONST;                  \
     node->value.number = 0;              \
     DeleteChildren (node);               \
+)
+
+SIMPLIFICATION_RULE(                     \
+                                         \
+    node->left != NULL              &&   \
+    node->right != NULL             &&   \
+    node->value.op == OP_MUL        &&   \
+   (node->left->type == CONST       &&   \
+    node->left->value.number == 1   ||   \
+    node->right->type == CONST      &&   \
+    node->right->value.number == 1)      \
+,                                        \
+    if (node->left->value.number == 1) { \
+                                         \
+        if (parent != NULL) {            \
+          if (parent->left == node) {    \
+            parent->left = (node->right);\
+          } else {                       \
+            parent->right =(node->right);\
+          }                              \
+        }                                \
+    }                                    \
+                                         \
+    if (node->right->value.number == 1) {\
+                                         \
+        if (parent != NULL) {            \
+          if (parent->left == node) {    \
+            parent->left = (node->left); \
+          } else {                       \
+            parent->right =(node->left); \
+          }                              \
+        }                                \
+    }                                    \
+)
+
+SIMPLIFICATION_RULE(                     \
+                                         \
+    node->right != NULL             &&   \
+    node->right->type == CONST      &&   \
+    node->right->value.number == 1  &&   \
+    node->left != NULL              &&   \
+    node->value.op == OP_DIV             \
+,                                        \
+    if (parent != NULL) {                \
+        if (parent->left == node) {      \
+            parent->left = (node->left); \
+        } else {                         \
+            parent->right =(node->left); \
+        }                                \
+    }                                    \
 )

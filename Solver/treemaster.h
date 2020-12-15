@@ -1,4 +1,4 @@
-//Version 0.3
+//Version 0.4
 
 #include <string.h>
 #include <ctype.h>
@@ -30,6 +30,10 @@ DiffNode* TreeSetNode (DiffNode* addingLeft,   \
                        DiffNode* addingRight,  \
                        number_t addingData,    \
                        NodeType addingType);
+
+//Working with tree data
+DiffNode* Copy (DiffNode* node);
+bool FindVar   (DiffNode* node);
 
 //Error alerts
 void SyntaxError (const char* str, const size_t* position, const char* message);
