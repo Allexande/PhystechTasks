@@ -1,4 +1,4 @@
-//Version 0.2
+//Version 0.3
 
 #include <string.h>
 #include <ctype.h>

@@ -1,6 +1,22 @@
-//Version 0.2
+//Version 0.3
 
 #include "Differentiator.h"
+
+void FindFewDerivatives (DiffTree* tree, size_t derivativeOrder) {
+
+    assert (tree);
+
+    SimplifyTree (tree);
+
+    for (size_t i = 0; i < derivativeOrder; i++) {
+        FindTheDerivative (tree);
+        SimplifyTree (tree);
+    }
+}
+
+void FindTheDerivative (DiffTree* tree) {
+    //TODO write finding of derivative
+}
 
 void SimplifyTree (DiffTree* tree) {
 
@@ -129,7 +145,15 @@ void SimplifySRT (DiffNode* node) {
 
     assert (node);
 
-    node->value.number = sqrt (node->right->value.number);
+    if (node->right->value.number >= 0) {
+        node->value.number = sqrt (node->right->value.number);
+    } else {
+
+        printf("\SQRT FROM ZERO! RESULT IS NOT CORRECT\n");
+        node->value.number = 0; //Just a zero number
+
+    }
+
     ChangeNodeForSingalOperation (node);
 }
 
@@ -153,7 +177,15 @@ void SimplifyTAN (DiffNode* node) {
 
     assert (node);
 
-    node->value.number = tan (node->right->value.number);
+    if (node->right->value.number != 0) {
+        node->value.number = tan (node->right->value.number);
+    } else {
+
+        printf("\nIMPOSSIBLE TAN! RESULT IS NOT CORRECT\n");
+        node->value.number = 99999; //Just a huge number
+
+    }
+
     ChangeNodeForSingalOperation (node);
 }
 
@@ -161,7 +193,15 @@ void SimplifyCTN (DiffNode* node) {
 
     assert (node);
 
-    node->value.number = 1 / tan (node->right->value.number);
+    if (tan (node->right->value.number) != 0) {
+        node->value.number = 1 / tan (node->right->value.number);
+    } else {
+
+        printf("\nIMPOSSIBLE ATAN! RESULT IS NOT CORRECT\n");
+        node->value.number = 99999; //Just a huge number
+
+    }
+
     ChangeNodeForSingalOperation (node);
 }
 

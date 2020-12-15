@@ -1,19 +1,15 @@
 digraph Tree {
-"1773608" [shape="record", color="#000000", style="filled", fillcolor="#def7fa", label="1"]
-"1773568" [shape="record", color="#000000", style="filled", fillcolor="#def7fa", label="0.000000"]
-"1773528" [shape="record", color="#000000", style="filled", fillcolor="#def7fa", label="1"]
-"1773304" [shape="record", color="#000000", style="filled", fillcolor="#def7fa", label="12"]
-"1773368" [shape="record", color="#000000", style="filled", fillcolor="#def7fa", label="13"]
-"1773408" [shape="record", color="#000000", style="filled", fillcolor="#def7fa", label="x"]
-"1773368":se->"1773408"[color="black"];
-"1773304":se->"1773368"[color="black"];
-"1773160" [shape="record", color="#000000", style="filled", fillcolor="#def7fa", label="3"]
-"1773040" [shape="record", color="#000000", style="filled", fillcolor="#def7fa", label="x"]
-"1773000" [shape="record", color="#000000", style="filled", fillcolor="#def7fa", label="3.000000"]
-"1773160":se->"1773040"[color="black"];
-"1773160":sw->"1773000"[color="black"];
-"1773528":se->"1773304"[color="black"];
-"1773528":sw->"1773160"[color="black"];
-"1773608":se->"1773568"[color="black"];
-"1773608":sw->"1773528"[color="black"];
+"13526712" [shape="record", color="#000000", style="filled", fillcolor="#def7fa", label="1"]
+"13527272" [shape="record", color="#000000", style="filled", fillcolor="#def7fa", label="0.000000"]
+"13527352" [shape="record", color="#000000", style="filled", fillcolor="#def7fa", label="1"]
+"13501616" [shape="record", color="#000000", style="filled", fillcolor="#def7fa", label="2"]
+"13504584" [shape="record", color="#000000", style="filled", fillcolor="#def7fa", label="x"]
+"13504544" [shape="record", color="#000000", style="filled", fillcolor="#def7fa", label="9.000000"]
+"13501616":se->"13504584"[color="black"];
+"13501616":sw->"13504544"[color="black"];
+"13504504" [shape="record", color="#000000", style="filled", fillcolor="#def7fa", label="8.000000"]
+"13527352":se->"13501616"[color="black"];
+"13527352":sw->"13504504"[color="black"];
+"13526712":se->"13527272"[color="black"];
+"13526712":sw->"13527352"[color="black"];
 }

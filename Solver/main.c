@@ -1,4 +1,4 @@
-//Version 0.2
+//Version 0.3
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -17,15 +17,13 @@ int main() {
     //Probably there can be input in file
     char* str = (char*) calloc (sizeof(char), MAX_LENGTH_OF_EXPRESSION);
 
-    str = "3*(x+0)-0+SIN(COS(x-0))+0";
+    str = "2+(x+4)^0+(x-2)^0+4+(9-x)^1+(55-55)^(3+3)";
 
     DiffTree* myTree = BuildTreeFromText (str);
 
     //TreeDump (myTree);
 
     SimplifyTree (myTree);
-
-    printf(">>>>>>> myTree=%ld myTree->root=%ld myTree->root->left=%ld myTree->root->right=%ld\n", myTree, myTree->root, myTree->root->left, myTree->root->right);
 
     TreeDump (myTree);
 
