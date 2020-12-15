@@ -1,4 +1,4 @@
-//Version 0.6
+//Version 0.7
 
 #include "texmaster.h"
 
@@ -169,42 +169,42 @@ void WriteNode (DiffNode* node, FILE* file) {
 
                 case OP_SIN: {
                     fprintf (file, "\\sin ");
-                    WriteInRound (node->left, file);
+                    WriteInRound (node->right, file);
                 } break;
 
                 case OP_COS: {
                     fprintf (file, "\\cos ");
-                    WriteInRound (node->left, file);
+                    WriteInRound (node->right, file);
                 } break;
 
                 case OP_TAN: {
                     fprintf (file, "\\tan ");
-                    WriteInRound (node->left, file);
+                    WriteInRound (node->right, file);
                 } break;
 
                 case OP_CTN: {
                     fprintf (file, "\\cot ");
-                    WriteInRound (node->left, file);
+                    WriteInRound (node->right, file);
                 } break;
 
                 case OP_SRT: {
                     fprintf (file, "\\sqrt ");
-                    WriteInRound (node->left, file);
+                    WriteInRound (node->right, file);
                 } break;
 
                 case OP_ASN: {
                     fprintf (file, "\\arcsin ");
-                    WriteInRound (node->left, file);
+                    WriteInRound (node->right, file);
                 } break;
 
                 case OP_ACS: {
                     fprintf (file, "\\arccos ");
-                    WriteInRound (node->left, file);
+                    WriteInRound (node->right, file);
                 } break;
 
                 case OP_ATN: {
                     fprintf (file, "\\arctan ");
-                    WriteInRound (node->left, file);
+                    WriteInRound (node->right, file);
                 } break;
 
                 /*case OP_ACN: {
@@ -214,17 +214,17 @@ void WriteNode (DiffNode* node, FILE* file) {
 
                 case OP_SIH: {
                     fprintf (file, "\\sinh ");
-                    WriteInRound (node->left, file);
+                    WriteInRound (node->right, file);
                 } break;
 
                 case OP_COH: {
                     fprintf (file, "\\cosh ");
-                    WriteInRound (node->left, file);
+                    WriteInRound (node->right, file);
                 } break;
 
                 case OP_TGH: {
                     fprintf (file, "\\tanh ");
-                    WriteInRound (node->left, file);
+                    WriteInRound (node->right, file);
                 } break;
             }
 
@@ -249,6 +249,23 @@ void WriteInBraces (DiffNode* node, FILE* file) {
     fprintf (file, "{");
     WriteNode (node, file);
     fprintf (file, "}");
+}
+
+bool WriteText (const char* filename, const char* text) {
+
+    assert (filename);
+
+    FILE* file = fopen (filename, "a");
+    if (file == NULL) {
+        return false;
+    }
+
+    fprintf (file, "%s\n", text);
+
+    fclose (file);
+
+    return true;
+
 }
 
 void PicturePic (const char* filename, FILE* file) {

@@ -1,4 +1,4 @@
-//Version 0.6
+//Version 0.7
 
 //#define RECURRENT_DESCENT_DEBUG
 
@@ -369,7 +369,7 @@ DiffNode* Copy (DiffNode* node) {
     DiffNode* newNode = (DiffNode*) calloc (sizeof(DiffNode), 1);
     assert   (newNode);
 
-    newNode->type = node->type;
+    newNode->type  = node->type;
     newNode->value = node->value;
 
     newNode->left  = Copy (node->left);
@@ -397,6 +397,31 @@ bool FindVar (DiffNode* node) {
     }
 
     return false;
+}
+
+bool AreTheSameSubtrees (DiffNode* first, DiffNode* second) {
+
+    if (first == NULL || second == NULL) {
+        return first == NULL && second == NULL;
+    }
+
+    if (!AreTheSameNodes (first, second)) {
+        return false;
+    }
+
+    return AreTheSameSubtrees (first->left, second->left) &&
+           AreTheSameSubtrees (first->right, second->right);
+}
+
+bool AreTheSameNodes (DiffNode* first, DiffNode* second) {
+
+    assert (first);
+    assert (second);
+
+    return first->value.number == second->value.number &&
+           first->left         == second->left         &&
+           first->right        == second->right        &&
+           first->type         == second->type;
 }
 
 void SyntaxError (const char* str, const size_t* position, const char* message) {

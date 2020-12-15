@@ -1,4 +1,4 @@
-//Version 0.5
+//Version 0.7
 
 //Every rule have special structure:
 //SIMPLIFICATION_RULE(condition, action)
@@ -253,5 +253,44 @@ SIMPLIFICATION_RULE(                     \
         } else {                         \
             parent->right =(node->left); \
         }                                \
+    }                                    \
+)
+
+SIMPLIFICATION_RULE(                     \
+                                         \
+    node->right != NULL             &&   \
+    node->right->type == VAR        &&   \
+    node->left != NULL              &&   \
+    node->left->type == VAR         &&   \
+   (node->value.op == OP_ADD        ||   \
+    node->value.op == OP_SUB        ||   \
+    node->value.op == OP_MUL        ||   \
+    node->value.op == OP_DIV)            \
+,                                        \
+    switch (node->value.op) {            \
+                                         \
+        case OP_ADD: {                   \
+            node->value.op = OP_MUL;     \
+            node->left->type = CONST;    \
+            node->left->value.number = 2;\
+        } break;                         \
+                                         \
+        case OP_SUB: {                   \
+            node->type = CONST;          \
+            node->value.number = 0;      \
+            DeleteChildren (node);       \
+        } break;                         \
+                                         \
+        case OP_MUL: {                   \
+            node->value.op = OP_POW;     \
+            node->right->type = CONST;   \
+            node->right->value.number =2;\
+        } break;                         \
+                                         \
+        case OP_DIV: {                   \
+            node->type = CONST;          \
+            node->value.number = 1;      \
+            DeleteChildren (node);       \
+        } break;                         \
     }                                    \
 )

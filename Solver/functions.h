@@ -1,4 +1,4 @@
-//Version 0.6
+//Version 0.7
 
 //Nodes with this code have both children
 DEF_FUNCTION (ADD, 1) //Addition

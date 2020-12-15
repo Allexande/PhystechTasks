@@ -1,4 +1,4 @@
-//Version 0.6
+//Version 0.7
 
 //Start of working
 bool WriteBeginning (const char* filename);
@@ -10,6 +10,8 @@ bool WriteSubtree  (const char* filename, DiffNode* node);
 void WriteNode     (DiffNode* node, FILE* file);
 void WriteInRound  (DiffNode* node, FILE* file);
 void WriteInBraces (DiffNode* node, FILE* file);
+
+bool WriteText (const char* filename, const char* text);
 
 //Creating memes
 void PicturePic (const char* filename, FILE* file);

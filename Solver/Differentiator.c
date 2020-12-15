@@ -1,4 +1,4 @@
-//Version 0.6
+//Version 0.7
 
 #include "Differentiator.h"
 
@@ -264,7 +264,11 @@ void SimplifyTree (DiffTree* tree) {
 
     assert (tree);
 
+    DiffNode* oldTree = Copy (tree->root);
+
     SimplifyNode (tree->root, NULL);
+
+    WriteSimp (TEX_FILE_NAME, oldTree, tree->root);
 }
 
 void SimplifyNode (DiffNode* node, DiffNode* parent) {
@@ -275,16 +279,14 @@ void SimplifyNode (DiffNode* node, DiffNode* parent) {
         SimplifyNode (LEFT, node);
     }
 
-    if (node->right != NULL) {
-        SimplifyNode (node->right, node);
+    if (RIGHT != NULL) {
+        SimplifyNode (RIGHT, node);
     }
 
     TryToSimplify (node, parent);
 }
 
 void TryToSimplify (DiffNode* node, DiffNode* parent) {
-
-    DiffNode* nodeBeforeSimplification = Copy (node);
 
     #define SIMPLIFICATION_RULE(condition, action)  \
         if (condition) {                            \
@@ -296,9 +298,6 @@ void TryToSimplify (DiffNode* node, DiffNode* parent) {
 
     #undef SIMPLIFICATION_RULE
 
-    #ifdef TEX_MODE
-        WriteSimp (TEX_FILE_NAME, nodeBeforeSimplification, node);
-    #endif
 }
 
 void ChangeNodeForBinaryOperation (DiffNode* node) {
@@ -313,7 +312,7 @@ void SimplifyADD (DiffNode* node) {
 
     assert (node);
 
-    node->value.number = LEFT->value.number + node->right->value.number;
+    node->value.number = LEFT->value.number + RIGHT->value.number;
     ChangeNodeForBinaryOperation (node);
 }
 
@@ -321,7 +320,7 @@ void SimplifySUB (DiffNode* node) {
 
     assert (node);
 
-    node->value.number = LEFT->value.number - node->right->value.number;
+    node->value.number = LEFT->value.number - RIGHT->value.number;
     ChangeNodeForBinaryOperation (node);
 }
 
@@ -329,7 +328,7 @@ void SimplifyMUL (DiffNode* node) {
 
     assert (node);
 
-    node->value.number = LEFT->value.number * node->right->value.number;
+    node->value.number = LEFT->value.number * RIGHT->value.number;
     ChangeNodeForBinaryOperation (node);
 }
 
@@ -337,13 +336,13 @@ void SimplifyDIV (DiffNode* node) {
 
     assert (node);
 
-    if (node->right->value.number == 0) {
+    if (RIGHT->value.number == 0) {
 
         printf("\nDEVIDING ON ZERO! RESULT IS NOT CORRECT\n");
         node->value.number = 99999; //Just a huge number
 
     } else {
-        node->value.number = LEFT->value.number / node->right->value.number;
+        node->value.number = LEFT->value.number / RIGHT->value.number;
     }
 
     ChangeNodeForBinaryOperation (node);
@@ -353,7 +352,7 @@ void SimplifyPOW (DiffNode* node) {
 
     assert (node);
 
-    node->value.number = pow (LEFT->value.number, node->right->value.number);
+    node->value.number = pow (LEFT->value.number, RIGHT->value.number);
     ChangeNodeForBinaryOperation (node);
 }
 
@@ -369,7 +368,7 @@ void SimplifyABS (DiffNode* node) {
 
     assert (node);
 
-    node->value.number = fabs (node->right->value.number);
+    node->value.number = fabs (RIGHT->value.number);
     ChangeNodeForSingalOperation (node);
 }
 
@@ -377,7 +376,7 @@ void SimplifyLGN (DiffNode* node) {
 
     assert (node);
 
-    node->value.number = log (node->right->value.number);
+    node->value.number = log (RIGHT->value.number);
     ChangeNodeForSingalOperation (node);
 }
 
@@ -385,7 +384,7 @@ void SimplifyEXP (DiffNode* node) {
 
     assert (node);
 
-    node->value.number = exp (node->right->value.number);
+    node->value.number = exp (RIGHT->value.number);
     ChangeNodeForSingalOperation (node);
 }
 
@@ -393,8 +392,8 @@ void SimplifySRT (DiffNode* node) {
 
     assert (node);
 
-    if (node->right->value.number >= 0) {
-        node->value.number = sqrt (node->right->value.number);
+    if (RIGHT->value.number >= 0) {
+        node->value.number = sqrt (RIGHT->value.number);
     } else {
 
         printf("\SQRT FROM ZERO! RESULT IS NOT CORRECT\n");
@@ -409,7 +408,7 @@ void SimplifySIN (DiffNode* node) {
 
     assert (node);
 
-    node->value.number = sin (node->right->value.number);
+    node->value.number = sin (RIGHT->value.number);
     ChangeNodeForSingalOperation (node);
 }
 
@@ -417,7 +416,7 @@ void SimplifyCOS (DiffNode* node) {
 
     assert (node);
 
-    node->value.number = cos (node->right->value.number);
+    node->value.number = cos (RIGHT->value.number);
     ChangeNodeForSingalOperation (node);
 }
 
@@ -425,8 +424,8 @@ void SimplifyTAN (DiffNode* node) {
 
     assert (node);
 
-    if (node->right->value.number != 0) {
-        node->value.number = tan (node->right->value.number);
+    if (RIGHT->value.number != 0) {
+        node->value.number = tan (RIGHT->value.number);
     } else {
 
         printf("\nIMPOSSIBLE TAN! RESULT IS NOT CORRECT\n");
@@ -441,8 +440,8 @@ void SimplifyCTN (DiffNode* node) {
 
     assert (node);
 
-    if (tan (node->right->value.number) != 0) {
-        node->value.number = 1 / tan (node->right->value.number);
+    if (tan (RIGHT->value.number) != 0) {
+        node->value.number = 1 / tan (RIGHT->value.number);
     } else {
 
         printf("\nIMPOSSIBLE ATAN! RESULT IS NOT CORRECT\n");
@@ -457,7 +456,7 @@ void SimplifyASN (DiffNode* node) {
 
     assert (node);
 
-    node->value.number = asin (node->right->value.number);
+    node->value.number = asin (RIGHT->value.number);
     ChangeNodeForSingalOperation (node);
 }
 
@@ -465,7 +464,7 @@ void SimplifyACS (DiffNode* node) {
 
     assert (node);
 
-    node->value.number = acos (node->right->value.number);
+    node->value.number = acos (RIGHT->value.number);
     ChangeNodeForSingalOperation (node);
 }
 
@@ -473,7 +472,7 @@ void SimplifyATN (DiffNode* node) {
 
     assert (node);
 
-    node->value.number = atan (node->right->value.number);
+    node->value.number = atan (RIGHT->value.number);
     ChangeNodeForSingalOperation (node);
 }
 
@@ -481,7 +480,7 @@ void SimplifyACN (DiffNode* node) {
 
     assert (node);
 
-    node->value.number = M_PI/2 - atan (node->right->value.number);
+    node->value.number = M_PI/2 - atan (RIGHT->value.number);
     ChangeNodeForSingalOperation (node);
 }
 
@@ -489,7 +488,7 @@ void SimplifySIH (DiffNode* node) {
 
     assert (node);
 
-    node->value.number = sinh (node->right->value.number);
+    node->value.number = sinh (RIGHT->value.number);
     ChangeNodeForSingalOperation (node);
 }
 
@@ -497,7 +496,7 @@ void SimplifyCOH (DiffNode* node) {
 
     assert (node);
 
-    node->value.number = cosh (node->right->value.number);
+    node->value.number = cosh (RIGHT->value.number);
     ChangeNodeForSingalOperation (node);
 }
 
@@ -505,7 +504,7 @@ void SimplifyTGH (DiffNode* node) {
 
     assert (node);
 
-    node->value.number = tanh (node->right->value.number);
+    node->value.number = tanh (RIGHT->value.number);
     ChangeNodeForSingalOperation (node);
 }
 
@@ -513,7 +512,7 @@ void SimplifyCTH (DiffNode* node) {
 
     assert (node);
 
-    node->value.number = atanh (node->right->value.number);
+    node->value.number = atanh (RIGHT->value.number);
     ChangeNodeForSingalOperation (node);
 }
 
