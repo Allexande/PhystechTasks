@@ -1,5 +1,12 @@
 //Version 0.7
 
+#include "random.c"
+
+enum NumberOfMemes {
+    DIFF_MEMES_NUMBER = 1,
+    SIMP_MEMES_NUMBER = 1
+};
+
 //Start of working
 bool WriteBeginning (const char* filename);
 
@@ -23,8 +30,16 @@ void PictureMeme (const char* filename, FILE* file,              \
 bool WriteDiff (const char* filename, DiffNode* first, DiffNode* second);
 bool WriteSimp (const char* filename, DiffNode* first, DiffNode* second);
 
+bool PostMeme (FILE* file, bool isDiffMeme, DiffNode* first, DiffNode* second);
+
 //End of working
 bool WriteEnd (const char* filename);
 
 //Translate TEX to PDF
-bool TranslateToPDF (const char* filename);
+/*
+void TranslateToPDF (const char* filename);
+*/
+
+//Work with strings
+char* UniteStrings ( char* first,  char* second);
+char* IntToString  (int numToConvert);

@@ -269,6 +269,7 @@ void SimplifyTree (DiffTree* tree) {
     SimplifyNode (tree->root, NULL);
 
     WriteSimp (TEX_FILE_NAME, oldTree, tree->root);
+    free (oldTree);
 }
 
 void SimplifyNode (DiffNode* node, DiffNode* parent) {

@@ -15,7 +15,7 @@ int main() {
     //Probably there can be input in file
     char* str = (char*) calloc (sizeof(char), MAX_LENGTH_OF_EXPRESSION);
 
-    str = "SIN(3+7+1+x)+COS(x)^2\0";
+    str = "SIN(3+7+1+x)+COS(x)^2";
 
     DiffTree* myTree = BuildTreeFromText (str);
 

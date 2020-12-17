@@ -17,6 +17,7 @@ bool WriteBeginning (const char* filename) {
     fprintf (file, "\\usepackage{graphicx}\n");
     fprintf (file, "\\usepackage[percent]{overpic}\n");
     fprintf (file, "\\usepackage{hyperref}\n");
+    fprintf (file, "\\usepackage[bottom=0.5in,top=0.8in, left=0.8in, right=0.8in]{geometry}\n");
     fprintf (file, "\\begin{document}\n");
 
     fprintf (file, "\\title{                                         \
@@ -27,9 +28,11 @@ bool WriteBeginning (const char* filename) {
     fprintf (file, "\\maketitle\n");
 
     PicturePic ("pics/begin/head.jpg", file);
-    fprintf (file, "\\newline\n");
+    fprintf (file, "\\pagebreak\n");
 
     fclose (file);
+
+    SetRandSeed ();
 
     return true;
 }
@@ -44,6 +47,7 @@ bool StartOfTakingDerivative (const char* filename, size_t number) {
     }
 
     fprintf (file, "\\section{This is subtraction of %d'st derivative}\n", number);
+    fprintf (file, "\\LARGE\n");
 
     fclose (file);
 
@@ -290,14 +294,18 @@ void PictureMeme (const char* filename, FILE* file,              \
     fprintf (file, "\\begin{overpic}[width=\\textwidth]{%s}\n", filename);
 
     fprintf (file, "\\put (%d,%d) {", Xfirst, Yfirst);
+    fprintf (file, "\\fbox{\\parbox{260px}{\\begin{center}$");
     WriteNode (first, file);
-    fprintf (file, "}\n");
+    fprintf (file, "$\\end{center}}}}\n");
 
     fprintf (file, "\\put (%d,%d) {", Xsecond, Ysecond);
+    fprintf (file, "\\fbox{\\parbox{260px}{\\begin{center}$");
     WriteNode (second, file);
-    fprintf (file, "}\n");
+    fprintf (file, "$\\end{center}}}}\n");
 
     fprintf (file, "\\end{overpic}\n");
+    fprintf (file, "\\pagebreak\n");
+    fprintf (file, "\\break\n");
 }
 
 bool WriteDiff (const char* filename, DiffNode* first, DiffNode* second) {
@@ -320,6 +328,8 @@ bool WriteDiff (const char* filename, DiffNode* first, DiffNode* second) {
     fprintf (file, "$");
     fprintf (file, "\n\\newline\n");
 
+    PostMeme (file, 1, first, second);
+
     fclose (file);
 
     return true;
@@ -334,20 +344,76 @@ bool WriteSimp (const char* filename, DiffNode* first, DiffNode* second) {
         return false;
     }
 
-    fprintf (file, "Let's make simpler \n");
-    fprintf (file, "$");
-    WriteNode (first, file);
-    fprintf (file, "$");
-    fprintf (file, "\n\\newline\n");
-    fprintf (file, "Now this expression simpled to \n");
-    fprintf (file, "$");
-    WriteNode (second, file);
-    fprintf (file, "$");
-    fprintf (file, "\n\\newline\n");
+    if (!AreTheSameSubtrees (first, second)) {
+
+        fprintf (file, "Let's make simpler \n");
+        fprintf (file, "$");
+        WriteNode (first, file);
+        fprintf (file, "$");
+        fprintf (file, "\n\\newline\n");
+        fprintf (file, "Now this expression simpled to \n");
+        fprintf (file, "$");
+        WriteNode (second, file);
+        fprintf (file, "$");
+        fprintf (file, "\n\\newline\n");
+
+        PostMeme (file, 0, first, second);
+    }
 
     fclose (file);
 
     return true;
+}
+
+bool PostMeme (FILE* file, bool isDiffMeme, DiffNode* first, DiffNode* second) {
+
+    int rand;
+    if (isDiffMeme) {
+        rand = GeterateRandomInt (1, DIFF_MEMES_NUMBER + 1);
+    } else {
+        rand = GeterateRandomInt (1, SIMP_MEMES_NUMBER + 1);
+    }
+
+    char* pathname;
+    if (isDiffMeme) {
+        pathname = "pics/diff/";
+    } else {
+        pathname = "pics/simp/";
+    }
+
+    #define MEME(                     \
+      isDiff,                         \
+      filename,                       \
+      number,                         \
+      Xfirst,                         \
+      Yfirst,                         \
+      Xsecond,                        \
+      Ysecond)                        \
+        if (isDiff == isDiffMeme &&   \
+            number == rand) {         \
+                                      \
+            PictureMeme (             \
+                UniteStrings (        \
+                    pathname,        \
+                    #filename          \
+                ),                    \
+                file,                 \
+                Xfirst,               \
+                Yfirst,               \
+                first,                \
+                Xsecond,              \
+                Ysecond,              \
+                second                \
+                );                    \
+                                      \
+            return true;              \
+        }
+
+    #include "memes.h"
+
+    #undef MEME
+
+    return false;
 }
 
 bool WriteEnd (const char* filename) {
@@ -373,21 +439,86 @@ bool WriteEnd (const char* filename) {
     return true;
 }
 
-bool TranslateToPDF (const char* filename) {
+/*
+void TranslateToPDF (const char* filename) {
 
     assert (filename);
 
-    size_t length1 = strlen ("pdflatex ");
-    size_t length2 = strlen (filename);
+    system (UniteStrings ("pdflatex ", filename));
+}
+*/
 
-    char*   request = (char*) calloc (sizeof(char), length1 + length2 + 1);
-    assert (request);
+char* UniteStrings (char* first,  char* second) {
 
-    memcpy (request, "pdflatex ", length1);
-    memcpy (request + length1, filename, length2 + 1);
+    assert (first);
+    assert (second);
 
-    system (request);
+    char*   result = (char*) calloc (sizeof(char), strlen (first) + strlen (second) + 1);
+    assert (result);
 
-    return true;
+    strcpy (result, first);
+    strcat (result, second);
+
+    return result;
+}
+
+/*
+char* UniteStrings (char* first,  char* second) {
+
+    assert (first);
+    assert (second);
+
+    printf("1)UniteStrings(%s, %s) started\n", first, second);
+//printf ("-------> first=%s first[0]=%c (%d)", first, first[0], first[0]);
+    size_t length1 = strlen (first)+1; //printf("length1=%d\n", length1);
+    size_t length2 = strlen (second);//printf("length2=%d\n", length2);
+//printf("NOW UniteStrings(%s, %s)\n", first, second);
+    printf("2)UniteStrings(%s, %s) started first=%ld\n", first, second, first);
+
+    char*   result = (char*) calloc (sizeof(char), length1 + length2 + 1);
+    assert (result);
+    printf("3)UniteStrings(%s, %s) started first=%ld\n", first, second, first);
+    for (; 0; ) {
+        printf("test)UniteStrings(%s, %s) started first=%ld\n", first, second, first);
+    }
+    /*
+    printf("> > BEFORE MEMCOPY result=%s\n", result);
+    memcpy (result, first, length1);
+    printf("> > AFTER 1 MEMCOPY result=%s\n", result);
+    memcpy (result + length1, second, length2 + 1);
+
+    printf("> > AFTER 2 MEMCOPY result=%s\n", result);
+
+//printf("> > BEFORE MEMCOPY result=%s\n", result);
+    //for (size_t firstPointer = 0; firstPointer < length1; firstPointer++) {
+//printf("first[%d]=%c(%d)\n", firstPointer, first[firstPointer], first[firstPointer]);
+//printf("first[%d]=%c(%d)\n", firstPointer-1, first[firstPointer-1], first[firstPointer-1]);
+//printf("4.%d)UniteStrings(%s, %s) started\n", firstPointer*2, first, second);
+        //result[firstPointer] = first[firstPointer];
+//printf("4.%d)UniteStrings(%s, %s) started\n", firstPointer*2+1, first, second);
+    //}
+
+//printf ("-------> first=%s first=%c (%d)", first, first, first);
+
+//printf("> > AFTER 1 MEMCOPY result=%s\n", result);
+    for (size_t secondPointer = length1; secondPointer < length1 + length2 + 1; secondPointer++) {
+//printf("second[%d]=%c(%d)\n", secondPointer - length1, second[secondPointer - length1], second[secondPointer - length1]);
+        printf("5.%d)UniteStrings(%s, %s) started first=%ld\n", secondPointer*2, first, second, first);
+        result[secondPointer] = second[secondPointer - length1];
+        printf("5.%d)UniteStrings(%s, %s) started\n", secondPointer*2+1, first, second);
+    }
+//printf("> > AFTER 2 MEMCOPY result=%s\n", result);
+printf("NOW UniteStrings(%s, %s)\n", first, second);
+    return result;
+} */
+
+
+
+char* IntToString (int numToConvert) {
+
+    char str[DIFF_MEMES_NUMBER + SIMP_MEMES_NUMBER];
+    sprintf (str, "%d\0", numToConvert);
+
+    return str;
 }
 
