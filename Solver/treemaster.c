@@ -419,8 +419,6 @@ bool AreTheSameNodes (DiffNode* first, DiffNode* second) {
     assert (second);
 
     return first->value.number == second->value.number &&
-           first->left         == second->left         &&
-           first->right        == second->right        &&
            first->type         == second->type;
 }
 

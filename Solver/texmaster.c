@@ -18,6 +18,7 @@ bool WriteBeginning (const char* filename) {
     fprintf (file, "\\usepackage[percent]{overpic}\n");
     fprintf (file, "\\usepackage{hyperref}\n");
     fprintf (file, "\\usepackage[bottom=0.5in,top=0.8in, left=0.8in, right=0.8in]{geometry}\n");
+    fprintf (file, "\\setlength{\\fboxrule}{0pt}\n");
     fprintf (file, "\\begin{document}\n");
 
     fprintf (file, "\\title{                                         \
@@ -47,12 +48,27 @@ bool StartOfTakingDerivative (const char* filename, size_t number) {
     }
 
     fprintf (file, "\\section{This is subtraction of %d'st derivative}\n", number);
-    fprintf (file, "\\LARGE\n");
+    fprintf (file, "\\huge\n");
 
     fclose (file);
 
     return true;
+}
 
+bool EndOfTakingDerivative (const char* filename, DiffNode* node) {
+
+    assert (filename);
+
+    FILE* file = fopen (filename, "a");
+    if (file == NULL) {
+        return false;
+    }
+
+    PictureMeme ("pics/mid/der.jpg", file, 11, 85, node, 0, 0, NULL);
+
+    fclose (file);
+
+    return true;
 }
 
 bool WriteSubtree (const char* filename, DiffNode* node) {
@@ -282,30 +298,39 @@ void PicturePic (const char* filename, FILE* file) {
 }
 
 void PictureMeme (const char* filename, FILE* file,              \
-                size_t Xfirst, size_t Yfirst, DiffNode* first,   \
-                size_t Xsecond, size_t Ysecond, DiffNode* second) {
+                int Xfirst, int Yfirst, DiffNode* first,   \
+                int Xsecond, int Ysecond, DiffNode* second) {
 
     assert (filename);
     assert (file);
 
-    assert (first);
-    assert (second);
-
     fprintf (file, "\\begin{overpic}[width=\\textwidth]{%s}\n", filename);
 
-    fprintf (file, "\\put (%d,%d) {", Xfirst, Yfirst);
-    fprintf (file, "\\fbox{\\parbox{260px}{\\begin{center}$");
-    WriteNode (first, file);
-    fprintf (file, "$\\end{center}}}}\n");
+    if (first != NULL) {
 
-    fprintf (file, "\\put (%d,%d) {", Xsecond, Ysecond);
-    fprintf (file, "\\fbox{\\parbox{260px}{\\begin{center}$");
-    WriteNode (second, file);
-    fprintf (file, "$\\end{center}}}}\n");
+        fprintf (file, "\\put (%d,%d) {", Xfirst, Yfirst);
+        fprintf (file, "\\fbox{\\parbox{370px}{\\begin{center}$");
+        WriteNode (first, file);
+        fprintf (file, "$\\end{center}}}}\n");
 
-    fprintf (file, "\\end{overpic}\n");
-    fprintf (file, "\\pagebreak\n");
-    fprintf (file, "\\break\n");
+    }
+
+    if (second != NULL) {
+
+        fprintf (file, "\\put (%d,%d) {", Xsecond, Ysecond);
+        fprintf (file, "\\fbox{\\parbox{370px}{\\begin{center}$");
+        WriteNode (second, file);
+        fprintf (file, "$\\end{center}}}}\n");
+
+    }
+
+    if (first != NULL || second != NULL) {
+
+        fprintf (file, "\\end{overpic}\n");
+        fprintf (file, "\\pagebreak\n");
+        fprintf (file, "\\break\n");
+
+    }
 }
 
 bool WriteDiff (const char* filename, DiffNode* first, DiffNode* second) {
@@ -317,17 +342,22 @@ bool WriteDiff (const char* filename, DiffNode* first, DiffNode* second) {
         return false;
     }
 
-    fprintf (file, "Let's differentiate \n");
+    fprintf (file, "\\par Let's differentiate expressions and find their derivatives! \n");
+    fprintf (file, "\\break\\break \n");
+    /*
     fprintf (file, "$");
     WriteNode (first, file);
     fprintf (file, "$");
     fprintf (file, "\n\\newline\n");
+    */
+    //fprintf (file, "\n\\break\n");
+    /*
     fprintf (file, "Now this expression turned into \n");
     fprintf (file, "$");
     WriteNode (second, file);
     fprintf (file, "$");
     fprintf (file, "\n\\newline\n");
-
+    */
     PostMeme (file, 1, first, second);
 
     fclose (file);
@@ -346,18 +376,28 @@ bool WriteSimp (const char* filename, DiffNode* first, DiffNode* second) {
 
     if (!AreTheSameSubtrees (first, second)) {
 
-        fprintf (file, "Let's make simpler \n");
+        fprintf (file, "\\par Let's make expressions simpler and easier!\n");
+        fprintf (file, "\\break\\break \n");
+        /*
         fprintf (file, "$");
         WriteNode (first, file);
         fprintf (file, "$");
         fprintf (file, "\n\\newline\n");
+        */
+        //fprintf (file, "\n\\break\n");
+        /*
         fprintf (file, "Now this expression simpled to \n");
         fprintf (file, "$");
         WriteNode (second, file);
         fprintf (file, "$");
         fprintf (file, "\n\\newline\n");
-
+        */
         PostMeme (file, 0, first, second);
+
+    } else {
+
+        PictureMeme ("pics/mid/fresco.jpg", file, 10, 65, first, 0, 0, NULL);
+
     }
 
     fclose (file);
@@ -394,8 +434,8 @@ bool PostMeme (FILE* file, bool isDiffMeme, DiffNode* first, DiffNode* second) {
                                       \
             PictureMeme (             \
                 UniteStrings (        \
-                    pathname,        \
-                    #filename          \
+                    pathname,         \
+                    #filename         \
                 ),                    \
                 file,                 \
                 Xfirst,               \
@@ -425,11 +465,13 @@ bool WriteEnd (const char* filename) {
         return false;
     }
 
-    fprintf (file, "\n\nThat is all!\n");
-    fprintf (file, "\\newline\n");
+    fprintf (file, "\n\n \\par That is all!\n");
+    fprintf (file, "\\par\n");
+    fprintf (file, "\n\nSource code is available on my GitHub:\n");
+    fprintf (file, "\\par\n");
 
     fprintf (file, "\\begin{overpic}[width=\\textwidth]{pics/end/basement.jpg}\n");
-    fprintf (file, "\\put (31,20) {\\href{run:https://github.com/Allexande}{\\Large github.com/Allexande}}\n");
+    fprintf (file, "\\put (36,20) {\\href{run:https://github.com/Allexande}{\\Large github.com/Allexande}}\n");
     fprintf (file, "\\end{overpic}\n");
 
     fprintf (file, "\\end{document}\n");

@@ -3,8 +3,8 @@
 #include "random.c"
 
 enum NumberOfMemes {
-    DIFF_MEMES_NUMBER = 1,
-    SIMP_MEMES_NUMBER = 1
+    DIFF_MEMES_NUMBER = 5,
+    SIMP_MEMES_NUMBER = 5
 };
 
 //Start of working
@@ -12,6 +12,7 @@ bool WriteBeginning (const char* filename);
 
 //Taking derivative body
 bool StartOfTakingDerivative (const char* filename, size_t number);
+bool EndOfTakingDerivative   (const char* filename, DiffNode* node);
 
 bool WriteSubtree  (const char* filename, DiffNode* node);
 void WriteNode     (DiffNode* node, FILE* file);
@@ -23,8 +24,8 @@ bool WriteText (const char* filename, const char* text);
 //Creating memes
 void PicturePic (const char* filename, FILE* file);
 void PictureMeme (const char* filename, FILE* file,              \
-                size_t Xfirst, size_t Yfirst, DiffNode* first,   \
-                size_t Xsecond, size_t Ysecond, DiffNode* second);
+                int Xfirst, int Yfirst, DiffNode* first,   \
+                int Xsecond, int Ysecond, DiffNode* second);
 
 //Posting memes
 bool WriteDiff (const char* filename, DiffNode* first, DiffNode* second);

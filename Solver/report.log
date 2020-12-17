@@ -1,0 +1,1128 @@
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 20.12) (preloaded format=pdflatex 2020.12.15)  17 DEC 2020 20:38
+entering extended mode
+**./report.tex
+(report.tex
+LaTeX2e <2020-10-01> patch level 2
+L3 programming layer <2020-12-07> xparse <2020-03-03>
+("C:\Program Files\MiKTeX\tex/latex/base\article.cls"
+Document Class: article 2020/04/10 v1.4m Standard LaTeX document class
+("C:\Program Files\MiKTeX\tex/latex/base\size10.clo"
+File: size10.clo 2020/04/10 v1.4m Standard LaTeX file (size option)
+)
+\c@part=\count177
+\c@section=\count178
+\c@subsection=\count179
+\c@subsubsection=\count180
+\c@paragraph=\count181
+\c@subparagraph=\count182
+\c@figure=\count183
+\c@table=\count184
+\abovecaptionskip=\skip47
+\belowcaptionskip=\skip48
+\bibindent=\dimen138
+)
+("C:\Program Files\MiKTeX\tex/latex/graphics\graphicx.sty"
+Package: graphicx 2020/09/09 v1.2b Enhanced LaTeX Graphics (DPC,SPQR)
+
+("C:\Program Files\MiKTeX\tex/latex/graphics\keyval.sty"
+Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
+\KV@toks@=\toks15
+)
+("C:\Program Files\MiKTeX\tex/latex/graphics\graphics.sty"
+Package: graphics 2020/08/30 v1.4c Standard LaTeX Graphics (DPC,SPQR)
+
+("C:\Program Files\MiKTeX\tex/latex/graphics\trig.sty"
+Package: trig 2016/01/03 v1.10 sin cos tan (DPC)
+)
+("C:\Program Files\MiKTeX\tex/latex/graphics-cfg\graphics.cfg"
+File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
+)
+Package graphics Info: Driver file: pdftex.def on input line 105.
+
+("C:\Program Files\MiKTeX\tex/latex/graphics-def\pdftex.def"
+File: pdftex.def 2020/10/05 v1.2a Graphics/color driver for pdftex
+))
+\Gin@req@height=\dimen139
+\Gin@req@width=\dimen140
+)
+("C:\Program Files\MiKTeX\tex/latex/overpic\overpic.sty"
+Package: overpic 2020/02/22 1.3 picture overlays (RN)
+
+("C:\Program Files\MiKTeX\tex/latex/epic\epic.sty"
+Enhancements to Picture Environment. Version 1.2 - Released June 1, 1986
+\@@multicnt=\count185
+\d@lta=\count186
+\@delta=\dimen141
+\@@delta=\dimen142
+\@gridcnt=\count187
+\@joinkind=\count188
+\@dotgap=\dimen143
+\@ddotgap=\dimen144
+\@x@diff=\count189
+\@y@diff=\count190
+\x@diff=\dimen145
+\y@diff=\dimen146
+\@dotbox=\box47
+\num@segments=\count191
+\num@segmentsi=\count192
+\@datafile=\read2
+)
+\OVP@box=\box48
+) ("C:\Program Files\MiKTeX\tex/latex/hyperref\hyperref.sty"
+Package: hyperref 2020-05-15 v7.00e Hypertext links for LaTeX
+
+("C:\Program Files\MiKTeX\tex/generic/ltxcmds\ltxcmds.sty"
+Package: ltxcmds 2020-05-10 v1.25 LaTeX kernel commands for general use (HO)
+)
+("C:\Program Files\MiKTeX\tex/generic/iftex\iftex.sty"
+Package: iftex 2020/03/06 v1.0d TeX engine tests
+)
+("C:\Program Files\MiKTeX\tex/generic/pdftexcmds\pdftexcmds.sty"
+Package: pdftexcmds 2020-06-27 v0.33 Utility functions of pdfTeX for LuaTeX (HO
+)
+
+("C:\Program Files\MiKTeX\tex/generic/infwarerr\infwarerr.sty"
+Package: infwarerr 2019/12/03 v1.5 Providing info/warning/error messages (HO)
+)
+Package pdftexcmds Info: \pdf@primitive is available.
+Package pdftexcmds Info: \pdf@ifprimitive is available.
+Package pdftexcmds Info: \pdfdraftmode found.
+)
+("C:\Program Files\MiKTeX\tex/generic/kvsetkeys\kvsetkeys.sty"
+Package: kvsetkeys 2019/12/15 v1.18 Key value parser (HO)
+)
+("C:\Program Files\MiKTeX\tex/generic/kvdefinekeys\kvdefinekeys.sty"
+Package: kvdefinekeys 2019-12-19 v1.6 Define keys (HO)
+)
+("C:\Program Files\MiKTeX\tex/generic/pdfescape\pdfescape.sty"
+Package: pdfescape 2019/12/09 v1.15 Implements pdfTeX's escape features (HO)
+)
+("C:\Program Files\MiKTeX\tex/latex/hycolor\hycolor.sty"
+Package: hycolor 2020-01-27 v1.10 Color options for hyperref/bookmark (HO)
+)
+("C:\Program Files\MiKTeX\tex/latex/letltxmacro\letltxmacro.sty"
+Package: letltxmacro 2019/12/03 v1.6 Let assignment for LaTeX macros (HO)
+)
+("C:\Program Files\MiKTeX\tex/latex/auxhook\auxhook.sty"
+Package: auxhook 2019-12-17 v1.6 Hooks for auxiliary files (HO)
+)
+("C:\Program Files\MiKTeX\tex/latex/kvoptions\kvoptions.sty"
+Package: kvoptions 2020-10-07 v3.14 Key value format for package options (HO)
+)
+\@linkdim=\dimen147
+\Hy@linkcounter=\count193
+\Hy@pagecounter=\count194
+
+("C:\Program Files\MiKTeX\tex/latex/hyperref\pd1enc.def"
+File: pd1enc.def 2020-05-15 v7.00e Hyperref: PDFDocEncoding definition (HO)
+Now handling font encoding PD1 ...
+... no UTF-8 mapping file for font encoding PD1
+)
+("C:\Program Files\MiKTeX\tex/generic/intcalc\intcalc.sty"
+Package: intcalc 2019/12/15 v1.3 Expandable calculations with integers (HO)
+)
+("C:\Program Files\MiKTeX\tex/generic/etexcmds\etexcmds.sty"
+Package: etexcmds 2019/12/15 v1.7 Avoid name clashes with e-TeX commands (HO)
+)
+\Hy@SavedSpaceFactor=\count195
+Package hyperref Info: Hyper figures OFF on input line 4464.
+Package hyperref Info: Link nesting OFF on input line 4469.
+Package hyperref Info: Hyper index ON on input line 4472.
+Package hyperref Info: Plain pages OFF on input line 4479.
+Package hyperref Info: Backreferencing OFF on input line 4484.
+Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
+Package hyperref Info: Bookmarks ON on input line 4717.
+\c@Hy@tempcnt=\count196
+
+("C:\Program Files\MiKTeX\tex/latex/url\url.sty"
+\Urlmuskip=\muskip16
+Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
+)
+LaTeX Info: Redefining \url on input line 5076.
+\XeTeXLinkMargin=\dimen148
+
+("C:\Program Files\MiKTeX\tex/generic/bitset\bitset.sty"
+Package: bitset 2019/12/09 v1.3 Handle bit-vector datatype (HO)
+
+("C:\Program Files\MiKTeX\tex/generic/bigintcalc\bigintcalc.sty"
+Package: bigintcalc 2019/12/15 v1.5 Expandable calculations on big integers (HO
+)
+))
+\Fld@menulength=\count197
+\Field@Width=\dimen149
+\Fld@charsize=\dimen150
+Package hyperref Info: Hyper figures OFF on input line 6347.
+Package hyperref Info: Link nesting OFF on input line 6352.
+Package hyperref Info: Hyper index ON on input line 6355.
+Package hyperref Info: backreferencing OFF on input line 6362.
+Package hyperref Info: Link coloring OFF on input line 6367.
+Package hyperref Info: Link coloring with OCG OFF on input line 6372.
+Package hyperref Info: PDF/A mode OFF on input line 6377.
+LaTeX Info: Redefining \ref on input line 6417.
+LaTeX Info: Redefining \pageref on input line 6421.
+
+("C:\Program Files\MiKTeX\tex/latex/base\atbegshi-ltx.sty"
+Package: atbegshi-ltx 2020/08/17 v1.0a Emulation of the original atbegshi packa
+ge
+with kernel methods
+)
+\Hy@abspage=\count198
+\c@Item=\count199
+\c@Hfootnote=\count266
+)
+Package hyperref Info: Driver (autodetected): hpdftex.
+
+("C:\Program Files\MiKTeX\tex/latex/hyperref\hpdftex.def"
+File: hpdftex.def 2020-05-15 v7.00e Hyperref driver for pdfTeX
+
+("C:\Program Files\MiKTeX\tex/latex/base\atveryend-ltx.sty"
+Package: atveryend-ltx 2020/08/19 v1.0a Emulation of the original atvery packag
+e
+with kernel methods
+)
+\Fld@listcount=\count267
+\c@bookmark@seq@number=\count268
+
+("C:\Program Files\MiKTeX\tex/latex/rerunfilecheck\rerunfilecheck.sty"
+Package: rerunfilecheck 2019/12/05 v1.9 Rerun checks for auxiliary files (HO)
+
+("C:\Program Files\MiKTeX\tex/generic/uniquecounter\uniquecounter.sty"
+Package: uniquecounter 2019/12/15 v1.4 Provide unlimited unique counter (HO)
+)
+Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
+86.
+)
+\Hy@SectionHShift=\skip49
+)
+("C:\Program Files\MiKTeX\tex/latex/geometry\geometry.sty"
+Package: geometry 2020/01/02 v5.9 Page Geometry
+
+("C:\Program Files\MiKTeX\tex/generic/iftex\ifvtex.sty"
+Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
+)
+\Gm@cnth=\count269
+\Gm@cntv=\count270
+\c@Gm@tempcnt=\count271
+\Gm@bindingoffset=\dimen151
+\Gm@wd@mp=\dimen152
+\Gm@odd@mp=\dimen153
+\Gm@even@mp=\dimen154
+\Gm@layoutwidth=\dimen155
+\Gm@layoutheight=\dimen156
+\Gm@layouthoffset=\dimen157
+\Gm@layoutvoffset=\dimen158
+\Gm@dimlist=\toks16
+
+("C:\Program Files\MiKTeX\tex/latex/geometry\geometry.cfg"))
+("C:\Program Files\MiKTeX\tex/latex/l3backend\l3backend-pdftex.def"
+File: l3backend-pdftex.def 2020-09-24 L3 backend support: PDF output (pdfTeX)
+\l__kernel_color_stack_int=\count272
+\l__pdf_internal_box=\box49
+)
+
+LaTeX Warning: Unused global option(s):
+    [14pt].
+
+(report.aux)
+\openout1 = `report.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 7.
+LaTeX Font Info:    ... okay on input line 7.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 7.
+LaTeX Font Info:    ... okay on input line 7.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 7.
+LaTeX Font Info:    ... okay on input line 7.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 7.
+LaTeX Font Info:    ... okay on input line 7.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 7.
+LaTeX Font Info:    ... okay on input line 7.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 7.
+LaTeX Font Info:    ... okay on input line 7.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 7.
+LaTeX Font Info:    ... okay on input line 7.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 7.
+LaTeX Font Info:    ... okay on input line 7.
+ ("C:\Program Files\MiKTeX\tex/context/base/mkii\supp-pdf.mkii"
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count273
+\scratchdimen=\dimen159
+\scratchbox=\box50
+\nofMPsegments=\count274
+\nofMParguments=\count275
+\everyMPshowfont=\toks17
+\MPscratchCnt=\count276
+\MPscratchDim=\dimen160
+\MPnumerator=\count277
+\makeMPintoPDFobject=\count278
+\everyMPtoPDFconversion=\toks18
+) ("C:\Program Files\MiKTeX\tex/latex/epstopdf-pkg\epstopdf-base.sty"
+Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
+Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
+85.
+)
+Package hyperref Info: Link coloring OFF on input line 7.
+
+("C:\Program Files\MiKTeX\tex/latex/hyperref\nameref.sty"
+Package: nameref 2019/09/16 v2.46 Cross-referencing by name of section
+
+("C:\Program Files\MiKTeX\tex/latex/refcount\refcount.sty"
+Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
+)
+("C:\Program Files\MiKTeX\tex/generic/gettitlestring\gettitlestring.sty"
+Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
+)
+\c@section@level=\count279
+)
+LaTeX Info: Redefining \ref on input line 7.
+LaTeX Info: Redefining \pageref on input line 7.
+LaTeX Info: Redefining \nameref on input line 7.
+
+(report.out) (report.out)
+\@outlinefile=\write3
+\openout3 = `report.out'.
+
+
+*geometry* driver: auto-detecting
+*geometry* detected driver: pdftex
+*geometry* verbose mode - [ preamble ] result:
+* driver: pdftex
+* paper: <default>
+* layout: <same size as paper>
+* layoutoffset:(h,v)=(0.0pt,0.0pt)
+* modes: 
+* h-part:(L,W,R)=(57.81621pt, 498.66258pt, 57.81621pt)
+* v-part:(T,H,B)=(57.81621pt, 701.01878pt, 36.135pt)
+* \paperwidth=614.295pt
+* \paperheight=794.96999pt
+* \textwidth=498.66258pt
+* \textheight=701.01878pt
+* \oddsidemargin=-14.45378pt
+* \evensidemargin=-14.45378pt
+* \topmargin=-51.45378pt
+* \headheight=12.0pt
+* \headsep=25.0pt
+* \topskip=10.0pt
+* \footskip=30.0pt
+* \marginparwidth=65.0pt
+* \marginparsep=11.0pt
+* \columnsep=10.0pt
+* \skip\footins=9.0pt plus 4.0pt minus 2.0pt
+* \hoffset=0.0pt
+* \voffset=0.0pt
+* \mag=1000
+* \@twocolumnfalse
+* \@twosidefalse
+* \@mparswitchfalse
+* \@reversemarginfalse
+* (1in=72.27pt=25.4mm, 1cm=28.453pt)
+
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <12> on input line 11.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <8> on input line 11.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <6> on input line 11.
+<pics/begin/head.jpg, id=11, 301.125pt x 225.09094pt>
+File: pics/begin/head.jpg Graphic file (type jpg)
+<use pics/begin/head.jpg>
+Package pdftex.def Info: pics/begin/head.jpg  used on input line 11.
+(pdftex.def)             Requested size: 498.66258pt x 372.78532pt.
+
+Overfull \hbox (15.0pt too wide) in paragraph at lines 11--13
+[][]
+ []
+
+[1
+
+{C:/Users/AlexanderT/AppData/Local/MiKTeX/pdftex/config/pdftex.map} <./pics/beg
+in/head.jpg>]
+<pics/mid/fresco.jpg, id=20, 602.25pt x 680.5425pt>
+File: pics/mid/fresco.jpg Graphic file (type jpg)
+<use pics/mid/fresco.jpg>
+Package pdftex.def Info: pics/mid/fresco.jpg  used on input line 15.
+(pdftex.def)             Requested size: 498.66258pt x 563.51056pt.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <20.74> on input line 16.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <14.4> on input line 16.
+
+Overfull \hbox (1.3204pt too wide) in paragraph at lines 17--20
+[] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 17--20
+
+ []
+
+[2 <./pics/mid/fresco.jpg>]
+<pics/diff/2.jpg, id=27, 526.96875pt x 389.95688pt>
+File: pics/diff/2.jpg Graphic file (type jpg)
+<use pics/diff/2.jpg>
+Package pdftex.def Info: pics/diff/2.jpg  used on input line 22.
+(pdftex.def)             Requested size: 498.66258pt x 369.02887pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 20--28
+
+ []
+
+
+Overfull \hbox (4.09329pt too wide) in paragraph at lines 20--28
+[] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 20--28
+
+ []
+
+[3 <./pics/diff/2.jpg>]
+<pics/diff/4.jpg, id=34, 552.56438pt x 600.74437pt>
+File: pics/diff/4.jpg Graphic file (type jpg)
+<use pics/diff/4.jpg>
+Package pdftex.def Info: pics/diff/4.jpg  used on input line 30.
+(pdftex.def)             Requested size: 498.66258pt x 542.14076pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 28--36
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 28--36
+
+ []
+
+[4 <./pics/diff/4.jpg>]
+<pics/diff/5.jpg, id=39, 552.56438pt x 689.57625pt>
+File: pics/diff/5.jpg Graphic file (type jpg)
+<use pics/diff/5.jpg>
+Package pdftex.def Info: pics/diff/5.jpg  used on input line 38.
+(pdftex.def)             Requested size: 498.66258pt x 622.30693pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 36--44
+
+ []
+
+
+Overfull \hbox (3.27695pt too wide) in paragraph at lines 36--44
+[] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 36--44
+
+ []
+
+[5 <./pics/diff/5.jpg>]
+File: pics/diff/4.jpg Graphic file (type jpg)
+<use pics/diff/4.jpg>
+Package pdftex.def Info: pics/diff/4.jpg  used on input line 46.
+(pdftex.def)             Requested size: 498.66258pt x 542.14076pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 44--52
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 44--52
+
+ []
+
+[6]
+File: pics/diff/2.jpg Graphic file (type jpg)
+<use pics/diff/2.jpg>
+Package pdftex.def Info: pics/diff/2.jpg  used on input line 54.
+(pdftex.def)             Requested size: 498.66258pt x 369.02887pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 52--60
+
+ []
+
+
+Overfull \hbox (4.09329pt too wide) in paragraph at lines 52--60
+[] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 52--60
+
+ []
+
+[7]
+<pics/diff/1.jpg, id=54, 150.8034pt x 146.4672pt>
+File: pics/diff/1.jpg Graphic file (type jpg)
+<use pics/diff/1.jpg>
+Package pdftex.def Info: pics/diff/1.jpg  used on input line 62.
+(pdftex.def)             Requested size: 498.66258pt x 484.39362pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 60--68
+
+ []
+
+
+Overfull \hbox (4.09329pt too wide) in paragraph at lines 60--68
+[] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 60--68
+
+ []
+
+[8 <./pics/diff/1.jpg>]
+File: pics/diff/5.jpg Graphic file (type jpg)
+<use pics/diff/5.jpg>
+Package pdftex.def Info: pics/diff/5.jpg  used on input line 70.
+(pdftex.def)             Requested size: 498.66258pt x 622.30693pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 68--76
+
+ []
+
+
+Overfull \hbox (3.27695pt too wide) in paragraph at lines 68--76
+[] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 68--76
+
+ []
+
+[9]
+File: pics/diff/5.jpg Graphic file (type jpg)
+<use pics/diff/5.jpg>
+Package pdftex.def Info: pics/diff/5.jpg  used on input line 78.
+(pdftex.def)             Requested size: 498.66258pt x 622.30693pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 76--84
+
+ []
+
+
+Overfull \hbox (3.27695pt too wide) in paragraph at lines 76--84
+[] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 76--84
+
+ []
+
+[10]
+<pics/diff/3.jpg, id=67, 526.96875pt x 484.81125pt>
+File: pics/diff/3.jpg Graphic file (type jpg)
+<use pics/diff/3.jpg>
+Package pdftex.def Info: pics/diff/3.jpg  used on input line 86.
+(pdftex.def)             Requested size: 498.66258pt x 458.79265pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 84--92
+
+ []
+
+
+Overfull \hbox (4.09329pt too wide) in paragraph at lines 84--92
+[] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 84--92
+
+ []
+
+[11 <./pics/diff/3.jpg>]
+File: pics/diff/2.jpg Graphic file (type jpg)
+<use pics/diff/2.jpg>
+Package pdftex.def Info: pics/diff/2.jpg  used on input line 94.
+(pdftex.def)             Requested size: 498.66258pt x 369.02887pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 92--100
+
+ []
+
+
+Overfull \hbox (4.09329pt too wide) in paragraph at lines 92--100
+[] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 92--100
+
+ []
+
+[12]
+File: pics/diff/5.jpg Graphic file (type jpg)
+<use pics/diff/5.jpg>
+Package pdftex.def Info: pics/diff/5.jpg  used on input line 102.
+(pdftex.def)             Requested size: 498.66258pt x 622.30693pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 100--108
+
+ []
+
+
+Overfull \hbox (3.27695pt too wide) in paragraph at lines 100--108
+[] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 100--108
+
+ []
+
+[13]
+<pics/simp/1.jpg, id=82, 150.8034pt x 146.4672pt>
+File: pics/simp/1.jpg Graphic file (type jpg)
+<use pics/simp/1.jpg>
+Package pdftex.def Info: pics/simp/1.jpg  used on input line 110.
+(pdftex.def)             Requested size: 498.66258pt x 484.39362pt.
+<pics/mid/der.jpg, id=83, 424.58624pt x 526.21594pt>
+File: pics/mid/der.jpg Graphic file (type jpg)
+<use pics/mid/der.jpg>
+Package pdftex.def Info: pics/mid/der.jpg  used on input line 116.
+(pdftex.def)             Requested size: 498.66258pt x 618.05492pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 108--121
+[]\OT1/cmr/m/n/20.74 Let's make ex-pres-sions sim-pler and eas-ier! 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 108--121
+
+ []
+
+
+Overfull \hbox (4.09329pt too wide) in paragraph at lines 108--121
+[] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 108--121
+
+ []
+
+[14 <./pics/simp/1.jpg>] [15 <./pics/mid/der.jpg>]
+File: pics/mid/fresco.jpg Graphic file (type jpg)
+<use pics/mid/fresco.jpg>
+Package pdftex.def Info: pics/mid/fresco.jpg  used on input line 123.
+(pdftex.def)             Requested size: 498.66258pt x 563.51056pt.
+
+Overfull \hbox (1.3204pt too wide) in paragraph at lines 125--128
+[] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 125--128
+
+ []
+
+[16]
+File: pics/diff/4.jpg Graphic file (type jpg)
+<use pics/diff/4.jpg>
+Package pdftex.def Info: pics/diff/4.jpg  used on input line 130.
+(pdftex.def)             Requested size: 498.66258pt x 542.14076pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 128--136
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 128--136
+
+ []
+
+[17]
+File: pics/diff/5.jpg Graphic file (type jpg)
+<use pics/diff/5.jpg>
+Package pdftex.def Info: pics/diff/5.jpg  used on input line 138.
+(pdftex.def)             Requested size: 498.66258pt x 622.30693pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 136--144
+
+ []
+
+
+Overfull \hbox (3.27695pt too wide) in paragraph at lines 136--144
+[] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 136--144
+
+ []
+
+[18]
+File: pics/diff/4.jpg Graphic file (type jpg)
+<use pics/diff/4.jpg>
+Package pdftex.def Info: pics/diff/4.jpg  used on input line 146.
+(pdftex.def)             Requested size: 498.66258pt x 542.14076pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 144--152
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 144--152
+
+ []
+
+[19]
+File: pics/diff/5.jpg Graphic file (type jpg)
+<use pics/diff/5.jpg>
+Package pdftex.def Info: pics/diff/5.jpg  used on input line 154.
+(pdftex.def)             Requested size: 498.66258pt x 622.30693pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 152--160
+
+ []
+
+
+Overfull \hbox (3.27695pt too wide) in paragraph at lines 152--160
+[] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 152--160
+
+ []
+
+[20]
+File: pics/diff/2.jpg Graphic file (type jpg)
+<use pics/diff/2.jpg>
+Package pdftex.def Info: pics/diff/2.jpg  used on input line 162.
+(pdftex.def)             Requested size: 498.66258pt x 369.02887pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 160--168
+
+ []
+
+
+Overfull \hbox (4.09329pt too wide) in paragraph at lines 160--168
+[] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 160--168
+
+ []
+
+[21]
+File: pics/diff/1.jpg Graphic file (type jpg)
+<use pics/diff/1.jpg>
+Package pdftex.def Info: pics/diff/1.jpg  used on input line 170.
+(pdftex.def)             Requested size: 498.66258pt x 484.39362pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 168--176
+
+ []
+
+
+Overfull \hbox (4.09329pt too wide) in paragraph at lines 168--176
+[] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 168--176
+
+ []
+
+[22]
+File: pics/diff/3.jpg Graphic file (type jpg)
+<use pics/diff/3.jpg>
+Package pdftex.def Info: pics/diff/3.jpg  used on input line 178.
+(pdftex.def)             Requested size: 498.66258pt x 458.79265pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 176--184
+
+ []
+
+
+Overfull \hbox (4.09329pt too wide) in paragraph at lines 176--184
+[] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 176--184
+
+ []
+
+[23]
+File: pics/diff/3.jpg Graphic file (type jpg)
+<use pics/diff/3.jpg>
+Package pdftex.def Info: pics/diff/3.jpg  used on input line 186.
+(pdftex.def)             Requested size: 498.66258pt x 458.79265pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 184--192
+
+ []
+
+
+Overfull \hbox (4.09329pt too wide) in paragraph at lines 184--192
+[] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 184--192
+
+ []
+
+[24]
+File: pics/diff/2.jpg Graphic file (type jpg)
+<use pics/diff/2.jpg>
+Package pdftex.def Info: pics/diff/2.jpg  used on input line 194.
+(pdftex.def)             Requested size: 498.66258pt x 369.02887pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 192--200
+
+ []
+
+
+Overfull \hbox (4.09329pt too wide) in paragraph at lines 192--200
+[] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 192--200
+
+ []
+
+[25]
+File: pics/diff/3.jpg Graphic file (type jpg)
+<use pics/diff/3.jpg>
+Package pdftex.def Info: pics/diff/3.jpg  used on input line 202.
+(pdftex.def)             Requested size: 498.66258pt x 458.79265pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 200--208
+
+ []
+
+
+Overfull \hbox (4.09329pt too wide) in paragraph at lines 200--208
+[] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 200--208
+
+ []
+
+[26]
+File: pics/diff/5.jpg Graphic file (type jpg)
+<use pics/diff/5.jpg>
+Package pdftex.def Info: pics/diff/5.jpg  used on input line 210.
+(pdftex.def)             Requested size: 498.66258pt x 622.30693pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 208--216
+
+ []
+
+
+Overfull \hbox (3.27695pt too wide) in paragraph at lines 208--216
+[] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 208--216
+
+ []
+
+[27]
+File: pics/diff/5.jpg Graphic file (type jpg)
+<use pics/diff/5.jpg>
+Package pdftex.def Info: pics/diff/5.jpg  used on input line 218.
+(pdftex.def)             Requested size: 498.66258pt x 622.30693pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 216--224
+
+ []
+
+
+Overfull \hbox (3.27695pt too wide) in paragraph at lines 216--224
+[] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 216--224
+
+ []
+
+[28]
+File: pics/diff/1.jpg Graphic file (type jpg)
+<use pics/diff/1.jpg>
+Package pdftex.def Info: pics/diff/1.jpg  used on input line 226.
+(pdftex.def)             Requested size: 498.66258pt x 484.39362pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 224--232
+
+ []
+
+
+Overfull \hbox (4.09329pt too wide) in paragraph at lines 224--232
+[] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 224--232
+
+ []
+
+[29]
+File: pics/diff/2.jpg Graphic file (type jpg)
+<use pics/diff/2.jpg>
+Package pdftex.def Info: pics/diff/2.jpg  used on input line 234.
+(pdftex.def)             Requested size: 498.66258pt x 369.02887pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 232--240
+
+ []
+
+
+Overfull \hbox (4.09329pt too wide) in paragraph at lines 232--240
+[] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 232--240
+
+ []
+
+[30]
+File: pics/diff/3.jpg Graphic file (type jpg)
+<use pics/diff/3.jpg>
+Package pdftex.def Info: pics/diff/3.jpg  used on input line 242.
+(pdftex.def)             Requested size: 498.66258pt x 458.79265pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 240--248
+
+ []
+
+
+Overfull \hbox (4.09329pt too wide) in paragraph at lines 240--248
+[] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 240--248
+
+ []
+
+[31]
+File: pics/diff/4.jpg Graphic file (type jpg)
+<use pics/diff/4.jpg>
+Package pdftex.def Info: pics/diff/4.jpg  used on input line 250.
+(pdftex.def)             Requested size: 498.66258pt x 542.14076pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 248--256
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 248--256
+
+ []
+
+[32]
+File: pics/diff/1.jpg Graphic file (type jpg)
+<use pics/diff/1.jpg>
+Package pdftex.def Info: pics/diff/1.jpg  used on input line 258.
+(pdftex.def)             Requested size: 498.66258pt x 484.39362pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 256--264
+
+ []
+
+
+Overfull \hbox (4.09329pt too wide) in paragraph at lines 256--264
+[] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 256--264
+
+ []
+
+[33]
+File: pics/diff/5.jpg Graphic file (type jpg)
+<use pics/diff/5.jpg>
+Package pdftex.def Info: pics/diff/5.jpg  used on input line 266.
+(pdftex.def)             Requested size: 498.66258pt x 622.30693pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 264--272
+
+ []
+
+
+Overfull \hbox (3.27695pt too wide) in paragraph at lines 264--272
+[] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 264--272
+
+ []
+
+[34]
+File: pics/diff/3.jpg Graphic file (type jpg)
+<use pics/diff/3.jpg>
+Package pdftex.def Info: pics/diff/3.jpg  used on input line 274.
+(pdftex.def)             Requested size: 498.66258pt x 458.79265pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 272--280
+
+ []
+
+
+Overfull \hbox (4.09329pt too wide) in paragraph at lines 272--280
+[] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 272--280
+
+ []
+
+[35]
+File: pics/diff/2.jpg Graphic file (type jpg)
+<use pics/diff/2.jpg>
+Package pdftex.def Info: pics/diff/2.jpg  used on input line 282.
+(pdftex.def)             Requested size: 498.66258pt x 369.02887pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 280--288
+
+ []
+
+
+Overfull \hbox (4.09329pt too wide) in paragraph at lines 280--288
+[] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 280--288
+
+ []
+
+[36]
+File: pics/diff/1.jpg Graphic file (type jpg)
+<use pics/diff/1.jpg>
+Package pdftex.def Info: pics/diff/1.jpg  used on input line 290.
+(pdftex.def)             Requested size: 498.66258pt x 484.39362pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 288--296
+
+ []
+
+
+Overfull \hbox (4.09329pt too wide) in paragraph at lines 288--296
+[] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 288--296
+
+ []
+
+[37]
+File: pics/diff/5.jpg Graphic file (type jpg)
+<use pics/diff/5.jpg>
+Package pdftex.def Info: pics/diff/5.jpg  used on input line 298.
+(pdftex.def)             Requested size: 498.66258pt x 622.30693pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 296--304
+
+ []
+
+
+Overfull \hbox (3.27695pt too wide) in paragraph at lines 296--304
+[] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 296--304
+
+ []
+
+[38]
+File: pics/diff/3.jpg Graphic file (type jpg)
+<use pics/diff/3.jpg>
+Package pdftex.def Info: pics/diff/3.jpg  used on input line 306.
+(pdftex.def)             Requested size: 498.66258pt x 458.79265pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 304--312
+
+ []
+
+
+Overfull \hbox (4.09329pt too wide) in paragraph at lines 304--312
+[] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 304--312
+
+ []
+
+[39]
+<pics/simp/3.jpg, id=192, 150.8034pt x 146.4672pt>
+File: pics/simp/3.jpg Graphic file (type jpg)
+<use pics/simp/3.jpg>
+Package pdftex.def Info: pics/simp/3.jpg  used on input line 314.
+(pdftex.def)             Requested size: 498.66258pt x 484.39362pt.
+File: pics/mid/der.jpg Graphic file (type jpg)
+<use pics/mid/der.jpg>
+Package pdftex.def Info: pics/mid/der.jpg  used on input line 320.
+(pdftex.def)             Requested size: 498.66258pt x 618.05492pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 312--325
+[]\OT1/cmr/m/n/20.74 Let's make ex-pres-sions sim-pler and eas-ier! 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 312--325
+
+ []
+
+
+Overfull \hbox (4.09329pt too wide) in paragraph at lines 312--325
+[] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 312--325
+
+ []
+
+[40 <./pics/simp/3.jpg>] [41]
+<pics/end/basement.jpg, id=201, 795.72281pt x 381.67593pt>
+File: pics/end/basement.jpg Graphic file (type jpg)
+<use pics/end/basement.jpg>
+Package pdftex.def Info: pics/end/basement.jpg  used on input line 333.
+(pdftex.def)             Requested size: 498.66258pt x 239.1875pt.
+
+Overfull \hbox (14.99922pt too wide) in paragraph at lines 335--336
+[][] 
+ []
+
+[42 <./pics/end/basement.jpg>] (report.aux)
+Package rerunfilecheck Info: File `report.out' has not changed.
+(rerunfilecheck)             Checksum: 70B10B8EF92D5561B490AC5C09004BEA;146.
+ ) 
+Here is how much of TeX's memory you used:
+ 5827 strings out of 479697
+ 89039 string characters out of 2876993
+ 391549 words of memory out of 3000000
+ 22782 multiletter control sequences out of 15000+200000
+ 408599 words of font info for 44 fonts, out of 3000000 for 9000
+ 1141 hyphenation exceptions out of 8191
+ 66i,8n,72p,415b,317s stack positions out of 5000i,500n,10000p,200000b,50000s
+<C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Progra
+m Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/Program Files/MiKT
+eX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Program Files/MiKTeX/fonts/type
+1/public/amsfonts/cm/cmr12.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsf
+onts/cm/cmr17.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy1
+0.pfb>
+Output written on report.pdf (42 pages, 692898 bytes).
+PDF statistics:
+ 242 PDF objects out of 1000 (max. 8388607)
+ 45 named destinations out of 1000 (max. 500000)
+ 72 words of extra memory for PDF output out of 10000 (max. 10000000)
+

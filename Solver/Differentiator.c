@@ -69,7 +69,7 @@ void FindFewDerivatives (DiffTree* tree, size_t derivativeOrder) {
         SimplifyTree (tree);
 
         #ifdef TEX_MODE
-            WriteSubtree (TEX_FILE_NAME, tree->root);
+            EndOfTakingDerivative (TEX_FILE_NAME, tree->root);
         #endif
     }
 
