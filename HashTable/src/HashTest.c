@@ -51,8 +51,8 @@ struct HashFunction* GetHashFunction (char* newName, hash_t (*newFunc)()) {
     newFunction->time           = 0.f;
     newFunction->worstCollision = 0;
     newFunction->bestCollision  = 0;
-    newFunction->dispersion     = 0;
-    newFunction->deviation      = 0.f;
+    newFunction->deviation      = 0;
+    newFunction->dispersion     = 0.f;
     newFunction->scalability    = 0.f;
 
     return newFunction;
@@ -89,7 +89,7 @@ bool SetInfoForThisSize (struct HashFunction* func, size_t lengthOfHashTable, st
 
     func->time +=  (1000.0 * (end.time - start.time) + (end.millitm - start.millitm));
 
-    func->deviation = CountDeviation (arrayOfBasketToFill, lengthOfHashTable);
+    func->dispersion = CountDispersion (arrayOfBasketToFill, lengthOfHashTable);
 
     func->worstCollision = 0;
     func->bestCollision  = words->numberOfLines + 1;
@@ -98,7 +98,7 @@ bool SetInfoForThisSize (struct HashFunction* func, size_t lengthOfHashTable, st
         if (func->worstCollision < arrayOfBasketToFill[i]) func->worstCollision = arrayOfBasketToFill[i];
     }
 
-    func->dispersion = func->worstCollision - func->bestCollision;
+    func->deviation = func->worstCollision - func->bestCollision;
 
     return true;
 }
@@ -128,7 +128,7 @@ bool TestFunction (struct HashFunction* func, struct Lines* words) {
 
         if (i > 0) {
             func->scalability += fabs(sqrt((double)func->lengthsOfHashTables[i-1] / (double)func->lengthsOfHashTables[i])
-                                      - ((double)currentDeviation        / (double)previousDeviation));
+                                                - ((double)currentDeviation              / (double)previousDeviation));
         }
 
     }
@@ -189,8 +189,8 @@ bool CreateReport (char* fileDatabase) {
                 TestingFunctionsList[i]->time,
                 TestingFunctionsList[i]->worstCollision,
                 TestingFunctionsList[i]->bestCollision,
-                TestingFunctionsList[i]->dispersion,
                 TestingFunctionsList[i]->deviation,
+                TestingFunctionsList[i]->dispersion,
                 TestingFunctionsList[i]->scalability
                 );
     }
@@ -198,7 +198,7 @@ bool CreateReport (char* fileDatabase) {
     return CreateReportFile (TestingFunctionsList, REPORT_PATH);
 }
 
-double CountDeviation (size_t* data, size_t length) {
+double CountDispersion (size_t* data, size_t length) {
 
     assert (data);
 
@@ -250,8 +250,8 @@ bool CreateReportFile (struct HashFunction** functionInfo, char* filename) {
                  functionInfo[i]->time,
                  functionInfo[i]->worstCollision,
                  functionInfo[i]->bestCollision,
-                 functionInfo[i]->dispersion,
                  functionInfo[i]->deviation,
+                 functionInfo[i]->dispersion,
                  functionInfo[i]->scalability
         );
     }

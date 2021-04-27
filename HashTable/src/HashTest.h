@@ -39,9 +39,9 @@ struct HashFunction {
     //Min number of collision for this function
     size_t bestCollision;
     //Difference between max and min numbers of collision for this function
-    size_t dispersion;
+    size_t deviation;
     //Square root of variance
-    double deviation;
+    double dispersion;
     //Dynamic of changing deviation in case of changing params of hash input
     double scalability;
 };
@@ -56,7 +56,7 @@ bool TestFunctions (char* fileDatabase, struct HashFunction** TestingFunctionsLi
 
 bool CreateReport (char* fileDatabase);
 
-double CountDeviation (size_t* data, size_t length);
+double CountDispersion (size_t* data, size_t length);
 
 bool CreateReportFile (struct HashFunction** functionInfo, char* filename);
 
