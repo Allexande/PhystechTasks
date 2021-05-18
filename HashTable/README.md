@@ -487,7 +487,7 @@ bool FastStrcmp (char* first, char* second) {
     int compareResult = _mm256_movemask_epi8 (
             _mm256_cmpeq_epi8 (_mm256_loadu_si256 ((__m256i*)first),
                                _mm256_loadu_si256 ((__m256i*)second))
-    										 );
+                               );
 
     return compareResult == -1;
 }
