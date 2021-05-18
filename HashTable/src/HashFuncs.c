@@ -112,6 +112,33 @@ hash_t GetDJB2Hash (input_t* data) {
     return hash;
 }
 
+hash_t FastGetDJB2Hash (input_t* data) {
+
+    assert (data);
+
+    hash_t hash;
+
+    asm(".intel_syntax noprefix \n"
+        "mov rax, 5381          \n"  //Hash
+        "mov rbx, %1            \n"  //Pointer
+        "HANDLING_LOOP:         \n"
+        "cmp byte ptr [rbx], 1  \n"
+        "je END_OF_HANDLING     \n"
+        "shl rax, 6             \n"
+        "add rax, [rbx]         \n"
+        "inc rbx                \n"
+        "jmp HANDLING_LOOP      \n"
+        "END_OF_HANDLING:       \n"
+        "mov %0, rax            \n"
+        ".att_syntax            \n"
+        :"=r"(hash)             // список выходных параметров.
+        :"r"(data)              // список входных параметров.
+        :"rax", "rbx"           // список разрушаемых регистров.
+    );
+
+    return hash;
+}
+
 hash_t GetSBDMHash (input_t* data) {
 
     assert (data);

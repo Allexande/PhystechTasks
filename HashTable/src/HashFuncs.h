@@ -51,6 +51,8 @@ hash_t GetJenkinsHash (input_t* data);
 //djb2 - http://www.cse.yorku.ca/~oz/hash.html
 hash_t GetDJB2Hash (input_t* data);
 
+hash_t FastGetDJB2Hash (input_t* data);
+
 //sbdm - http://www.cse.yorku.ca/~oz/hash.html
 hash_t GetSBDMHash (input_t* data);
 

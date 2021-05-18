@@ -4,6 +4,8 @@
 #include "HashTable.h"
 #include "HashTest.h"
 
+#include "Unit-Test.h"
+
 //TODO заменить проверку на нулевые указатели во всей программе
 
 //TODO удалять все структуры в конце
@@ -49,7 +51,11 @@ int main() {
 
     //ConsoleBumpOfHashTable (table);
 
+
+    //UNCOMMENT THIS!!!
     TranslateWebPage ("C:\\Users\\AlexanderT\\CLionProjects\\EngRusTrans\\data\\test.html", "C:\\Users\\AlexanderT\\CLionProjects\\EngRusTrans\\data\\out.html");
+
+    //GeneralTest ();
 
     //WriteTextInFile ("C:\\Cprojects\\dictionary\\test.txt", FindByKey(table, "hey am so happy to see you there! how are you?"));
 

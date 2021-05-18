@@ -6,6 +6,8 @@
 #define ENGRUSTRANS_LINKEDLIST_H
 
 #include <stdbool.h>
+#include <stdio.h>
+#include <immintrin.h>
 #include <string.h>
 #include <stdlib.h>
 
@@ -54,5 +56,8 @@ bool ConsoleBumpOfLinkedList (struct List* thisList);
 //Free memory allocated for list
 //Returns if it succeeded
 bool DeleteList (struct List* thisList);
+
+//OPTIMIZATION FUNCS
+bool FastStrcmp (char* first, char* second);
 
 #endif //ENGRUSTRANS_LINKEDLIST_H

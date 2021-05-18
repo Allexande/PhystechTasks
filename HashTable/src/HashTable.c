@@ -76,7 +76,7 @@ char* FindByKey (struct HashTable* hashTable, char* keyWord) {
 
     if (value == NULL) {
         for (size_t i = 0; i < keyLength / 2; i++) {
-            printf ("%s\n", wordToCut);
+            //printf ("%s\n", wordToCut);
             value = FindInListByKey(hashTable->buckets[hashTable->func(wordToCut) % hashTable->tableLength], wordToCut);
             if (value != NULL) {
                 break;
@@ -227,7 +227,8 @@ bool TranslateWebPage (char* filename, char* fileoutput) {
         return false;
     }
 
-    struct HashTable* hashTable = BuildHashTable ("C:\\Cprojects\\dictionary\\dic.txt", 199, GetDJB2Hash);
+    //struct HashTable* hashTable = BuildHashTable ("C:\\Cprojects\\dictionary\\dic.txt", 199, GetDJB2Hash);
+    struct HashTable* hashTable = BuildHashTable ("C:\\Cprojects\\dictionary\\dicREVERSE.txt", 199, GetDJB2Hash);
 
     if (hashTable == NULL) {
         return false;
@@ -256,7 +257,7 @@ bool TranslateWebPage (char* filename, char* fileoutput) {
         if (pageText[offset] == '>') {
             pageText[offset] = '\0';
             fprintf (output, "%s>", pageText);
-            printf ("fprintf printed (%s)\n", pageText);
+            //printf ("fprintf printed (%s)\n", pageText);
             pageText += offset + 1; //*pageText += offset
             offset = 0;
             inBrackets = false;
@@ -265,7 +266,7 @@ bool TranslateWebPage (char* filename, char* fileoutput) {
         if (pageText[offset] == ' ' && (inBrackets == false)) {
             pageText[offset] = '\0';
             fprintf (output, " %s ", FindByKey (hashTable, pageText));
-            printf ("fprintf printed (%s)\n", pageText);
+            //printf ("fprintf printed (%s)\n", pageText);
             pageText += offset + 1; //*pageText += offset
             offset = 0;
         }

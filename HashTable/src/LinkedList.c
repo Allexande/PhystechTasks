@@ -18,10 +18,6 @@ struct List* CreatList () {
     return newList;
 }
 
-//TESTING
-//TODO DELETE
-#include <stdio.h>
-
 bool AppendNode (struct List* thisList, list_t newValue) {
 
     if (thisList == NULL) {
@@ -98,9 +94,24 @@ struct Pair* CreatePair (char* first, char* second) {
     return newPair;
 }
 
+/*
+inline bool FastStrcmp (char* first, char* second) {
+
+    if (first == NULL || second == NULL) {
+        return false;
+    }
+
+    int compareResult = _mm256_movemask_epi8(
+            _mm256_cmpeq_epi8(_mm256_loadu_si256((__m256i*)first),
+                              _mm256_loadu_si256((__m256i*)second)));
+
+    return compareResult == -1;
+}
+ */
+
 char* FindInListByKey (struct List* thisList, char* keyWord) {
 
-    printf ("FindInListByKey:: keyWord=%s\n", keyWord);
+    //printf ("FindInListByKey:: keyWord=%s\n", keyWord);
 
     if (thisList == NULL || keyWord == NULL) {
         return NULL;
